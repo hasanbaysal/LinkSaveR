@@ -14,6 +14,7 @@ biraz aceleye daha sonra düzenlemek üzere repoyu public yapıp uzaklaşıyorum
 * seçilen linki varsayılan tarayıcınızla direkt açma
 * güncelleme işlemleri
 
+[] short cut ile hızlıca aç-kapa özelliği eklenenecek - şimdilik aklma gelen en lazım özellik bu 
 
 ![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/main.png)
 ![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/gif2.gif)
