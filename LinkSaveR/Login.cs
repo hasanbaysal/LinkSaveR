@@ -15,6 +15,7 @@ namespace LinkSaveR
         public Login()
         {
             InitializeComponent();
+          
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -24,10 +25,16 @@ namespace LinkSaveR
                 if (maskedTextBox1.Text =="147258369a")
                 {
                     LinkSaver linkSaver = new LinkSaver();
+                    Program.currentForm = linkSaver;
                     this.Hide();
                     linkSaver.Show();
                 }
             }
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+          
         }
     }
 }

@@ -19,6 +19,8 @@ namespace LinkSaveR
 
         private void LinkSaver_Load(object sender, EventArgs e)
         {
+
+
             LoadDataGridView();
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Columns[0].HeaderText = "Link ID";
@@ -35,6 +37,7 @@ namespace LinkSaveR
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
 
+        
         }
 
         //    Clipboard.SetData(DataFormats.StringFormat, "string data gir");

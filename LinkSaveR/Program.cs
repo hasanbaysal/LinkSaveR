@@ -1,17 +1,37 @@
+using System.Drawing.Design;
+using System.Security.Cryptography.X509Certificates;
+
 namespace LinkSaveR
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+        public static Form currentForm;
+
+
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new Login());
+            
+
+            using (Mutex mutext = new Mutex(false,"sdasd"))
+            {
+
+                if (!mutext.WaitOne(0,false))
+                {
+                    MessageBox.Show("Instance already running"); //uygulamanýn birden fazla kez çalýþmasýný engelliyor
+
+                    return;
+
+                    
+                    
+                
+                }
+
+                ApplicationConfiguration.Initialize();
+                Application.Run(new Login());
+            }
+            
+         
         }
     }
 }
