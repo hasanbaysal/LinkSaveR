@@ -185,9 +185,13 @@ namespace LinkSaveR
             // 
             // lblCopy
             // 
-            this.lblCopy.Location = new System.Drawing.Point(701, 129);
+            this.lblCopy.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(173)))), ((int)(((byte)(78)))));
+            this.lblCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblCopy.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblCopy.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblCopy.Location = new System.Drawing.Point(686, 129);
             this.lblCopy.Name = "lblCopy";
-            this.lblCopy.Size = new System.Drawing.Size(143, 44);
+            this.lblCopy.Size = new System.Drawing.Size(164, 44);
             this.lblCopy.TabIndex = 13;
             this.lblCopy.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 

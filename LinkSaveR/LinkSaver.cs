@@ -199,7 +199,7 @@ namespace LinkSaveR
 
 
             Clipboard.SetData(DataFormats.StringFormat, url);
-            lblCopy.Text = $"copied {deleteId} ID link to clipboard";
+            lblCopy.Text = $"Copied {deleteId}.ID link to clipboard";
 
         }
 
