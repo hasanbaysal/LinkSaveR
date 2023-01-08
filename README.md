@@ -21,4 +21,4 @@ biraz aceleye daha sonra düzenlemek üzere repoyu public yapıp uzaklaşıyorum
 ![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/main.png)
 ![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/gif2.gif)
 ![resim](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/browser.png)
-![update](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/update.png)
+![update](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/update1.png)
