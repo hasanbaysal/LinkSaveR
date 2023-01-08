@@ -175,9 +175,9 @@ namespace LinkSaveR
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(416, 124);
+            this.button1.Location = new System.Drawing.Point(416, 112);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 46);
+            this.button1.Size = new System.Drawing.Size(64, 58);
             this.button1.TabIndex = 14;
             this.button1.Text = "category settings";
             this.button1.UseVisualStyleBackColor = true;
@@ -193,7 +193,7 @@ namespace LinkSaveR
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(542, 68);
+            this.label5.Location = new System.Drawing.Point(552, 77);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 23);
             this.label5.TabIndex = 12;
@@ -203,16 +203,16 @@ namespace LinkSaveR
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(542, 141);
+            this.txtSearch.Location = new System.Drawing.Point(518, 141);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(116, 23);
+            this.txtSearch.Size = new System.Drawing.Size(162, 23);
             this.txtSearch.TabIndex = 11;
             this.txtSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyUp);
             // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(517, 94);
+            this.radioButton2.Location = new System.Drawing.Point(516, 103);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(73, 19);
             this.radioButton2.TabIndex = 10;
@@ -223,7 +223,7 @@ namespace LinkSaveR
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(596, 94);
+            this.radioButton1.Location = new System.Drawing.Point(595, 103);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(85, 19);
             this.radioButton1.TabIndex = 9;
