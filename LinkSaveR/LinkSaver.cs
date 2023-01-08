@@ -354,6 +354,12 @@ namespace LinkSaveR
         {
             Application.Exit();
         }
+
+        private void txtCategory_KeyUp(object sender, KeyEventArgs e)
+        {
+            comboBox1.SelectedIndex = -1;
+          //  comboBox1.res
+        }
     }
 
 }

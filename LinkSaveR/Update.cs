@@ -41,11 +41,15 @@ namespace LinkSaveR
 
             }
 
-            lblInfo.Text = $"current link id {LinkId} \n" +
-                            $"category name {CategoryName}" +
-                            $" category link id {CategoryID} \n " +
-                            $"link data {Url} \n" +
-                            $"comment {Comment}\n " ;
+            txtInfo.Text = $"current link id =>  {LinkId} \n" +
+                            $"--------------------------------------- \n"+
+                            $"category name =>  {CategoryName} \n" +
+                              $"--------------------------------------- \n" +
+                            $"category link id => {CategoryID} \n " +
+                              $"--------------------------------------- \n" +
+                             $"link data ↓ ↓ ↓ ↓ ↓ \n {Url} \n" +
+                              $"--------------------------------------- \n" +
+                             $"comment ↓ ↓ ↓ ↓ ↓ \n {Comment} \n " ;
 
             txtLink.Text = Url;
             txtComment.Text = Comment;
