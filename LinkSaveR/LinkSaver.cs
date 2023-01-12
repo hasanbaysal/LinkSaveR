@@ -1,7 +1,12 @@
 using LinkSaveR.CRUD;
 using System.Diagnostics;
+using System.Net.Mail;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using System;
+using System.Windows;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace LinkSaveR
 {
@@ -28,6 +33,9 @@ namespace LinkSaveR
             dataGridView1.Columns[2].HeaderText = "Category Name";
             dataGridView1.Columns[3].HeaderText = "Link Description";
             dataGridView1.Columns[4].HeaderText = "Link Content";
+            dataGridView1.Columns[0].Visible=false;
+            dataGridView1.Columns[1].Visible = false;
+
 
             //ColumnHeader
 
@@ -66,7 +74,7 @@ namespace LinkSaveR
 
         private void btnclose_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void btnMin_Click(object sender, EventArgs e)
@@ -82,7 +90,8 @@ namespace LinkSaveR
         public void LoadDataGridView()
         {
             comboBox1.Items.Clear();
-            
+            comboBox2.Items.Clear();
+
             var data = Crud.GetLinks();
             currentLink = data;
 
@@ -105,7 +114,7 @@ namespace LinkSaveR
             {
 
                 comboBox1.Items.Add(x.Id + "_" + x.Name);
-
+                comboBox2.Items.Add(x.Id + "_" + x.Name);
             });
 
         }
@@ -168,7 +177,7 @@ namespace LinkSaveR
             }
 
             comboBox1.SelectedIndex = -1;
-
+            comboBox2.SelectedIndex = -1;
             txtCategory.Clear();
             txtLink.Clear();
             txtDescription.Clear();
@@ -198,7 +207,7 @@ namespace LinkSaveR
             bntsil.Text= $"{ýd} id link Delete";
 
 
-            Clipboard.SetData(DataFormats.StringFormat, url);
+            System.Windows.Clipboard.SetData(System.Windows.DataFormats.StringFormat, url);
             lblCopy.Text = $"Copied {deleteId}.ID link to clipboard";
 
         }
@@ -241,6 +250,7 @@ namespace LinkSaveR
             url = "";
             bntsil.Text = "Select and Delete";
             comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
             deleteId = -1;
         }
 
@@ -251,11 +261,15 @@ namespace LinkSaveR
 
         private void txtSearch_KeyUp(object sender, KeyEventArgs e)
         {
+            comboBox2.SelectedIndex = -1;
             if (!(radioButton1.Checked || radioButton2.Checked))
             {
+                txtSearch.ResetText();
                 MessageBox.Show("pls choose a search option");
+
                 return;
             }
+
 
             try
             {
@@ -347,18 +361,138 @@ namespace LinkSaveR
 
         private void LinkSaver_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void LinkSaver_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            System.Windows.Forms.Application.Exit();
         }
 
         private void txtCategory_KeyUp(object sender, KeyEventArgs e)
         {
             comboBox1.SelectedIndex = -1;
           //  comboBox1.res
+        }
+
+        private void comboBox2_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.SelectedIndex != -1)
+            {
+
+                radioButton1.Checked = false;
+                radioButton2.Checked = false;
+                txtSearch.Clear();
+
+
+
+
+
+                try
+                {
+
+
+
+
+                    var temp = new List<Link>();
+
+                   
+                    var queryKey = comboBox2.SelectedItem.ToString().Split("_")[0];
+                    temp = currentLink.Where(x => x.CategoryId == int.Parse(queryKey)).ToList();
+                    var data = temp.Select(x => new
+                    {
+                        Id = x.Id,
+                        CategoryId = x.CategoryId,
+                        CategoryName = x.Category.Name,
+                        Description = x.Description,
+                        LinkContent = x.LinkData
+
+                    });
+
+                    dataGridView1.DataSource = data.ToList(); ;
+
+                }
+                catch (Exception)
+                {
+
+
+
+                }
+                finally
+                {
+                    dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView1.Columns[4].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                }
+
+
+            }
+           
+           
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+
+
+                DialogResult dialogResult = MessageBox.Show("Do you want to back up the system", "Sure ?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    this.Enabled = false;
+
+                    var path = Environment.CurrentDirectory.ToString() + @"\LinkDatabase.db";
+                    string destinationFile = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\VeriTabanýKopyasý" + ".db";
+                    File.Copy(path, destinationFile, true);
+                    SmtpClient sc = new SmtpClient("smtp.gmail.com", 587);
+                    // sc.Port = 587;
+                    sc.EnableSsl = true;
+                    sc.Credentials = new NetworkCredential("MAÝL", "MAÝL APP PASSWORD");
+
+                    MailMessage mail = new MailMessage();
+                    mail.From = new MailAddress("MAÝL", "LinkSaver BTech");
+                    mail.To.Add("Destination Mail address");
+
+                    mail.Subject = "LinkSaver BackUp";
+                    mail.IsBodyHtml = true;
+                    mail.Body = DateTime.Now.ToString() + " LinkSaver Database Backup System";
+
+                    mail.Attachments.Add(new Attachment(destinationFile));
+                    sc.Send(mail);
+
+                    MessageBox.Show("backup successful!! you can delete the backup file after closing the program");
+
+
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    MessageBox.Show("It is cancelled");
+                    return;
+                }
+
+           
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("an error has occurred");
+               
+            }
+            finally
+            {
+                this.Enabled = true;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            radioButton1.Checked = false;
+            radioButton2.Checked = false;
+            comboBox2.SelectedIndex = -1;
+            txtSearch.Clear();
+
+            LoadDataGridView();
+            ResetDeleteBtnAndBrowserBtn();
         }
     }
 

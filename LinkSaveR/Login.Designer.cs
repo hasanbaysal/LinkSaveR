@@ -39,6 +39,7 @@
             this.maskedTextBox1.PasswordChar = 'x';
             this.maskedTextBox1.Size = new System.Drawing.Size(176, 23);
             this.maskedTextBox1.TabIndex = 1;
+            this.maskedTextBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox1_KeyPress);
             // 
             // button1
             // 

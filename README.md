@@ -18,7 +18,6 @@ biraz aceleye daha sonra düzenlemek üzere repoyu public yapıp uzaklaşıyorum
 - [ ] uygulamaya veri gönderem basit bir google extention yazmayı da düşünüyorum
 
 
-![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/main.png)
+![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/main1.png)
 ![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/gif2.gif)
-![resim](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/browser.png)
 ![update](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/update.png)

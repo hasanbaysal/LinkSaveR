@@ -38,6 +38,9 @@ namespace LinkSaveR
             this.btnclose = new FontAwesome.Sharp.IconButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.lblCopy = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -149,6 +152,9 @@ namespace LinkSaveR
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.button3);
+            this.groupBox1.Controls.Add(this.button2);
+            this.groupBox1.Controls.Add(this.comboBox2);
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.lblCopy);
             this.groupBox1.Controls.Add(this.label5);
@@ -173,13 +179,43 @@ namespace LinkSaveR
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Link ";
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(426, 125);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(74, 49);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "Reset \r\nSearch";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(426, 23);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(74, 43);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "Mail \r\nBackup";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(516, 150);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(162, 23);
+            this.comboBox2.TabIndex = 15;
+            this.comboBox2.SelectedValueChanged += new System.EventHandler(this.comboBox2_SelectedValueChanged);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(416, 112);
+            this.button1.Location = new System.Drawing.Point(426, 72);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(64, 58);
+            this.button1.Size = new System.Drawing.Size(74, 49);
             this.button1.TabIndex = 14;
-            this.button1.Text = "category settings";
+            this.button1.Text = "Category Settings";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -197,9 +233,9 @@ namespace LinkSaveR
             // 
             // label5
             // 
-            this.label5.Location = new System.Drawing.Point(552, 77);
+            this.label5.Location = new System.Drawing.Point(554, 68);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 23);
+            this.label5.Size = new System.Drawing.Size(84, 16);
             this.label5.TabIndex = 12;
             this.label5.Text = "Search Option";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -207,7 +243,7 @@ namespace LinkSaveR
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(518, 141);
+            this.txtSearch.Location = new System.Drawing.Point(516, 112);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(162, 23);
             this.txtSearch.TabIndex = 11;
@@ -216,7 +252,7 @@ namespace LinkSaveR
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(516, 103);
+            this.radioButton2.Location = new System.Drawing.Point(516, 87);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(73, 19);
             this.radioButton2.TabIndex = 10;
@@ -227,7 +263,7 @@ namespace LinkSaveR
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(595, 103);
+            this.radioButton1.Location = new System.Drawing.Point(593, 87);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(85, 19);
             this.radioButton1.TabIndex = 9;
@@ -237,9 +273,10 @@ namespace LinkSaveR
             // 
             // label4
             // 
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(6, 133);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 23);
+            this.label4.Size = new System.Drawing.Size(83, 23);
             this.label4.TabIndex = 8;
             this.label4.Text = "Description";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -265,9 +302,10 @@ namespace LinkSaveR
             // 
             // label2
             // 
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(12, 67);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 23);
+            this.label2.Size = new System.Drawing.Size(77, 23);
             this.label2.TabIndex = 5;
             this.label2.Text = "Category";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -348,9 +386,10 @@ namespace LinkSaveR
             // 
             // label1
             // 
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(26, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 23);
+            this.label1.Size = new System.Drawing.Size(63, 23);
             this.label1.TabIndex = 1;
             this.label1.Text = "Link : ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -409,5 +448,8 @@ namespace LinkSaveR
         private Label label5;
         private Label lblCopy;
         private Button button1;
+        private ComboBox comboBox2;
+        private Button button2;
+        private Button button3;
     }
 }

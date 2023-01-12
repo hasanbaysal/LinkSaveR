@@ -29,12 +29,25 @@ namespace LinkSaveR
                     this.Hide();
                     linkSaver.Show();
                 }
+                else
+                {
+                    MessageBox.Show("yanlış şifre");
+                }
             }
+
         }
 
         private void Login_Load(object sender, EventArgs e)
         {
           
+        }
+
+        private void maskedTextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                button1_Click(this.button1, new());
+            }
         }
     }
 }
