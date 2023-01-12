@@ -13,6 +13,9 @@ biraz aceleye daha sonra düzenlemek üzere repoyu public yapıp uzaklaşıyorum
 * seçilen linki panoya kopyalama
 * seçilen linki varsayılan tarayıcınızla direkt açma
 * güncelleme işlemleri
+* Mail ile database yedek alma
+* Manuel arama açıklama ve kategoriler için
+* Kategorileri filtreleyerek arama
 
 - [ ] short cut ile hızlıca aç-kapa özelliği eklenenecek - şimdilik aklma gelen en lazım özellik bu 
 - [ ] uygulamaya veri gönderem basit bir google extention yazmayı da düşünüyorum
@@ -20,4 +23,4 @@ biraz aceleye daha sonra düzenlemek üzere repoyu public yapıp uzaklaşıyorum
 
 ![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/main1.png)
 ![reism](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/gif2.gif)
-![update](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/update.png)
+![update](https://github.com/hasanbaysal/LinkSaveR/blob/master/LinkSaveR/img/update1.png)
