@@ -16,4 +16,9 @@
 		
 	</ItemGroup>
 
+	<ItemGroup>
+		<!-- asp.net core referans eklem! -->
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	
 </Project>
