@@ -83,7 +83,7 @@ namespace HB.LinkSaver
             }
             else
             {
-                Program.MainFrm.Width = 484;
+                Program.MainFrm.Width = 490;
                 Program.MainFrm.PnlPage.Controls.Clear();
                 Program.MainFrm.DGW.Enabled = true;
 
@@ -162,12 +162,12 @@ namespace HB.LinkSaver
 
 
 
-            AddText(GetWhiteSpaces(37) + "CATEGORÝES", Color.Orange);
+            AddText(GetWhiteSpaces(37) + "CATEGORÝES", Color.DarkGreen);
 
             var temp = Environment.NewLine;
             LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault()!.Categories.ForEach(x => temp += "#" + x + "#   ");
             temp += Environment.NewLine;
-            AddText(temp, Color.DarkOrange);
+            AddText(temp, Color.DarkOliveGreen);
 
 
 
