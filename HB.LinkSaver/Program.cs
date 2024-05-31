@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.InteropServices.Marshalling;
 using System.Security.Cryptography.Pkcs;
 
@@ -7,13 +10,17 @@ namespace HB.LinkSaver
     {
 
         public static MainForm MainFrm = new MainForm();
+        public static WebApplication WebApp { get; set; }
         [STAThread]
         static void Main()
         {
 
-            Application.ThreadException += new ThreadExceptionEventHandler(ThreadExceptionHandler);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
+            //Application.ThreadException += new ThreadExceptionEventHandler(ThreadExceptionHandler);
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
             ApplicationConfiguration.Initialize();
+            ApiRun();
+
+            WebApp.RunAsync();
             Application.Run(MainFrm);
         }
 
@@ -43,7 +50,7 @@ namespace HB.LinkSaver
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "LOGS"));
 
-           var filePath =  Path.Combine(path, $"{ýd}.txt");
+            var filePath = Path.Combine(path, $"{ýd}.txt");
 
             var data = exception.Source;
             data += Environment.NewLine + "--------------------";
@@ -51,10 +58,26 @@ namespace HB.LinkSaver
             data += Environment.NewLine + "--------------------";
             data += Environment.NewLine + exception.StackTrace;
             data += Environment.NewLine + "--------------------";
-            
-            File.WriteAllText(filePath,data);  
-          
 
+            File.WriteAllText(filePath, data);
+
+
+        }
+
+        public static void ApiRun()
+        {
+            var builder = WebApplication.CreateBuilder();
+
+            builder.WebHost.UseUrls("http://localhost:5003", "https://localhost:5004");
+
+            builder.Services.AddMvcCore();
+            WebApp = builder.Build();
+
+            WebApp.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            //WebApp.MapGet("/", () => "Hello World!");
         }
     }
 }

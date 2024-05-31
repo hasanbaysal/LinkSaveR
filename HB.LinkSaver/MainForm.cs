@@ -1,4 +1,6 @@
 using HB.LinkSaver.Pages;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Printing;
@@ -392,6 +394,13 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
         private void BtnSettings_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            var data =  Program.WebApp.Services.GetRequiredService<IApplicationLifetime>();
+
+            data.StopApplication(); 
         }
     }
 }
