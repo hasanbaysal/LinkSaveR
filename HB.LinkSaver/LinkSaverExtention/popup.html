@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Extension</title>
+ 
+
+  <style>
+
+.selected {
+        background-color: rgb(27, 117, 208);
+        color: white;
+    }
+
+    #categorySelect option:checked {
+  background-color: none; /* ya da background-color: transparent; */
+
+}
+
+#categorySelect{
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+
+ #categorySelect option {
+
+  padding:  3px;
+  margin: 3px;
+
+
+ }
+ #myContainer{
+
+  width: 100%;
+  padding: 3px;
+  border :1px solid  black;
+  height: 100px;
+  overflow-y: auto;
+ }
+ .CategoryItem{
+
+    display: block;
+    width: 200px;
+    height: 25px;
+    border: 1px solid black;
+    margin-bottom: 2px;
+    text-align: center;
+    padding: 2px;
+ }
+ #datax{
+  display: none;
+ }
+  </style>
+</head>
+<body>
+  <h2>Select a category:</h2>
+  <div id="myContainer">
+    <span class="CategoryItem">test1</span>
+  </div>
+
+  <br>
+  <textarea id="header" placeholder="Enter header"></textarea>
+  <br>
+  <textarea id="description" placeholder="Enter description"></textarea>
+  <br>
+  <button id="mybtn">Submit</button>
+<br>
+
+
+<h3 id="datax">d</h3>
+
+</body>
+<script src="popup.js"></script>
+</html>

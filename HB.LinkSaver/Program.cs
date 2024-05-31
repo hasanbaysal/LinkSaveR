@@ -68,11 +68,23 @@ namespace HB.LinkSaver
         {
             var builder = WebApplication.CreateBuilder();
 
-            builder.WebHost.UseUrls("http://localhost:5003", "https://localhost:5004");
+            builder.WebHost.UseUrls("http://localhost:5003");
 
+            builder.Services.AddCors(x =>
+            {
+                x.AddPolicy("allowAll", b =>
+                {
+                    b.AllowAnyOrigin();
+                    b.AllowAnyHeader();
+                    //b.AllowCredentials();
+                    b.AllowAnyMethod();
+                });
+            });
             builder.Services.AddMvcCore();
             WebApp = builder.Build();
 
+
+            WebApp.UseCors("allowAll");
             WebApp.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");

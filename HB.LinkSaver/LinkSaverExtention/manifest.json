@@ -1,0 +1,13 @@
+{
+    "manifest_version": 3,
+    "name": "Link Saver",
+    "version": "1.0",
+    "description": "link saver app communication",
+    "permissions": [
+      "activeTab","scripting","webRequest"
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    }
+    
+  }

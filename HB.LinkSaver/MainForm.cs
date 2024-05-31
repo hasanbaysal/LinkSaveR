@@ -27,6 +27,7 @@ namespace HB.LinkSaver
         public MainForm()
         {
             InitializeComponent();
+            CheckForIllegalCrossThreadCalls = false ;
         }
 
 
