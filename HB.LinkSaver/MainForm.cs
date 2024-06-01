@@ -133,6 +133,7 @@ namespace HB.LinkSaver
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             AddPageI.UpdateMode = false;
+            AddPageI.ModeSelect();
             AddSelectedPage(AddPageI);
 
         }
@@ -284,10 +285,11 @@ namespace HB.LinkSaver
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
+           
             if (CurrentLinkId == string.Empty) return;
 
             var data = LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault();
-
+           
             AddPageI.UpdateMode = true;
             AddPageI.EntityForUpdate = data!;
             AddPageI.ModeSelect();

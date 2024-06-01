@@ -63,6 +63,14 @@ namespace HB.LinkSaver.Pages
             else
             {
                 BtnUpdate.Visible = false;
+                BtnSave.Visible = true;
+
+                TbHeader.Text = string.Empty;
+                TbLink.Text = string.Empty;
+                RtbDescription.Text = string.Empty;
+                SelectedCategories.Clear();
+
+
             }
         }
 
