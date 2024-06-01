@@ -383,6 +383,9 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
+            SelectedCategories.Clear();
+            FlwPanel.Controls.Clear();  
+
             SearchByFilters();
         }
 
