@@ -37,40 +37,44 @@
             button1 = new Button();
             label5 = new Label();
             BtnUpdate = new Button();
-            label1 = new Label();
+            lblPageInfo = new Label();
             SuspendLayout();
             // 
             // RtbDescription
             // 
-            RtbDescription.Location = new Point(179, 459);
+            RtbDescription.Location = new Point(157, 344);
+            RtbDescription.Margin = new Padding(3, 2, 3, 2);
             RtbDescription.Name = "RtbDescription";
-            RtbDescription.Size = new Size(355, 120);
+            RtbDescription.Size = new Size(311, 91);
             RtbDescription.TabIndex = 16;
             RtbDescription.Text = "";
             // 
             // TbLink
             // 
-            TbLink.Location = new Point(179, 372);
+            TbLink.Location = new Point(157, 279);
+            TbLink.Margin = new Padding(3, 2, 3, 2);
             TbLink.Name = "TbLink";
             TbLink.PlaceholderText = "Link - Must Be Uniqueue";
-            TbLink.Size = new Size(355, 27);
+            TbLink.Size = new Size(311, 23);
             TbLink.TabIndex = 14;
             // 
             // TbHeader
             // 
-            TbHeader.Location = new Point(179, 277);
+            TbHeader.Location = new Point(157, 208);
+            TbHeader.Margin = new Padding(3, 2, 3, 2);
             TbHeader.Name = "TbHeader";
             TbHeader.PlaceholderText = "Header - Must Be Uniqueue";
-            TbHeader.Size = new Size(355, 27);
+            TbHeader.Size = new Size(311, 23);
             TbHeader.TabIndex = 15;
             // 
             // BtnSave
             // 
             BtnSave.FlatStyle = FlatStyle.Flat;
             BtnSave.ForeColor = Color.White;
-            BtnSave.Location = new Point(227, 653);
+            BtnSave.Location = new Point(199, 490);
+            BtnSave.Margin = new Padding(3, 2, 3, 2);
             BtnSave.Name = "BtnSave";
-            BtnSave.Size = new Size(94, 29);
+            BtnSave.Size = new Size(82, 22);
             BtnSave.TabIndex = 13;
             BtnSave.Text = "Save";
             BtnSave.UseVisualStyleBackColor = true;
@@ -79,17 +83,20 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(35, 39, 49);
-            panel1.Location = new Point(179, 134);
+            panel1.Location = new Point(157, 100);
+            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(355, 126);
+            panel1.Size = new Size(311, 94);
             panel1.TabIndex = 12;
             // 
             // LbCategories
             // 
             LbCategories.FormattingEnabled = true;
-            LbCategories.Location = new Point(23, 75);
+            LbCategories.ItemHeight = 15;
+            LbCategories.Location = new Point(20, 56);
+            LbCategories.Margin = new Padding(3, 2, 3, 2);
             LbCategories.Name = "LbCategories";
-            LbCategories.Size = new Size(150, 544);
+            LbCategories.Size = new Size(132, 409);
             LbCategories.TabIndex = 11;
             LbCategories.SelectedIndexChanged += LbCategories_SelectedIndexChanged;
             // 
@@ -97,9 +104,10 @@
             // 
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(327, 653);
+            button1.Location = new Point(286, 490);
+            button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
-            button1.Size = new Size(94, 29);
+            button1.Size = new Size(82, 22);
             button1.TabIndex = 13;
             button1.Text = "Close";
             button1.UseVisualStyleBackColor = true;
@@ -109,9 +117,9 @@
             // 
             label5.Font = new Font("Cambria", 10.2F, FontStyle.Italic, GraphicsUnit.Point, 162);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(227, 88);
+            label5.Location = new Point(199, 66);
             label5.Name = "label5";
-            label5.Size = new Size(283, 25);
+            label5.Size = new Size(248, 19);
             label5.TabIndex = 17;
             label5.Text = "Selected Categories";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -120,31 +128,32 @@
             // 
             BtnUpdate.FlatStyle = FlatStyle.Flat;
             BtnUpdate.ForeColor = Color.White;
-            BtnUpdate.Location = new Point(127, 653);
+            BtnUpdate.Location = new Point(111, 490);
+            BtnUpdate.Margin = new Padding(3, 2, 3, 2);
             BtnUpdate.Name = "BtnUpdate";
-            BtnUpdate.Size = new Size(94, 29);
+            BtnUpdate.Size = new Size(82, 22);
             BtnUpdate.TabIndex = 13;
             BtnUpdate.Text = "Update";
             BtnUpdate.UseVisualStyleBackColor = true;
             BtnUpdate.Click += BtnUpdate_Click;
             // 
-            // label1
+            // lblPageInfo
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(189, 18);
-            label1.Name = "label1";
-            label1.Size = new Size(210, 31);
-            label1.TabIndex = 8;
-            label1.Text = "Add a New Record";
+            lblPageInfo.AutoSize = true;
+            lblPageInfo.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            lblPageInfo.ForeColor = Color.White;
+            lblPageInfo.Location = new Point(165, 14);
+            lblPageInfo.Name = "lblPageInfo";
+            lblPageInfo.Size = new Size(177, 25);
+            lblPageInfo.TabIndex = 8;
+            lblPageInfo.Text = "Add a New Record";
             // 
             // AddPage
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            Controls.Add(label1);
+            Controls.Add(lblPageInfo);
             Controls.Add(label5);
             Controls.Add(RtbDescription);
             Controls.Add(TbLink);
@@ -154,8 +163,9 @@
             Controls.Add(BtnSave);
             Controls.Add(panel1);
             Controls.Add(LbCategories);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "AddPage";
-            Size = new Size(557, 715);
+            Size = new Size(487, 536);
             Load += AddPage_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -172,6 +182,6 @@
         private Button button1;
         private Label label5;
         private Button BtnUpdate;
-        private Label label1;
+        private Label lblPageInfo;
     }
 }

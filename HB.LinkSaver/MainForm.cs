@@ -31,7 +31,7 @@ namespace HB.LinkSaver
         public MainForm()
         {
             InitializeComponent();
-            CheckForIllegalCrossThreadCalls = false ;
+            CheckForIllegalCrossThreadCalls = false;
         }
 
 
@@ -55,7 +55,7 @@ namespace HB.LinkSaver
         public void LoadDgw()
         {
 
-            
+
 
             DGW.DataSource = null;
             DGW.Update();
@@ -230,10 +230,9 @@ namespace HB.LinkSaver
             lb.ForeColor = Color.White;
             lb.Font = new Font("Segoe UI", 8, FontStyle.Bold, GraphicsUnit.Point, 162);
             lb.Location = new Point(x, y);
-            lb.Size = new Size(350, 22);
+            lb.Size = new Size(410, 22);
             lb.FlatStyle = FlatStyle.Flat;
-            lb.BackColor = Color.FromArgb(2, 117, 216); //43; 51; 68 //2; 117; 216
-            //lb.Padding = new Padding(3);
+            lb.BackColor = Color.FromArgb(2, 117, 216); 
             lb.Margin = new Padding(3);
             lb.Click += LblClick!;
             lb.MouseLeave += label1_MouseLeave!;
@@ -273,7 +272,7 @@ namespace HB.LinkSaver
         private void label1_MouseHover(object sender, EventArgs e)
         {
             Label lb = (Label)sender;
-            lb.ForeColor = Color.FromArgb(10, 102, 194);
+            lb.ForeColor = Color.GreenYellow;
         }
 
         private void label1_MouseLeave(object sender, EventArgs e)
@@ -285,11 +284,11 @@ namespace HB.LinkSaver
 
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
-           
+
             if (CurrentLinkId == string.Empty) return;
 
             var data = LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault();
-           
+
             AddPageI.UpdateMode = true;
             AddPageI.EntityForUpdate = data!;
             AddPageI.ModeSelect();
@@ -384,7 +383,7 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
         {
             textBox1.Clear();
             SelectedCategories.Clear();
-            FlwPanel.Controls.Clear();  
+            FlwPanel.Controls.Clear();
 
             SearchByFilters();
         }
@@ -404,9 +403,9 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
         }
 
 
-        public  void BringToTop()
+        public void BringToTop()
         {
-            
+
             if (this.InvokeRequired)
             {
                 this.Invoke(new Action(BringToTop));
@@ -417,11 +416,11 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
                 {
                     this.WindowState = FormWindowState.Normal;
                 }
-                
+
                 bool top = TopMost;
-                
+
                 TopMost = true;
-                
+
                 TopMost = top;
             }
         }
@@ -440,10 +439,15 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
         {
             if (Program.ServerStatus)
             {
-            var data =  Program.WebApp.Services.GetRequiredService<IApplicationLifetime>();
-            data.StopApplication(); 
-            } 
+                var data = Program.WebApp.Services.GetRequiredService<IApplicationLifetime>();
+                data.StopApplication();
+            }
 
+        }
+
+        private void CbHeaderOrDescription_CheckedChanged(object sender, EventArgs e)
+        {
+            SearchByFilters();
         }
     }
 }

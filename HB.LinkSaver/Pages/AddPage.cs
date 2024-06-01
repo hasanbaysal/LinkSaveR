@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Media.Media3D;
 
 
 namespace HB.LinkSaver.Pages
@@ -59,17 +60,18 @@ namespace HB.LinkSaver.Pages
                     AddCategoryLabel(x);
                 });
 
+                lblPageInfo.Text = "Update The Selected Category";
             }
             else
             {
                 BtnUpdate.Visible = false;
                 BtnSave.Visible = true;
-
+                panel1.Controls.Clear();
                 TbHeader.Text = string.Empty;
                 TbLink.Text = string.Empty;
                 RtbDescription.Text = string.Empty;
                 SelectedCategories.Clear();
-
+                lblPageInfo.Text = "Add a New Record";
 
             }
         }

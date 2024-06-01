@@ -36,13 +36,18 @@
             btnServer = new Button();
             lblStatus = new Label();
             label2 = new Label();
+            groupBox3 = new GroupBox();
+            button2 = new Button();
+            label3 = new Label();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // button1
             // 
-            button1.ForeColor = SystemColors.ControlText;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = SystemColors.ButtonFace;
             button1.Location = new Point(17, 55);
             button1.Name = "button1";
             button1.Size = new Size(136, 68);
@@ -56,7 +61,7 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(button1);
             groupBox1.ForeColor = SystemColors.ButtonFace;
-            groupBox1.Location = new Point(63, 34);
+            groupBox1.Location = new Point(64, 24);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(340, 195);
             groupBox1.TabIndex = 1;
@@ -78,16 +83,17 @@
             groupBox2.Controls.Add(lblStatus);
             groupBox2.Controls.Add(label2);
             groupBox2.ForeColor = SystemColors.ButtonHighlight;
-            groupBox2.Location = new Point(63, 287);
+            groupBox2.Location = new Point(64, 235);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(324, 179);
+            groupBox2.Size = new Size(340, 179);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Web Server";
             // 
             // btnServer
             // 
-            btnServer.ForeColor = SystemColors.ActiveCaptionText;
+            btnServer.FlatStyle = FlatStyle.Flat;
+            btnServer.ForeColor = SystemColors.ButtonFace;
             btnServer.Location = new Point(17, 64);
             btnServer.Name = "btnServer";
             btnServer.Size = new Size(102, 73);
@@ -109,18 +115,50 @@
             // 
             // label2
             // 
-            label2.Location = new Point(153, 19);
+            label2.Location = new Point(169, 19);
             label2.Name = "label2";
             label2.Size = new Size(165, 157);
             label2.TabIndex = 1;
             label2.Text = resources.GetString("label2.Text");
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(button2);
+            groupBox3.Controls.Add(label3);
+            groupBox3.ForeColor = SystemColors.ButtonHighlight;
+            groupBox3.Location = new Point(64, 437);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(334, 86);
+            groupBox3.TabIndex = 3;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Load Back Up";
+            // 
+            // button2
+            // 
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(17, 22);
+            button2.Name = "button2";
+            button2.Size = new Size(102, 47);
+            button2.TabIndex = 0;
+            button2.Text = "import backup folder";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.Location = new Point(191, 22);
+            label3.Name = "label3";
+            label3.Size = new Size(127, 50);
+            label3.TabIndex = 1;
+            label3.Text = "This feature is not ready yet";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // Settings
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
+            Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Name = "Settings";
@@ -129,6 +167,7 @@
             groupBox1.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -141,5 +180,8 @@
         private Label label2;
         private Label lblStatus;
         private Button btnServer;
+        private GroupBox groupBox3;
+        private Button button2;
+        private Label label3;
     }
 }

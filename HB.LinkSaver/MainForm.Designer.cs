@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             PnlTop = new Panel();
             panel2 = new Panel();
             BtnMin = new FontAwesome.Sharp.IconButton();
@@ -59,6 +59,7 @@
             label2 = new Label();
             label4 = new Label();
             label7 = new Label();
+            label8 = new Label();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -66,6 +67,7 @@
             // 
             // PnlTop
             // 
+            PnlTop.Controls.Add(label8);
             PnlTop.Controls.Add(panel2);
             PnlTop.Controls.Add(label1);
             PnlTop.Dock = DockStyle.Top;
@@ -147,9 +149,9 @@
             // label6
             // 
             label6.BackColor = Color.FromArgb(131, 255, 247);
-            label6.Location = new Point(10, 622);
+            label6.Location = new Point(1, 622);
             label6.Name = "label6";
-            label6.Size = new Size(937, 1);
+            label6.Size = new Size(940, 1);
             label6.TabIndex = 9;
             // 
             // button1
@@ -240,6 +242,7 @@
             CbHeaderOrDescription.Size = new Size(39, 16);
             CbHeaderOrDescription.TabIndex = 43;
             CbHeaderOrDescription.UseVisualStyleBackColor = true;
+            CbHeaderOrDescription.CheckedChanged += CbHeaderOrDescription_CheckedChanged;
             // 
             // textBox1
             // 
@@ -257,28 +260,28 @@
             DGW.AllowUserToDeleteRows = false;
             DGW.AllowUserToResizeColumns = false;
             DGW.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(238, 239, 249);
-            DGW.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(238, 239, 249);
+            DGW.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             DGW.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             DGW.BackgroundColor = SystemColors.ButtonHighlight;
             DGW.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = Color.FromArgb(20, 25, 70);
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = Color.WhiteSmoke;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            DGW.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = Color.FromArgb(20, 25, 70);
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = Color.WhiteSmoke;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            DGW.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             DGW.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Window;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = Color.ForestGreen;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            DGW.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = Color.ForestGreen;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            DGW.DefaultCellStyle = dataGridViewCellStyle6;
             DGW.Location = new Point(15, 43);
             DGW.Margin = new Padding(3, 2, 3, 2);
             DGW.Name = "DGW";
@@ -322,7 +325,7 @@
             BtnOpenLink.IconColor = Color.White;
             BtnOpenLink.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnOpenLink.IconSize = 30;
-            BtnOpenLink.Location = new Point(150, 230);
+            BtnOpenLink.Location = new Point(154, 230);
             BtnOpenLink.Margin = new Padding(3, 2, 3, 2);
             BtnOpenLink.Name = "BtnOpenLink";
             BtnOpenLink.Size = new Size(120, 30);
@@ -343,7 +346,7 @@
             BtnCategories.IconColor = Color.White;
             BtnCategories.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnCategories.IconSize = 30;
-            BtnCategories.Location = new Point(293, 230);
+            BtnCategories.Location = new Point(294, 230);
             BtnCategories.Margin = new Padding(3, 2, 3, 2);
             BtnCategories.Name = "BtnCategories";
             BtnCategories.Size = new Size(117, 30);
@@ -385,7 +388,7 @@
             BtnUpdate.IconColor = Color.White;
             BtnUpdate.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnUpdate.IconSize = 30;
-            BtnUpdate.Location = new Point(295, 188);
+            BtnUpdate.Location = new Point(294, 188);
             BtnUpdate.Margin = new Padding(3, 2, 3, 2);
             BtnUpdate.Name = "BtnUpdate";
             BtnUpdate.Size = new Size(116, 30);
@@ -406,10 +409,10 @@
             BtnAdd.IconColor = Color.White;
             BtnAdd.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnAdd.IconSize = 30;
-            BtnAdd.Location = new Point(150, 188);
+            BtnAdd.Location = new Point(154, 188);
             BtnAdd.Margin = new Padding(3, 2, 3, 2);
             BtnAdd.Name = "BtnAdd";
-            BtnAdd.Size = new Size(123, 30);
+            BtnAdd.Size = new Size(120, 30);
             BtnAdd.TabIndex = 34;
             BtnAdd.Text = "Add Link";
             BtnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -469,6 +472,18 @@
             label7.Size = new Size(1, 589);
             label7.TabIndex = 0;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label8.ForeColor = SystemColors.ButtonHighlight;
+            label8.Location = new Point(8, 3);
+            label8.Name = "label8";
+            label8.Size = new Size(76, 20);
+            label8.TabIndex = 5;
+            label8.Text = "LinkSaver";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -508,6 +523,7 @@
             FormClosing += MainForm_FormClosing;
             Load += Form1_Load;
             PnlTop.ResumeLayout(false);
+            PnlTop.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DGW).EndInit();
             ResumeLayout(false);
@@ -543,5 +559,6 @@
         private Label label2;
         private Label label4;
         private Label label7;
+        private Label label8;
     }
 }

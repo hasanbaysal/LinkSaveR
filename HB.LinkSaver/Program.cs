@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic.Logging;
 using System.Runtime.InteropServices.Marshalling;
 using System.Security.Cryptography.Pkcs;
 
@@ -17,29 +18,50 @@ namespace HB.LinkSaver
         [STAThread]
         static void Main()
         {
-            
-
-            Application.ThreadException += new ThreadExceptionEventHandler(ThreadExceptionHandler);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
-            ApplicationConfiguration.Initialize();
 
 
-            ServerStatus = GetUseServerSettingsStatus();
-            if (GetUseServerSettingsStatus())
+            using (Mutex mutext = new Mutex(false, "xxxx1"))
             {
-            ApiRun();
-            WebApp.RunAsync();
-            
+
+                if (!mutext.WaitOne(0, false))
+                {
+                    //single instance  check!
+                    MessageBox.Show("Instance already running"); 
+
+                    return;
+
+
+
+
+                }
+
+
+                Application.ThreadException += new ThreadExceptionEventHandler(ThreadExceptionHandler);
+                AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
+                ApplicationConfiguration.Initialize();
+
+
+                ServerStatus = GetUseServerSettingsStatus();
+                if (GetUseServerSettingsStatus())
+                {
+                    ApiRun();
+                    WebApp.RunAsync();
+
+                }
+
+                Application.Run(MainFrm);
+
             }
-            
-            Application.Run(MainFrm);
+
+
+           
         }
 
         static void GlobalExceptionHandler(object sender, UnhandledExceptionEventArgs args)
         {
             MessageBox.Show("An error occurred, and the application will be restarted later. You can submit the log file to the \"Issues\" section on GitHub.");
-           
-            Application.Restart();
+            WriteLog((Exception)args.ExceptionObject);
+
         }
 
         static void ThreadExceptionHandler
@@ -48,7 +70,6 @@ namespace HB.LinkSaver
 
             MessageBox.Show("An error occurred, and the application will be restarted later. You can submit the log file to the \"Issues\" section on GitHub.");
             WriteLog(e.Exception);
-           
 
         }
 
@@ -87,7 +108,6 @@ namespace HB.LinkSaver
                 {
                     b.AllowAnyOrigin();
                     b.AllowAnyHeader();
-                    //b.AllowCredentials();
                     b.AllowAnyMethod();
                 });
             });
@@ -100,7 +120,6 @@ namespace HB.LinkSaver
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            //WebApp.MapGet("/", () => "Hello World!");
         }
 
         public  static bool GetUseServerSettingsStatus()
@@ -119,7 +138,7 @@ namespace HB.LinkSaver
 
             var data =  File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "user.txt"));
 
-              return int.Parse(data.Split(":")[1]) >0 ;
+            return int.Parse(data.Split(":")[1]) >0 ;
 
 
         }
