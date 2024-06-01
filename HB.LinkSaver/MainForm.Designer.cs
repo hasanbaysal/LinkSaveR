@@ -102,6 +102,7 @@
             BtnMin.Name = "BtnMin";
             BtnMin.Size = new Size(22, 21);
             BtnMin.TabIndex = 0;
+            BtnMin.TabStop = false;
             BtnMin.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnMin.UseVisualStyleBackColor = false;
             BtnMin.Click += BtnMin_Click;
@@ -285,7 +286,8 @@
             DGW.RowHeadersVisible = false;
             DGW.RowHeadersWidth = 51;
             DGW.Size = new Size(400, 141);
-            DGW.TabIndex = 40;
+            DGW.TabIndex = 1;
+            DGW.TabStop = false;
             DGW.CellClick += DGW_CellClick;
             // 
             // BtnDelete
@@ -465,7 +467,7 @@
             label7.Location = new Point(8, 28);
             label7.Name = "label7";
             label7.Size = new Size(1, 589);
-            label7.TabIndex = 51;
+            label7.TabIndex = 0;
             // 
             // MainForm
             // 

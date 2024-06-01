@@ -3,15 +3,15 @@
 document.addEventListener('DOMContentLoaded', function() {
    
 
-  // console.log("page link        :        " +window.location.href);
-
 
 
     
  fetch('http://localhost:5003/home/customaction')
  .then(function(response) {
    if (!response.ok) {
-     throw new Error('fail ' + response.status);
+    console.log("hata");
+    throw new Error('fail ' + response.status);
+
    }
    return response.json();
  })
@@ -29,13 +29,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
  })
  .catch(function(error) {
-   console.log('İstek başarısız:', error.message);
+   
+
+  var container =  document.getElementById('myContainer');
+  
+  var text =  "You cannot use this Google extension when your desktop application is closed. Please open your application and refresh the page";
+  var pItem = document.createElement('p');
+  pItem.innerText = text;
+  container.appendChild(pItem);
+
  });
 
 
 
-
-//  var linkItem = document.getElementById('datax');
 
 
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {

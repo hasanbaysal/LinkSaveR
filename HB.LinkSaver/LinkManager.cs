@@ -16,8 +16,8 @@ namespace HB.LinkSaver
 {
     public static class LinkManager
     {
-        private const string LinksPath = "links.json";
-        private const string CategoriesPath = "categories.json";
+        public const string LinksPath = "links.json";
+        public const string CategoriesPath = "categories.json";
         public static List<Link> Links = new();
         public static void Control()
         {
@@ -61,10 +61,10 @@ namespace HB.LinkSaver
             Links.AddRange(ReadFile());
             return Links;
         }
-        public static bool Add(Link link)
+        public static bool Add(Link link, bool sendFromApi = false)
         {
             link.Id = Guid.NewGuid().ToString();
-            var result = LinkValidation(link);
+            var result = LinkValidation(link,sendFromApi);
 
 
             if (result)
@@ -142,7 +142,7 @@ namespace HB.LinkSaver
             return linksResult.Count !=0 ? linksResult.DistinctBy(x => x.Id).ToList(): linksResult;
 
         }
-        private static bool LinkValidation(Link link)
+        private static bool LinkValidation(Link link, bool sendFromApi = false)
         {
             var con1 = !Links.Any(x => x.Content.ToLower().Trim() == link.Content.ToLower().Trim());
             //var con2 = !Links.Any(x => x.Header == link.Header);
@@ -159,7 +159,15 @@ namespace HB.LinkSaver
                 message += "record must contain at least one category" ;
 
             if (!result)
+            {
+                if (sendFromApi)
+                {
+                Program.MainFrm.BringToTop();
+
+                }
                 MessageBox.Show(message, "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+
+            }
             return result;
         }
         private static List<Link> ReadFile()

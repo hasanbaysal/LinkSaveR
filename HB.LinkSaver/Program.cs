@@ -1,4 +1,6 @@
+using HB.LinkSaver.Pages;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.InteropServices.Marshalling;
@@ -11,23 +13,32 @@ namespace HB.LinkSaver
 
         public static MainForm MainFrm = new MainForm();
         public static WebApplication WebApp { get; set; }
+        public static bool ServerStatus { get; set; }
         [STAThread]
         static void Main()
         {
+            
 
-            //Application.ThreadException += new ThreadExceptionEventHandler(ThreadExceptionHandler);
-            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
+            Application.ThreadException += new ThreadExceptionEventHandler(ThreadExceptionHandler);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
             ApplicationConfiguration.Initialize();
-            ApiRun();
 
+
+            ServerStatus = GetUseServerSettingsStatus();
+            if (GetUseServerSettingsStatus())
+            {
+            ApiRun();
             WebApp.RunAsync();
+            
+            }
+            
             Application.Run(MainFrm);
         }
 
         static void GlobalExceptionHandler(object sender, UnhandledExceptionEventArgs args)
         {
             MessageBox.Show("An error occurred, and the application will be restarted later. You can submit the log file to the \"Issues\" section on GitHub.");
-            WriteLog((Exception)args.ExceptionObject);
+           
             Application.Restart();
         }
 
@@ -37,7 +48,7 @@ namespace HB.LinkSaver
 
             MessageBox.Show("An error occurred, and the application will be restarted later. You can submit the log file to the \"Issues\" section on GitHub.");
             WriteLog(e.Exception);
-            Application.Restart();
+           
 
         }
 
@@ -80,7 +91,7 @@ namespace HB.LinkSaver
                     b.AllowAnyMethod();
                 });
             });
-            builder.Services.AddMvcCore();
+            builder.Services.AddControllers();
             WebApp = builder.Build();
 
 
@@ -90,6 +101,27 @@ namespace HB.LinkSaver
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             //WebApp.MapGet("/", () => "Hello World!");
+        }
+
+        public  static bool GetUseServerSettingsStatus()
+        {
+            if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(),"user.txt")))
+            {
+                using var stream = (File.Create(Path.Combine(Directory.GetCurrentDirectory(), "user.txt")));
+
+                StreamWriter writer = new StreamWriter(stream); 
+
+                writer.Write("server:0");
+
+                writer.Close();
+                writer.Dispose();   
+            }
+
+            var data =  File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "user.txt"));
+
+              return int.Parse(data.Split(":")[1]) >0 ;
+
+
         }
     }
 }

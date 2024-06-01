@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Printing;
+using System.Media;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.Pkcs;
@@ -19,6 +20,9 @@ namespace HB.LinkSaver
 
         public static AddPage AddPageI = new();
         public static CategoryPage CategoryPage = new();
+        public static Settings SettingsPage = new();
+
+
         public static List<string> SelectedCategories = new List<string>();
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
@@ -50,6 +54,8 @@ namespace HB.LinkSaver
 
         public void LoadDgw()
         {
+
+            
 
             DGW.DataSource = null;
             DGW.Update();
@@ -392,16 +398,47 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
             }
         }
 
+
+        public  void BringToTop()
+        {
+            
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(BringToTop));
+            }
+            else
+            {
+                if (this.WindowState == FormWindowState.Minimized)
+                {
+                    this.WindowState = FormWindowState.Normal;
+                }
+                
+                bool top = TopMost;
+                
+                TopMost = true;
+                
+                TopMost = top;
+            }
+        }
+
         private void BtnSettings_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            AddSelectedPage(SettingsPage);
+
+            //SystemSounds.Beep.Play();
+
+
+
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (Program.ServerStatus)
+            {
             var data =  Program.WebApp.Services.GetRequiredService<IApplicationLifetime>();
-
             data.StopApplication(); 
+            } 
+
         }
     }
 }

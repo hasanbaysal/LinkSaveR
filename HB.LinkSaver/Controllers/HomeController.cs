@@ -36,7 +36,7 @@ namespace HB.LinkSaver.Controllers
                 Header = dto.Header
             };
 
-            LinkManager.Add(link);
+            LinkManager.Add(link,true);
             Program.MainFrm.LoadDgw();
             return Ok();
         }

@@ -108,6 +108,10 @@ namespace HB.LinkSaver.Pages
                 SelectedCategory = string.Empty;
                 lblUpdate.Text = string.Empty;
 
+                Program.MainFrm.LbSelectedCategories.Items.Clear();
+
+                CategoryManager.Categories.ForEach(x => Program.MainFrm.LbSelectedCategories.Items.Add(x));
+
 
             }
 
