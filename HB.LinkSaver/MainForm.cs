@@ -132,6 +132,9 @@ namespace HB.LinkSaver
 
         private void BtnAdd_Click(object sender, EventArgs e)
         {
+            //listboxt make public
+             AddPageI.LbCategories.Items.Clear();    
+             CategoryManager.GetAll().ForEach(x => AddPageI.LbCategories.Items.Add(x));
             AddPageI.UpdateMode = false;
             AddPageI.ModeSelect();
             AddSelectedPage(AddPageI);
@@ -166,13 +169,13 @@ namespace HB.LinkSaver
 
 
 
-            AddText(GetWhiteSpaces(36) + "DESCRÝPTÝON", Color.DarkBlue);
+            AddText(GetWhiteSpaces(36) + "DESCRÃPTÃON", Color.DarkBlue);
             var descContext = Environment.NewLine + DGW.Rows[e.RowIndex].Cells[3].Value.ToString() + Environment.NewLine;
             AddText(descContext, Color.Blue);
 
 
 
-            AddText(GetWhiteSpaces(37) + "CATEGORÝES", Color.DarkGreen);
+            AddText(GetWhiteSpaces(37) + "CATEGORÃES", Color.DarkGreen);
 
             var temp = Environment.NewLine;
             LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault()!.Categories.ForEach(x => temp += "#" + x + "#   ");
