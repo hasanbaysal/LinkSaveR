@@ -178,7 +178,7 @@
         private TextBox TbHeader;
         private Button BtnSave;
         private Panel panel1;
-        private ListBox LbCategories;
+        public ListBox LbCategories;
         private Button button1;
         private Label label5;
         private Button BtnUpdate;
