@@ -29,7 +29,7 @@ namespace HB.LinkSaver.Pages
             
             LinkManager.Control();
 
-            CategoryManager.Categories.ForEach(x => LbCategories.Items.Add(x));
+      
             ModeSelect();
 
         }
