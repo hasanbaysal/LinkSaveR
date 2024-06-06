@@ -1,4 +1,4 @@
-﻿namespace HB.LinkSaver
+namespace HB.LinkSaver
 {
     partial class MainForm
     {
@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             PnlTop = new Panel();
+            label8 = new Label();
             panel2 = new Panel();
             BtnMin = new FontAwesome.Sharp.IconButton();
             BtnClose = new FontAwesome.Sharp.IconButton();
@@ -59,7 +60,6 @@
             label2 = new Label();
             label4 = new Label();
             label7 = new Label();
-            label8 = new Label();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -72,21 +72,31 @@
             PnlTop.Controls.Add(label1);
             PnlTop.Dock = DockStyle.Top;
             PnlTop.Location = new Point(0, 0);
-            PnlTop.Margin = new Padding(3, 2, 3, 2);
             PnlTop.Name = "PnlTop";
-            PnlTop.Size = new Size(429, 26);
+            PnlTop.Size = new Size(490, 33);
             PnlTop.TabIndex = 2;
             PnlTop.MouseDown += PnlTop_MouseDown;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            label8.ForeColor = SystemColors.ButtonHighlight;
+            label8.Location = new Point(9, 4);
+            label8.Name = "label8";
+            label8.Size = new Size(76, 20);
+            label8.TabIndex = 5;
+            label8.Text = "LinkSaver";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
             panel2.Controls.Add(BtnMin);
             panel2.Controls.Add(BtnClose);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(362, 0);
-            panel2.Margin = new Padding(3, 2, 3, 2);
+            panel2.Location = new Point(413, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(67, 25);
+            panel2.Size = new Size(77, 32);
             panel2.TabIndex = 4;
             // 
             // BtnMin
@@ -99,10 +109,9 @@
             BtnMin.IconColor = Color.White;
             BtnMin.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnMin.IconSize = 30;
-            BtnMin.Location = new Point(3, 2);
-            BtnMin.Margin = new Padding(3, 2, 3, 2);
+            BtnMin.Location = new Point(3, 3);
             BtnMin.Name = "BtnMin";
-            BtnMin.Size = new Size(22, 21);
+            BtnMin.Size = new Size(25, 27);
             BtnMin.TabIndex = 0;
             BtnMin.TabStop = false;
             BtnMin.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -119,10 +128,9 @@
             BtnClose.IconColor = Color.White;
             BtnClose.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnClose.IconSize = 30;
-            BtnClose.Location = new Point(32, 2);
-            BtnClose.Margin = new Padding(3, 2, 3, 2);
+            BtnClose.Location = new Point(37, 3);
             BtnClose.Name = "BtnClose";
-            BtnClose.Size = new Size(33, 21);
+            BtnClose.Size = new Size(38, 27);
             BtnClose.TabIndex = 0;
             BtnClose.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnClose.UseVisualStyleBackColor = false;
@@ -132,26 +140,25 @@
             // 
             label1.BackColor = Color.FromArgb(131, 255, 247);
             label1.Dock = DockStyle.Bottom;
-            label1.Location = new Point(0, 25);
+            label1.Location = new Point(0, 32);
             label1.Name = "label1";
-            label1.Size = new Size(429, 1);
+            label1.Size = new Size(490, 1);
             label1.TabIndex = 0;
             // 
             // PnlPage
             // 
             PnlPage.BackColor = Color.FromArgb(23, 29, 39);
-            PnlPage.Location = new Point(439, 61);
-            PnlPage.Margin = new Padding(3, 2, 3, 2);
+            PnlPage.Location = new Point(500, 106);
             PnlPage.Name = "PnlPage";
-            PnlPage.Size = new Size(487, 536);
+            PnlPage.Size = new Size(557, 679);
             PnlPage.TabIndex = 3;
             // 
             // label6
             // 
             label6.BackColor = Color.FromArgb(131, 255, 247);
-            label6.Location = new Point(1, 622);
+            label6.Location = new Point(0, 831);
             label6.Name = "label6";
-            label6.Size = new Size(940, 1);
+            label6.Size = new Size(1074, 1);
             label6.TabIndex = 9;
             // 
             // button1
@@ -160,10 +167,9 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = SystemColors.Control;
-            button1.Location = new Point(312, 398);
-            button1.Margin = new Padding(3, 2, 3, 2);
+            button1.Location = new Point(357, 504);
             button1.Name = "button1";
-            button1.Size = new Size(60, 22);
+            button1.Size = new Size(69, 28);
             button1.TabIndex = 52;
             button1.Text = "Reset";
             button1.UseVisualStyleBackColor = false;
@@ -172,18 +178,18 @@
             // label10
             // 
             label10.BackColor = Color.FromArgb(131, 255, 247);
-            label10.Location = new Point(420, 28);
+            label10.Location = new Point(480, 35);
             label10.Name = "label10";
-            label10.Size = new Size(1, 589);
+            label10.Size = new Size(1, 786);
             label10.TabIndex = 51;
             // 
             // label5
             // 
             label5.Font = new Font("Cambria", 10.2F, FontStyle.Italic, GraphicsUnit.Point, 162);
             label5.ForeColor = SystemColors.Control;
-            label5.Location = new Point(36, 457);
+            label5.Location = new Point(41, 579);
             label5.Name = "label5";
-            label5.Size = new Size(248, 19);
+            label5.Size = new Size(283, 24);
             label5.TabIndex = 50;
             label5.Text = "Filtering Links with Multiple Category Selection";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -191,29 +197,26 @@
             // FlwPanel
             // 
             FlwPanel.AutoScroll = true;
-            FlwPanel.Location = new Point(15, 560);
-            FlwPanel.Margin = new Padding(3, 2, 3, 2);
+            FlwPanel.Location = new Point(16, 752);
             FlwPanel.Name = "FlwPanel";
-            FlwPanel.Padding = new Padding(3, 2, 3, 2);
-            FlwPanel.Size = new Size(400, 60);
+            FlwPanel.Padding = new Padding(3, 3, 3, 3);
+            FlwPanel.Size = new Size(457, 76);
             FlwPanel.TabIndex = 49;
             // 
             // label11
             // 
             label11.BackColor = Color.FromArgb(131, 255, 247);
-            label11.Location = new Point(17, 388);
+            label11.Location = new Point(19, 491);
             label11.Name = "label11";
-            label11.Size = new Size(394, 1);
+            label11.Size = new Size(450, 1);
             label11.TabIndex = 48;
             // 
             // LbSelectedCategories
             // 
             LbSelectedCategories.FormattingEnabled = true;
-            LbSelectedCategories.ItemHeight = 15;
-            LbSelectedCategories.Location = new Point(15, 478);
-            LbSelectedCategories.Margin = new Padding(3, 2, 3, 2);
+            LbSelectedCategories.Location = new Point(17, 605);
             LbSelectedCategories.Name = "LbSelectedCategories";
-            LbSelectedCategories.Size = new Size(400, 79);
+            LbSelectedCategories.Size = new Size(457, 137);
             LbSelectedCategories.TabIndex = 47;
             LbSelectedCategories.SelectedIndexChanged += LbSelectedCategories_SelectedIndexChanged;
             // 
@@ -221,9 +224,9 @@
             // 
             label3.Font = new Font("Cambria", 10.2F, FontStyle.Italic, GraphicsUnit.Point, 162);
             label3.ForeColor = SystemColors.Control;
-            label3.Location = new Point(26, 424);
+            label3.Location = new Point(30, 537);
             label3.Name = "label3";
-            label3.Size = new Size(248, 19);
+            label3.Size = new Size(283, 24);
             label3.TabIndex = 44;
             label3.Text = "Header / Description Search Option";
             label3.TextAlign = ContentAlignment.MiddleCenter;
@@ -231,26 +234,24 @@
             // CbHeaderOrDescription
             // 
             CbHeaderOrDescription.AutoSize = true;
-            CbHeaderOrDescription.Location = new Point(312, 424);
-            CbHeaderOrDescription.Margin = new Padding(3, 2, 3, 2);
-            CbHeaderOrDescription.MinimumSize = new Size(39, 16);
+            CbHeaderOrDescription.Location = new Point(357, 537);
+            CbHeaderOrDescription.MinimumSize = new Size(45, 20);
             CbHeaderOrDescription.Name = "CbHeaderOrDescription";
             CbHeaderOrDescription.OffBackColor = Color.Gray;
             CbHeaderOrDescription.OffToggleColor = Color.Gainsboro;
             CbHeaderOrDescription.OnBackColor = Color.MediumSlateBlue;
             CbHeaderOrDescription.OnToggleColor = Color.WhiteSmoke;
-            CbHeaderOrDescription.Size = new Size(39, 16);
+            CbHeaderOrDescription.Size = new Size(45, 20);
             CbHeaderOrDescription.TabIndex = 43;
             CbHeaderOrDescription.UseVisualStyleBackColor = true;
             CbHeaderOrDescription.CheckedChanged += CbHeaderOrDescription_CheckedChanged;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(26, 398);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
+            textBox1.Location = new Point(30, 504);
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Search";
-            textBox1.Size = new Size(280, 23);
+            textBox1.Size = new Size(319, 26);
             textBox1.TabIndex = 41;
             textBox1.KeyUp += textBox1_KeyUp;
             // 
@@ -282,13 +283,12 @@
             dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
             DGW.DefaultCellStyle = dataGridViewCellStyle6;
-            DGW.Location = new Point(15, 43);
-            DGW.Margin = new Padding(3, 2, 3, 2);
+            DGW.Location = new Point(17, 54);
             DGW.Name = "DGW";
             DGW.ReadOnly = true;
             DGW.RowHeadersVisible = false;
             DGW.RowHeadersWidth = 51;
-            DGW.Size = new Size(400, 141);
+            DGW.Size = new Size(457, 179);
             DGW.TabIndex = 1;
             DGW.TabStop = false;
             DGW.CellClick += DGW_CellClick;
@@ -304,10 +304,9 @@
             BtnDelete.IconColor = Color.White;
             BtnDelete.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnDelete.IconSize = 30;
-            BtnDelete.Location = new Point(18, 188);
-            BtnDelete.Margin = new Padding(3, 2, 3, 2);
+            BtnDelete.Location = new Point(21, 238);
             BtnDelete.Name = "BtnDelete";
-            BtnDelete.Size = new Size(114, 30);
+            BtnDelete.Size = new Size(130, 38);
             BtnDelete.TabIndex = 38;
             BtnDelete.Text = "Delete Link";
             BtnDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -325,10 +324,9 @@
             BtnOpenLink.IconColor = Color.White;
             BtnOpenLink.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnOpenLink.IconSize = 30;
-            BtnOpenLink.Location = new Point(154, 230);
-            BtnOpenLink.Margin = new Padding(3, 2, 3, 2);
+            BtnOpenLink.Location = new Point(176, 291);
             BtnOpenLink.Name = "BtnOpenLink";
-            BtnOpenLink.Size = new Size(120, 30);
+            BtnOpenLink.Size = new Size(137, 38);
             BtnOpenLink.TabIndex = 37;
             BtnOpenLink.Text = "Go Link";
             BtnOpenLink.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -346,10 +344,9 @@
             BtnCategories.IconColor = Color.White;
             BtnCategories.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnCategories.IconSize = 30;
-            BtnCategories.Location = new Point(294, 230);
-            BtnCategories.Margin = new Padding(3, 2, 3, 2);
+            BtnCategories.Location = new Point(336, 291);
             BtnCategories.Name = "BtnCategories";
-            BtnCategories.Size = new Size(117, 30);
+            BtnCategories.Size = new Size(134, 38);
             BtnCategories.TabIndex = 36;
             BtnCategories.Text = "Categories";
             BtnCategories.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -367,10 +364,9 @@
             BtnSettings.IconColor = Color.White;
             BtnSettings.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnSettings.IconSize = 30;
-            BtnSettings.Location = new Point(17, 230);
-            BtnSettings.Margin = new Padding(3, 2, 3, 2);
+            BtnSettings.Location = new Point(19, 291);
             BtnSettings.Name = "BtnSettings";
-            BtnSettings.Size = new Size(114, 30);
+            BtnSettings.Size = new Size(130, 38);
             BtnSettings.TabIndex = 35;
             BtnSettings.Text = "Settings";
             BtnSettings.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -388,10 +384,9 @@
             BtnUpdate.IconColor = Color.White;
             BtnUpdate.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnUpdate.IconSize = 30;
-            BtnUpdate.Location = new Point(294, 188);
-            BtnUpdate.Margin = new Padding(3, 2, 3, 2);
+            BtnUpdate.Location = new Point(336, 238);
             BtnUpdate.Name = "BtnUpdate";
-            BtnUpdate.Size = new Size(116, 30);
+            BtnUpdate.Size = new Size(133, 38);
             BtnUpdate.TabIndex = 39;
             BtnUpdate.Text = "Update Link";
             BtnUpdate.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -409,10 +404,9 @@
             BtnAdd.IconColor = Color.White;
             BtnAdd.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnAdd.IconSize = 30;
-            BtnAdd.Location = new Point(154, 188);
-            BtnAdd.Margin = new Padding(3, 2, 3, 2);
+            BtnAdd.Location = new Point(176, 238);
             BtnAdd.Name = "BtnAdd";
-            BtnAdd.Size = new Size(120, 30);
+            BtnAdd.Size = new Size(137, 38);
             BtnAdd.TabIndex = 34;
             BtnAdd.Text = "Add Link";
             BtnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -421,11 +415,10 @@
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(18, 284);
-            richTextBox1.Margin = new Padding(3, 2, 3, 2);
+            richTextBox1.Location = new Point(21, 360);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(398, 91);
+            richTextBox1.Size = new Size(454, 114);
             richTextBox1.TabIndex = 53;
             richTextBox1.Text = "";
             // 
@@ -439,10 +432,9 @@
             btnInfo.IconColor = Color.White;
             btnInfo.IconFont = FontAwesome.Sharp.IconFont.Auto;
             btnInfo.IconSize = 30;
-            btnInfo.Location = new Point(312, 445);
-            btnInfo.Margin = new Padding(3, 2, 3, 2);
+            btnInfo.Location = new Point(357, 564);
             btnInfo.Name = "btnInfo";
-            btnInfo.Size = new Size(37, 28);
+            btnInfo.Size = new Size(42, 35);
             btnInfo.TabIndex = 36;
             btnInfo.TextImageRelation = TextImageRelation.ImageBeforeText;
             btnInfo.UseVisualStyleBackColor = false;
@@ -451,45 +443,33 @@
             // label2
             // 
             label2.BackColor = Color.FromArgb(131, 255, 247);
-            label2.Location = new Point(17, 274);
+            label2.Location = new Point(19, 347);
             label2.Name = "label2";
-            label2.Size = new Size(394, 1);
+            label2.Size = new Size(450, 1);
             label2.TabIndex = 48;
             // 
             // label4
             // 
             label4.BackColor = Color.FromArgb(131, 255, 247);
-            label4.Location = new Point(947, 31);
+            label4.Location = new Point(1082, 39);
             label4.Name = "label4";
-            label4.Size = new Size(1, 589);
+            label4.Size = new Size(1, 786);
             label4.TabIndex = 51;
             // 
             // label7
             // 
             label7.BackColor = Color.FromArgb(131, 255, 247);
-            label7.Location = new Point(8, 28);
+            label7.Location = new Point(9, 35);
             label7.Name = "label7";
-            label7.Size = new Size(1, 589);
+            label7.Size = new Size(1, 786);
             label7.TabIndex = 0;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 162);
-            label8.ForeColor = SystemColors.ButtonHighlight;
-            label8.Location = new Point(8, 3);
-            label8.Name = "label8";
-            label8.Size = new Size(76, 20);
-            label8.TabIndex = 5;
-            label8.Text = "LinkSaver";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            ClientSize = new Size(429, 630);
+            ClientSize = new Size(490, 841);
             Controls.Add(richTextBox1);
             Controls.Add(button1);
             Controls.Add(label4);
@@ -516,7 +496,6 @@
             Controls.Add(PnlTop);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "LinK Saver";
