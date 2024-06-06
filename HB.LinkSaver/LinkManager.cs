@@ -179,9 +179,24 @@ namespace HB.LinkSaver
 
     public static class CategoryManager
     {
-        private const string CategoriesPath = "categories.json";
-        public static List<string> Categories = new();
-
+         private const string CategoriesPath = "categories.json";
+         private static List<string> _categories = new();
+         public static List<string> Categories
+         {
+             get
+             {
+                 _categories.Sort();
+                 return _categories;
+             }
+             set
+             {
+                 _categories = value;
+        
+                 _categories.Sort();
+        
+                 
+             }
+         }
         public static bool Add(string category)
         {
             if (Categories.Contains(category))
