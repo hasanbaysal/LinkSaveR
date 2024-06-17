@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Media.Media3D;
-
-
-namespace HB.LinkSaver.Pages
+﻿namespace HB.LinkSaver.Pages
 {
     public partial class AddPage : UserControl
     {
@@ -26,15 +14,15 @@ namespace HB.LinkSaver.Pages
         public void AddPage_Load(object sender, EventArgs e)
         {
 
-            
+
             LinkManager.Control();
 
-      
+
             ModeSelect();
 
         }
 
-        public  void ModeSelect()
+        public void ModeSelect()
         {
             SelectedCategories.Clear();
             if (UpdateMode)
@@ -175,7 +163,7 @@ namespace HB.LinkSaver.Pages
 
         private void BtnSave_Click_1(object sender, EventArgs e)
         {
-            var status =  OperationControl();
+            var status = OperationControl();
 
             if (!status)
                 return;
@@ -243,7 +231,7 @@ namespace HB.LinkSaver.Pages
             if (!status)
             {
                 MessageBox.Show(message);
-                
+
             }
             return status;
         }
@@ -255,7 +243,7 @@ namespace HB.LinkSaver.Pages
             if (!status)
                 return;
 
-         var result =    LinkManager.Update(new Link()
+            var result = LinkManager.Update(new Link()
             {
                 Header = TbHeader.Text,
                 Description = RtbDescription.Text,
@@ -284,7 +272,7 @@ namespace HB.LinkSaver.Pages
                 UpdateMode = false;
                 EntityForUpdate = null;
 
-       
+
             }
 
         }

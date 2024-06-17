@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace HB.LinkSaver.Pages
+﻿namespace HB.LinkSaver.Pages
 {
     public partial class Settings : UserControl
     {
@@ -49,9 +39,9 @@ namespace HB.LinkSaver.Pages
 
         private void btnServer_Click(object sender, EventArgs e)
         {
-             var path =  Path.Combine(Directory.GetCurrentDirectory(), "user.txt");
-             var  status = Program.GetUseServerSettingsStatus() ? "server:0" : "server:1";
-             File.WriteAllText(path, status);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "user.txt");
+            var status = Program.GetUseServerSettingsStatus() ? "server:0" : "server:1";
+            File.WriteAllText(path, status);
             MessageBox.Show("server status changed. Application will be restart");
             Application.Restart();
 

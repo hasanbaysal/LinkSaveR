@@ -2,15 +2,7 @@ using HB.LinkSaver.Pages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing.Printing;
-using System.Media;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using System.Security.Cryptography.Pkcs;
-using System.Security.Policy;
-using System.Windows.Forms;
-using System.Windows.Markup;
 
 
 namespace HB.LinkSaver
@@ -84,7 +76,7 @@ namespace HB.LinkSaver
             if (status)
             {
 
-                Program.MainFrm.Width = 1095;
+                Program.MainFrm.Width = 1183;
 
                 Program.MainFrm.DGW.Enabled = false;
 
@@ -92,7 +84,7 @@ namespace HB.LinkSaver
             }
             else
             {
-                Program.MainFrm.Width = 490;
+                Program.MainFrm.Width = 639;
                 Program.MainFrm.PnlPage.Controls.Clear();
                 Program.MainFrm.DGW.Enabled = true;
 
@@ -133,8 +125,8 @@ namespace HB.LinkSaver
         private void BtnAdd_Click(object sender, EventArgs e)
         {
             //listboxt make public
-             AddPageI.LbCategories.Items.Clear();    
-             CategoryManager.GetAll().ForEach(x => AddPageI.LbCategories.Items.Add(x));
+            AddPageI.LbCategories.Items.Clear();
+            CategoryManager.GetAll().ForEach(x => AddPageI.LbCategories.Items.Add(x));
             AddPageI.UpdateMode = false;
             AddPageI.ModeSelect();
             AddSelectedPage(AddPageI);
@@ -169,13 +161,13 @@ namespace HB.LinkSaver
 
 
 
-            AddText(GetWhiteSpaces(36) + "DESCRÝPTÝON", Color.DarkBlue);
+            AddText(GetWhiteSpaces(36) + "DESCRIPTION", Color.DarkBlue);
             var descContext = Environment.NewLine + DGW.Rows[e.RowIndex].Cells[3].Value.ToString() + Environment.NewLine;
             AddText(descContext, Color.Blue);
 
 
 
-            AddText(GetWhiteSpaces(37) + "CATEGORÝES", Color.DarkGreen);
+            AddText(GetWhiteSpaces(37) + "CATEGORIES", Color.DarkGreen);
 
             var temp = Environment.NewLine;
             LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault()!.Categories.ForEach(x => temp += "#" + x + "#   ");
@@ -235,7 +227,7 @@ namespace HB.LinkSaver
             lb.Location = new Point(x, y);
             lb.Size = new Size(410, 22);
             lb.FlatStyle = FlatStyle.Flat;
-            lb.BackColor = Color.FromArgb(2, 117, 216); 
+            lb.BackColor = Color.FromArgb(2, 117, 216);
             lb.Margin = new Padding(3);
             lb.Click += LblClick!;
             lb.MouseLeave += label1_MouseLeave!;

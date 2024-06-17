@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace HB.LinkSaver.Pages
+﻿namespace HB.LinkSaver.Pages
 {
     public partial class CategoryPage : UserControl
     {
@@ -34,13 +22,13 @@ namespace HB.LinkSaver.Pages
             var item = listBox1.SelectedItem.ToString();
             //tbUpdate.Text = item;
             SelectedCategory = item;
-            lblUpdate.Text = "old value : "+item;  
+            lblUpdate.Text = "old value : " + item;
 
         }
 
         private void UpdateBtn_Click(object sender, EventArgs e)
         {
-            if (tbUpdate.Text == string.Empty )
+            if (tbUpdate.Text == string.Empty)
             {
                 MessageBox.Show("category cannot be empty!");
                 return;
@@ -52,7 +40,7 @@ namespace HB.LinkSaver.Pages
                 return;
 
             }
-            var result =   CategoryManager.Update(SelectedCategory, tbUpdate.Text);
+            var result = CategoryManager.Update(SelectedCategory, tbUpdate.Text);
 
             if (result)
             {
@@ -60,10 +48,10 @@ namespace HB.LinkSaver.Pages
                 lblUpdate.Text = string.Empty;
                 SelectedCategory = string.Empty;
                 MessageBox.Show("success!");
-                listBox1.Items.Clear(); 
-                CategoryManager.Categories.ForEach(x=>listBox1.Items.Add(x));
-                Program.MainFrm.LbSelectedCategories.Items.Clear(); 
-                CategoryManager.Categories.ForEach(x=>Program.MainFrm.LbSelectedCategories.Items.Add(x));
+                listBox1.Items.Clear();
+                CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
+                Program.MainFrm.LbSelectedCategories.Items.Clear();
+                CategoryManager.Categories.ForEach(x => Program.MainFrm.LbSelectedCategories.Items.Add(x));
             }
 
 

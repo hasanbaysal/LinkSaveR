@@ -1,11 +1,6 @@
-using HB.LinkSaver.Pages;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualBasic.Logging;
-using System.Runtime.InteropServices.Marshalling;
-using System.Security.Cryptography.Pkcs;
 
 namespace HB.LinkSaver
 {
@@ -26,7 +21,7 @@ namespace HB.LinkSaver
                 if (!mutext.WaitOne(0, false))
                 {
                     //single instance  check!
-                    MessageBox.Show("Instance already running"); 
+                    MessageBox.Show("Instance already running");
 
                     return;
 
@@ -54,7 +49,7 @@ namespace HB.LinkSaver
             }
 
 
-           
+
         }
 
         static void GlobalExceptionHandler(object sender, UnhandledExceptionEventArgs args)
@@ -122,23 +117,23 @@ namespace HB.LinkSaver
 
         }
 
-        public  static bool GetUseServerSettingsStatus()
+        public static bool GetUseServerSettingsStatus()
         {
-            if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(),"user.txt")))
+            if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "user.txt")))
             {
                 using var stream = (File.Create(Path.Combine(Directory.GetCurrentDirectory(), "user.txt")));
 
-                StreamWriter writer = new StreamWriter(stream); 
+                StreamWriter writer = new StreamWriter(stream);
 
                 writer.Write("server:0");
 
                 writer.Close();
-                writer.Dispose();   
+                writer.Dispose();
             }
 
-            var data =  File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "user.txt"));
+            var data = File.ReadAllText(Path.Combine(Directory.GetCurrentDirectory(), "user.txt"));
 
-            return int.Parse(data.Split(":")[1]) >0 ;
+            return int.Parse(data.Split(":")[1]) > 0;
 
 
         }

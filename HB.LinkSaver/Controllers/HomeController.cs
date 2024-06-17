@@ -1,10 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace HB.LinkSaver.Controllers
 {
@@ -36,7 +30,7 @@ namespace HB.LinkSaver.Controllers
                 Header = dto.Header
             };
 
-            LinkManager.Add(link,true);
+            LinkManager.Add(link, true);
             Program.MainFrm.LoadDgw();
             return Ok();
         }

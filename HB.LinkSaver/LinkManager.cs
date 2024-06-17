@@ -1,16 +1,4 @@
-﻿using FontAwesome.Sharp;
-
-using System;
-using System.Collections.Generic;
-using System.IO.Packaging;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Media.Animation;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+﻿using System.Text.Json;
 
 namespace HB.LinkSaver
 {
@@ -34,7 +22,7 @@ namespace HB.LinkSaver
             };
             if (!File.Exists(LinksPath))
             {
-                using var fs = File.Create(Path.Combine( Directory.GetCurrentDirectory() , LinksPath));
+                using var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), LinksPath));
                 StreamWriter sw = new StreamWriter(fs);
                 var list = new List<Link>();
                 list.Add(exampeLink);
@@ -44,7 +32,7 @@ namespace HB.LinkSaver
             }
             if (!File.Exists(CategoriesPath))
             {
-                using var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(),CategoriesPath));
+                using var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), CategoriesPath));
                 StreamWriter sw = new StreamWriter(fs);
                 sw.Write(JsonSerializer.Serialize(exampleCategories));
                 sw.Close();
@@ -64,14 +52,14 @@ namespace HB.LinkSaver
         public static bool Add(Link link, bool sendFromApi = false)
         {
             link.Id = Guid.NewGuid().ToString();
-            var result = LinkValidation(link,sendFromApi);
+            var result = LinkValidation(link, sendFromApi);
 
 
             if (result)
             {
 
-            Links.Add(link);
-            WriteFile(Links);
+                Links.Add(link);
+                WriteFile(Links);
 
             }
             return result;
@@ -86,7 +74,7 @@ namespace HB.LinkSaver
 
                 Links.Remove(Links.Where(x => x.Id == id).FirstOrDefault()!);
                 WriteFile(Links);
-                
+
             }
             catch (Exception e)
             {
@@ -116,8 +104,8 @@ namespace HB.LinkSaver
 
 
         }
-        public static void UpdateAll() =>  WriteFile(Links);
-          
+        public static void UpdateAll() => WriteFile(Links);
+
         public static List<Link> GetLinksByCategories(List<string> categories)
         {
 
@@ -128,7 +116,7 @@ namespace HB.LinkSaver
                 var status = true;
                 foreach (var item in categories)
                 {
-                   
+
 
                     status = status && link.Categories.Contains(item);
                     if (!status) break;
@@ -139,7 +127,7 @@ namespace HB.LinkSaver
                 status = true;
             }
 
-            return linksResult.Count !=0 ? linksResult.DistinctBy(x => x.Id).ToList(): linksResult;
+            return linksResult.Count != 0 ? linksResult.DistinctBy(x => x.Id).ToList() : linksResult;
 
         }
         private static bool LinkValidation(Link link, bool sendFromApi = false)
@@ -152,20 +140,20 @@ namespace HB.LinkSaver
 
             var message = string.Empty;
             if (!con1)
-                message +=  "This link is already registered!"+ Environment.NewLine;
+                message += "This link is already registered!" + Environment.NewLine;
             //if (!con2)
             //    message +=  "This header is already registered!" +Environment.NewLine;
             if (!con3)
-                message += "record must contain at least one category" ;
+                message += "record must contain at least one category";
 
             if (!result)
             {
                 if (sendFromApi)
                 {
-                Program.MainFrm.BringToTop();
+                    Program.MainFrm.BringToTop();
 
                 }
-                MessageBox.Show(message, "Warning",MessageBoxButtons.OK,MessageBoxIcon.Warning);
+                MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
             }
             return result;
@@ -179,24 +167,24 @@ namespace HB.LinkSaver
 
     public static class CategoryManager
     {
-         private const string CategoriesPath = "categories.json";
-         private static List<string> _categories = new();
-         public static List<string> Categories
-         {
-             get
-             {
-                 _categories.Sort();
-                 return _categories;
-             }
-             set
-             {
-                 _categories = value;
-        
-                 _categories.Sort();
-        
-                 
-             }
-         }
+        private const string CategoriesPath = "categories.json";
+        private static List<string> _categories = new();
+        public static List<string> Categories
+        {
+            get
+            {
+                _categories.Sort();
+                return _categories;
+            }
+            set
+            {
+                _categories = value;
+
+                _categories.Sort();
+
+
+            }
+        }
         public static bool Add(string category)
         {
             if (Categories.Contains(category))
@@ -210,7 +198,7 @@ namespace HB.LinkSaver
         }
         public static bool Delete(string category)
         {
-            var result =  LinkManager.Links.Where(x=>x.Categories.Contains(category)).Any();
+            var result = LinkManager.Links.Where(x => x.Categories.Contains(category)).Any();
             if (result) return false;
 
 
@@ -226,7 +214,7 @@ namespace HB.LinkSaver
         public static bool Update(string OldCategory, string newCategory)
         {
 
-            if ( CategoryManager.Categories.Contains(newCategory))
+            if (CategoryManager.Categories.Contains(newCategory))
             {
                 MessageBox.Show(newCategory + "  alerdy existy");
                 return false;
