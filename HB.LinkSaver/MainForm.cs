@@ -2,6 +2,7 @@ using HB.LinkSaver.Pages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
@@ -47,7 +48,7 @@ namespace HB.LinkSaver
         public void LoadDgw()
         {
 
-
+            
 
             DGW.DataSource = null;
             DGW.Update();
@@ -72,11 +73,12 @@ namespace HB.LinkSaver
         static bool status = false;
         public static void TogleSize()
         {
+            
             status = !status;
             if (status)
             {
 
-                Program.MainFrm.Width = 1350;
+                Program.MainFrm.Width = 1720;
 
                 Program.MainFrm.DGW.Enabled = false;
 
@@ -84,12 +86,14 @@ namespace HB.LinkSaver
             }
             else
             {
-                Program.MainFrm.Width = 639;
+                Program.MainFrm.Width = 1142;
                 Program.MainFrm.PnlPage.Controls.Clear();
                 Program.MainFrm.DGW.Enabled = true;
 
 
             }
+
+            
 
         }
         private void Form1_Load(object sender, EventArgs e)
@@ -131,12 +135,15 @@ namespace HB.LinkSaver
             AddPageI.ModeSelect();
             AddSelectedPage(AddPageI);
 
+
+
         }
 
         private void AddSelectedPage(System.Windows.Forms.UserControl control)
         {
             TogleSize();
             PnlPage.Controls.Clear();
+            control.Location = new Point(0, 0);
             PnlPage.Controls.Add(control);
             PnlPage.Refresh();
 
@@ -312,6 +319,10 @@ namespace HB.LinkSaver
 
         private void BtnOpenLink_Click(object sender, EventArgs e)
         {
+
+
+            //richTextBox1.Text = Program.MainFrm.Width.ToString();
+            //return;
             if (CurrentLink == string.Empty) return;
             OpenLinkOnBrowser(CurrentLink);
         }
