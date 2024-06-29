@@ -9,7 +9,12 @@
 
 	  <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
 	  <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+	  <ApplicationIcon>strategy_finance_document_share_management_business_icon_263041.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="strategy_finance_document_share_management_business_icon_263041.ico" />
+  </ItemGroup>
 	<ItemGroup>
 
 		<PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />

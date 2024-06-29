@@ -76,7 +76,7 @@ namespace HB.LinkSaver
             if (status)
             {
 
-                Program.MainFrm.Width = 1183;
+                Program.MainFrm.Width = 1350;
 
                 Program.MainFrm.DGW.Enabled = false;
 
