@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using HB.LinkSaver.Pages;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
 
 namespace HB.LinkSaver
@@ -7,6 +8,8 @@ namespace HB.LinkSaver
     {
         public const string LinksPath = "links.json";
         public const string CategoriesPath = "categories.json";
+        public const string MailSettingsPath = "MailSettings.json";
+
         public static List<Link> Links = new();
         
         public static void Control()
@@ -30,6 +33,15 @@ namespace HB.LinkSaver
                 var list = new List<Link>();
                 list.Add(exampeLink);
                 sw.Write(JsonSerializer.Serialize(list,options));
+                sw.Close();
+
+            }
+            if (!File.Exists(MailSettingsPath))
+            {
+                using var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), MailSettingsPath));
+                StreamWriter sw = new StreamWriter(fs);
+                var data = new MailSettingsOption() { AppPassword = "none",MailAddress="none",PortNumber = 0,StmpServer ="none",RecipientMailAddress = "none"  };
+                sw.Write(JsonSerializer.Serialize(data,options));
                 sw.Close();
 
             }

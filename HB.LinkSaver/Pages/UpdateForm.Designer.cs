@@ -47,7 +47,7 @@
             button1.Location = new Point(256, 552);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
-            button1.TabIndex = 15;
+            button1.TabIndex = 3;
             button1.Text = "Update";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
@@ -57,7 +57,7 @@
             tbDescription.Location = new Point(156, 452);
             tbDescription.Name = "tbDescription";
             tbDescription.Size = new Size(276, 89);
-            tbDescription.TabIndex = 14;
+            tbDescription.TabIndex = 2;
             tbDescription.Text = "";
             // 
             // tbLink
@@ -65,14 +65,14 @@
             tbLink.Location = new Point(156, 405);
             tbLink.Name = "tbLink";
             tbLink.Size = new Size(276, 23);
-            tbLink.TabIndex = 12;
+            tbLink.TabIndex = 1;
             // 
             // tbHeader
             // 
             tbHeader.Location = new Point(156, 364);
             tbHeader.Name = "tbHeader";
             tbHeader.Size = new Size(276, 23);
-            tbHeader.TabIndex = 13;
+            tbHeader.TabIndex = 0;
             // 
             // label4
             // 

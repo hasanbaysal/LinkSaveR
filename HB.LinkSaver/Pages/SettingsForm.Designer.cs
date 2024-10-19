@@ -40,8 +40,10 @@
             label1 = new Label();
             backupBtn = new Button();
             groupBox4 = new GroupBox();
+            button3 = new Button();
             button1 = new Button();
             label4 = new Label();
+            lblInfo = new Label();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -53,9 +55,9 @@
             groupBox3.Controls.Add(button2);
             groupBox3.Controls.Add(label3);
             groupBox3.ForeColor = SystemColors.ButtonHighlight;
-            groupBox3.Location = new Point(55, 408);
+            groupBox3.Location = new Point(413, 213);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(334, 124);
+            groupBox3.Size = new Size(340, 219);
             groupBox3.TabIndex = 6;
             groupBox3.TabStop = false;
             groupBox3.Text = "Load Back Up";
@@ -63,9 +65,9 @@
             // button2
             // 
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(17, 43);
+            button2.Location = new Point(17, 22);
             button2.Name = "button2";
-            button2.Size = new Size(102, 47);
+            button2.Size = new Size(102, 68);
             button2.TabIndex = 0;
             button2.Text = "import backup folder";
             button2.UseVisualStyleBackColor = true;
@@ -86,7 +88,7 @@
             groupBox2.Controls.Add(lblStatus);
             groupBox2.Controls.Add(label2);
             groupBox2.ForeColor = SystemColors.ButtonHighlight;
-            groupBox2.Location = new Point(55, 223);
+            groupBox2.Location = new Point(413, 28);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(340, 179);
             groupBox2.TabIndex = 5;
@@ -97,9 +99,9 @@
             // 
             btnServer.FlatStyle = FlatStyle.Flat;
             btnServer.ForeColor = SystemColors.ButtonFace;
-            btnServer.Location = new Point(17, 64);
+            btnServer.Location = new Point(17, 55);
             btnServer.Name = "btnServer";
-            btnServer.Size = new Size(102, 73);
+            btnServer.Size = new Size(102, 68);
             btnServer.TabIndex = 3;
             btnServer.Text = "button2";
             btnServer.UseVisualStyleBackColor = true;
@@ -130,18 +132,18 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(backupBtn);
             groupBox1.ForeColor = SystemColors.ButtonFace;
-            groupBox1.Location = new Point(55, 12);
+            groupBox1.Location = new Point(55, 28);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(340, 195);
+            groupBox1.Size = new Size(340, 179);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Back up";
             // 
             // label1
             // 
-            label1.Location = new Point(177, 29);
+            label1.Location = new Point(159, 29);
             label1.Name = "label1";
-            label1.Size = new Size(157, 142);
+            label1.Size = new Size(175, 142);
             label1.TabIndex = 1;
             label1.Text = "Since the application does not use a remote database, local files can be lost and corrupted. you can back up your files and return to any moment if you want.";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -152,7 +154,7 @@
             backupBtn.ForeColor = SystemColors.ButtonFace;
             backupBtn.Location = new Point(17, 55);
             backupBtn.Name = "backupBtn";
-            backupBtn.Size = new Size(136, 68);
+            backupBtn.Size = new Size(108, 68);
             backupBtn.TabIndex = 0;
             backupBtn.Text = "backup files";
             backupBtn.UseVisualStyleBackColor = true;
@@ -160,42 +162,66 @@
             // 
             // groupBox4
             // 
+            groupBox4.Controls.Add(button3);
             groupBox4.Controls.Add(button1);
+            groupBox4.Controls.Add(lblInfo);
             groupBox4.Controls.Add(label4);
             groupBox4.ForeColor = SystemColors.ButtonHighlight;
-            groupBox4.Location = new Point(55, 551);
+            groupBox4.Location = new Point(61, 213);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(334, 168);
+            groupBox4.Size = new Size(334, 228);
             groupBox4.TabIndex = 6;
             groupBox4.TabStop = false;
             groupBox4.Text = "Mail Backup";
             // 
+            // button3
+            // 
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.ForeColor = Color.FromArgb(128, 255, 128);
+            button3.Location = new Point(55, 127);
+            button3.Name = "button3";
+            button3.Size = new Size(236, 51);
+            button3.TabIndex = 0;
+            button3.Text = "Mail Config Settings";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // button1
             // 
             button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(17, 22);
+            button1.Location = new Point(17, 23);
             button1.Name = "button1";
             button1.Size = new Size(102, 67);
             button1.TabIndex = 0;
             button1.Text = "Send Backup To Mail";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button2_Click;
+            button1.Click += button1_Click;
             // 
             // label4
             // 
-            label4.Location = new Point(191, 30);
+            label4.Location = new Point(177, 30);
             label4.Name = "label4";
             label4.Size = new Size(127, 50);
             label4.TabIndex = 1;
             label4.Text = "send your backups to your email";
             label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblInfo
+            // 
+            lblInfo.ForeColor = Color.FromArgb(128, 255, 128);
+            lblInfo.Location = new Point(111, 194);
+            lblInfo.Name = "lblInfo";
+            lblInfo.Size = new Size(127, 22);
+            lblInfo.TabIndex = 1;
+            lblInfo.Text = "Sending";
+            lblInfo.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            ClientSize = new Size(451, 731);
+            ClientSize = new Size(765, 444);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
@@ -227,5 +253,7 @@
         private GroupBox groupBox4;
         private Button button1;
         private Label label4;
+        private Button button3;
+        private Label lblInfo;
     }
 }

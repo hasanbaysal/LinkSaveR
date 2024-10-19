@@ -5,7 +5,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
@@ -21,6 +24,7 @@ namespace HB.LinkSaver.Pages
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            lblInfo.Visible = false;
             var txt = Program.GetUseServerSettingsStatus() ? "server active" : "server deactivated ";
 
             lblStatus.ForeColor = Program.GetUseServerSettingsStatus() ? Color.Green : Color.Red;
@@ -70,20 +74,23 @@ namespace HB.LinkSaver.Pages
                 if (fd.ShowDialog() == DialogResult.OK)
                 {
                     string[] selectedFiles = fd.FileNames;
-                    if(selectedFiles.Length != 2) { MessageBox.Show("select link and category file together"); return; }
+                    if (selectedFiles.Length != 2) { MessageBox.Show("select link and category file together"); return; }
                     string selectedLinkJson = null;
                     string selectedCategoryJson = null;
 
                     var controllink = false;
                     var controlCategory = false;
 
-                    foreach ( var file in selectedFiles) { 
-                    
-                        if(Path.GetFileName(file).ToLower() == LinkManager.LinksPath.ToLower()) { 
-                            controllink = true; 
+                    foreach (var file in selectedFiles)
+                    {
+
+                        if (Path.GetFileName(file).ToLower() == LinkManager.LinksPath.ToLower())
+                        {
+                            controllink = true;
                             selectedLinkJson = file;
                         }
-                        if(Path.GetFileName(file).ToLower() == LinkManager.CategoriesPath.ToLower()) { 
+                        if (Path.GetFileName(file).ToLower() == LinkManager.CategoriesPath.ToLower())
+                        {
                             controlCategory = true;
                             selectedCategoryJson = file;
                         }
@@ -95,10 +102,101 @@ namespace HB.LinkSaver.Pages
                         File.Copy(selectedLinkJson!, linksPath, true); // true, üzerine yazmayı sağlar
                         File.Copy(selectedCategoryJson!, CategoriesPath, true);
                         MessageBox.Show("back-up files uploaded. the application will be restart");
-                        Application.Restart();  
-                    }    
+                        Application.Restart();
+                    }
 
 
+                }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MailSettings mailSettings = new MailSettings();
+            mailSettings.ShowDialog();
+
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            var mailSettings = new MailSettingsOption();
+
+            mailSettings = JsonSerializer.Deserialize<MailSettingsOption>(File.ReadAllText(Path.Combine(Environment.CurrentDirectory, LinkManager.MailSettingsPath)));
+
+
+            if (mailSettings.MailAddress.Contains("none") ||
+                mailSettings.AppPassword.Contains("none") ||
+                mailSettings.RecipientMailAddress.Contains("none") ||
+                mailSettings.PortNumber.ToString() == "0" ||
+                mailSettings.StmpServer.Contains("none"))
+            {
+                MessageBox.Show("please edit your mail configurations");
+            }
+
+
+            SmtpClient sc = new SmtpClient(mailSettings.StmpServer, mailSettings.PortNumber);
+            sc.EnableSsl = true;
+            sc.Credentials = new NetworkCredential(mailSettings.MailAddress, mailSettings.AppPassword);
+            sc.DeliveryMethod = SmtpDeliveryMethod.Network;
+            sc.UseDefaultCredentials = false;
+            MailMessage mail = new MailMessage();
+            mail.Priority = MailPriority.High;
+            mail.From = new MailAddress(mailSettings.MailAddress, "LinkSaver Backup System");
+            mail.To.Add(mailSettings.RecipientMailAddress);
+            mail.Subject = "LinkSaver Backup System";
+            mail.IsBodyHtml = true;
+            mail.Body = DateTime.Now.ToString() + "Back UP DATE";
+
+            using (OpenFileDialog fd = new OpenFileDialog())
+            {
+                try
+                {
+                    fd.Filter = "JSON Files (*.json)|*.json";
+                    fd.Multiselect = true;
+
+                    if (fd.ShowDialog() == DialogResult.OK)
+                    {
+
+                        string[] selectedFiles = fd.FileNames;
+                        if (selectedFiles.Length != 2) { MessageBox.Show("select link and category file together"); return; }
+                        string selectedLinkJson = null;
+                        string selectedCategoryJson = null;
+
+                        var controllink = false;
+                        var controlCategory = false;
+
+                        foreach (var file in selectedFiles)
+                        {
+
+                            if (Path.GetFileName(file).ToLower() == LinkManager.LinksPath.ToLower())
+                            {
+                                controllink = true;
+                                selectedLinkJson = file;
+                            }
+                            if (Path.GetFileName(file).ToLower() == LinkManager.CategoriesPath.ToLower())
+                            {
+                                controlCategory = true;
+                                selectedCategoryJson = file;
+                            }
+
+                        }
+
+                        if (!(controllink && controlCategory)) { MessageBox.Show("please select links.json and categories.json backup files "); return; }
+
+                        mail.Attachments.Add(new Attachment(selectedCategoryJson!));
+                        mail.Attachments.Add(new Attachment(selectedLinkJson!));
+
+                        lblInfo.Visible = true;
+                        await sc.SendMailAsync(mail);
+                        lblInfo.Visible = false;
+                        MessageBox.Show("success!");
+
+                    }
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("please check your mail configurations or smtp server");
                 }
             }
         }

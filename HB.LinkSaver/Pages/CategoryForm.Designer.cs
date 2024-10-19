@@ -52,7 +52,7 @@
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 2, 3, 2);
             groupBox2.Size = new Size(299, 99);
-            groupBox2.TabIndex = 12;
+            groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Update Section";
             // 
@@ -62,7 +62,7 @@
             lblUpdate.Location = new Point(24, 21);
             lblUpdate.Name = "lblUpdate";
             lblUpdate.Size = new Size(0, 15);
-            lblUpdate.TabIndex = 3;
+            lblUpdate.TabIndex = 0;
             // 
             // UpdateBtn
             // 
@@ -96,7 +96,7 @@
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 2, 3, 2);
             groupBox1.Size = new Size(299, 105);
-            groupBox1.TabIndex = 11;
+            groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Add Section";
             // 
@@ -107,7 +107,7 @@
             tbCategoryAdd.Name = "tbCategoryAdd";
             tbCategoryAdd.PlaceholderText = "Add a new category";
             tbCategoryAdd.Size = new Size(259, 23);
-            tbCategoryAdd.TabIndex = 3;
+            tbCategoryAdd.TabIndex = 0;
             // 
             // button1
             // 
@@ -117,7 +117,7 @@
             button1.Margin = new Padding(3, 2, 3, 2);
             button1.Name = "button1";
             button1.Size = new Size(82, 22);
-            button1.TabIndex = 4;
+            button1.TabIndex = 1;
             button1.Text = "Add";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
@@ -130,7 +130,7 @@
             button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
             button2.Size = new Size(238, 32);
-            button2.TabIndex = 10;
+            button2.TabIndex = 2;
             button2.Text = "Delete Selected Category";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;

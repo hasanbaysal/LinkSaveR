@@ -73,7 +73,7 @@
             tbHeader.Location = new Point(146, 364);
             tbHeader.Name = "tbHeader";
             tbHeader.Size = new Size(276, 23);
-            tbHeader.TabIndex = 3;
+            tbHeader.TabIndex = 0;
             // 
             // label2
             // 
@@ -100,7 +100,7 @@
             tbLink.Location = new Point(146, 405);
             tbLink.Name = "tbLink";
             tbLink.Size = new Size(276, 23);
-            tbLink.TabIndex = 3;
+            tbLink.TabIndex = 1;
             // 
             // label4
             // 
@@ -117,7 +117,7 @@
             tbDescription.Location = new Point(146, 452);
             tbDescription.Name = "tbDescription";
             tbDescription.Size = new Size(276, 89);
-            tbDescription.TabIndex = 4;
+            tbDescription.TabIndex = 2;
             tbDescription.Text = "";
             // 
             // button1
@@ -127,7 +127,7 @@
             button1.Location = new Point(246, 552);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
-            button1.TabIndex = 5;
+            button1.TabIndex = 3;
             button1.Text = "Save";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
