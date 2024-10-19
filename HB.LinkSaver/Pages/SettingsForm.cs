@@ -145,7 +145,7 @@ namespace HB.LinkSaver.Pages
             mail.To.Add(mailSettings.RecipientMailAddress);
             mail.Subject = "LinkSaver Backup System";
             mail.IsBodyHtml = true;
-            mail.Body = DateTime.Now.ToString() + "Back UP DATE";
+            mail.Body = "Backup date : "+DateTime.Now.ToString() ;
 
             using (OpenFileDialog fd = new OpenFileDialog())
             {

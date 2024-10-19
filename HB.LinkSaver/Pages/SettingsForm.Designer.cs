@@ -42,8 +42,8 @@
             groupBox4 = new GroupBox();
             button3 = new Button();
             button1 = new Button();
-            label4 = new Label();
             lblInfo = new Label();
+            label4 = new Label();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -57,7 +57,7 @@
             groupBox3.ForeColor = SystemColors.ButtonHighlight;
             groupBox3.Location = new Point(413, 213);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(340, 219);
+            groupBox3.Size = new Size(340, 228);
             groupBox3.TabIndex = 6;
             groupBox3.TabStop = false;
             groupBox3.Text = "Load Back Up";
@@ -65,7 +65,7 @@
             // button2
             // 
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(17, 22);
+            button2.Location = new Point(17, 43);
             button2.Name = "button2";
             button2.Size = new Size(102, 68);
             button2.TabIndex = 0;
@@ -75,7 +75,7 @@
             // 
             // label3
             // 
-            label3.Location = new Point(147, 22);
+            label3.Location = new Point(140, 23);
             label3.Name = "label3";
             label3.Size = new Size(171, 88);
             label3.TabIndex = 1;
@@ -197,15 +197,6 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // label4
-            // 
-            label4.Location = new Point(177, 30);
-            label4.Name = "label4";
-            label4.Size = new Size(127, 50);
-            label4.TabIndex = 1;
-            label4.Text = "send your backups to your email";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // lblInfo
             // 
             lblInfo.ForeColor = Color.FromArgb(128, 255, 128);
@@ -216,12 +207,21 @@
             lblInfo.Text = "Sending";
             lblInfo.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // label4
+            // 
+            label4.Location = new Point(177, 30);
+            label4.Name = "label4";
+            label4.Size = new Size(127, 50);
+            label4.TabIndex = 1;
+            label4.Text = "send your backups to your email";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            ClientSize = new Size(765, 444);
+            ClientSize = new Size(793, 481);
             Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
