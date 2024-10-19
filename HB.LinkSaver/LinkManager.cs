@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using HB.LinkSaver.Pages;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
 
 namespace HB.LinkSaver
 {
@@ -6,9 +8,13 @@ namespace HB.LinkSaver
     {
         public const string LinksPath = "links.json";
         public const string CategoriesPath = "categories.json";
+        public const string MailSettingsPath = "MailSettings.json";
+
         public static List<Link> Links = new();
+        
         public static void Control()
         {
+            var options = new JsonSerializerOptions { WriteIndented = true };
             var exampleCategories = new List<string>();
             exampleCategories.Add("categoryTest");
             var exampeLink = new Link()
@@ -26,7 +32,16 @@ namespace HB.LinkSaver
                 StreamWriter sw = new StreamWriter(fs);
                 var list = new List<Link>();
                 list.Add(exampeLink);
-                sw.Write(JsonSerializer.Serialize(list));
+                sw.Write(JsonSerializer.Serialize(list,options));
+                sw.Close();
+
+            }
+            if (!File.Exists(MailSettingsPath))
+            {
+                using var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), MailSettingsPath));
+                StreamWriter sw = new StreamWriter(fs);
+                var data = new MailSettingsOption() { AppPassword = "none",MailAddress="none",PortNumber = 0,StmpServer ="none",RecipientMailAddress = "none"  };
+                sw.Write(JsonSerializer.Serialize(data,options));
                 sw.Close();
 
             }
@@ -34,7 +49,7 @@ namespace HB.LinkSaver
             {
                 using var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), CategoriesPath));
                 StreamWriter sw = new StreamWriter(fs);
-                sw.Write(JsonSerializer.Serialize(exampleCategories));
+                sw.Write(JsonSerializer.Serialize(exampleCategories, options));
                 sw.Close();
 
             }
@@ -88,6 +103,7 @@ namespace HB.LinkSaver
             var old = Links.Where(x => x.Id == link.Id).FirstOrDefault()!;
             Links.Remove(old);
 
+            link.Id = Guid.NewGuid().ToString();
             bool result = LinkValidation(link);
 
             if (!result)
@@ -150,7 +166,9 @@ namespace HB.LinkSaver
             {
                 if (sendFromApi)
                 {
-                    Program.MainFrm.BringToTop();
+
+                    // TODO : Gereksiz Gibi Gibi
+                    //Program.MainFrm.BringToTop();
 
                 }
                 MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -161,7 +179,10 @@ namespace HB.LinkSaver
         private static List<Link> ReadFile()
          => JsonSerializer.Deserialize<List<Link>>(File.ReadAllText(LinksPath))!;
         private static void WriteFile(List<Link> data)
-        => File.WriteAllText(LinksPath, JsonSerializer.Serialize(data));
+        {
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            File.WriteAllText(LinksPath, JsonSerializer.Serialize(data,options)); 
+        }
 
     }
 
@@ -248,8 +269,12 @@ namespace HB.LinkSaver
         private static List<string> ReadFile()
          => JsonSerializer.Deserialize<List<string>>(File.ReadAllText(CategoriesPath))!;
         private static void WriteFile(List<string> data)
-        => File.WriteAllText(CategoriesPath, JsonSerializer.Serialize(data));
+        {
 
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            File.WriteAllText(CategoriesPath, JsonSerializer.Serialize(data, options: options));
+
+        }
     }
 
 }

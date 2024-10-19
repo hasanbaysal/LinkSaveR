@@ -1,3 +1,4 @@
+using HB.LinkSaver.Pages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,6 +46,7 @@ namespace HB.LinkSaver
                 }
 
                 Application.Run(MainFrm);
+                //Application.Run(new AddForm());
 
             }
 
