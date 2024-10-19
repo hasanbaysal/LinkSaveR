@@ -1,9 +1,12 @@
+using FontAwesome.Sharp;
+using HB.LinkSaver.Components;
 using HB.LinkSaver.Pages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 
 namespace HB.LinkSaver
@@ -11,11 +14,7 @@ namespace HB.LinkSaver
     public partial class MainForm : Form
     {
 
-        public static AddPage AddPageI = new();
-        public static CategoryPage CategoryPage = new();
-        public static Settings SettingsPage = new();
-
-
+   
         public static List<string> SelectedCategories = new List<string>();
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
@@ -24,6 +23,7 @@ namespace HB.LinkSaver
         public MainForm()
         {
             InitializeComponent();
+            InitializeToolTip();
             CheckForIllegalCrossThreadCalls = false;
         }
 
@@ -44,17 +44,55 @@ namespace HB.LinkSaver
         }
         #endregion
 
+        #region tooltip
 
+        private void InitializeToolTip()
+        {
+            // ToolTip bileþeni oluþtur
+            var tt = new ToolTip();
+
+            // ToolTip'in özelliklerini ayarla (isteðe baðlý)
+
+            tt.AutoPopDelay = 5000;
+            tt.InitialDelay = 500;
+            tt.ReshowDelay = 100;
+            tt.ShowAlways = true;
+
+
+            tt.SetToolTip(this.BtnOpenLink, "Open With Browser");
+            tt.SetToolTip(this.BtnDelete, "Delete Selected Link");
+            tt.SetToolTip(this.BtnAdd, "Add a Link");
+            tt.SetToolTip(this.BtnUpdate, "Update the Link");
+            tt.SetToolTip(this.BtnSettings, "Settings");
+            tt.SetToolTip(this.BtnCategories, "Category Add or Delete");
+
+        }
+
+
+        #endregion
+
+        #region Datagriv View Actions
         public void LoadDgw()
         {
 
-            
+
+
+
 
             DGW.DataSource = null;
             DGW.Update();
             DGW.Refresh();
 
-            DGW.DataSource = LinkManager.GetAll();
+            var data = LinkManager.GetAll().Select(x => new
+            {
+                Id = x.Id,
+                Header = x.Header,
+                Context = x.Content,
+                Description = x.Description,
+                Categories = string.Join("-", x.Categories.Select(s => $" | {s} | "))
+            }).ToList();
+
+            DGW.DataSource = data;
 
             DGW.Columns[0].Visible = false;
             DGW.Columns[2].Visible = false;
@@ -65,174 +103,79 @@ namespace HB.LinkSaver
                 column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
 
+            DGW.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            DGW.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
             DGW.Update();
             DGW.Refresh();
         }
-
-
-        static bool status = false;
-        public static void TogleSize()
-        {
-            
-            status = !status;
-            if (status)
-            {
-
-                Program.MainFrm.Width = 1720;
-
-                Program.MainFrm.DGW.Enabled = false;
-
-
-            }
-            else
-            {
-                Program.MainFrm.Width = 1142;
-                Program.MainFrm.PnlPage.Controls.Clear();
-                Program.MainFrm.DGW.Enabled = true;
-
-
-            }
-
-            
-
-        }
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-            LinkManager.Control();
-
-            LoadDgw();
-            LoadCategories();
-
-
-        }
-        public static void LoadCategories()
-        {
-            Program.MainFrm.LbSelectedCategories.Items.Clear();
-
-            CategoryManager.Categories.ForEach(x =>
-            {
-                Program.MainFrm.LbSelectedCategories.Items.Add(x);
-            });
-        }
-
-        private void BtnClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void BtnMin_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void BtnAdd_Click(object sender, EventArgs e)
-        {
-            //listboxt make public
-            AddPageI.LbCategories.Items.Clear();
-            CategoryManager.GetAll().ForEach(x => AddPageI.LbCategories.Items.Add(x));
-            AddPageI.UpdateMode = false;
-            AddPageI.ModeSelect();
-            AddSelectedPage(AddPageI);
-
-
-
-        }
-
-        private void AddSelectedPage(System.Windows.Forms.UserControl control)
-        {
-            TogleSize();
-            PnlPage.Controls.Clear();
-            control.Location = new Point(0, 0);
-            PnlPage.Controls.Add(control);
-            PnlPage.Refresh();
-
-        }
-
         private void DGW_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+
+            if (e.ColumnIndex == -1) return;
+            if (e.RowIndex == -1) return;
 
 
             CurrentLinkId = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
             CurrentLink = DGW.Rows[e.RowIndex].Cells[2].Value.ToString()!;
-
-            richTextBox1.Clear();
-
-
-
-
-            AddText(GetWhiteSpaces(41) + "HEADER", Color.DarkRed);
-            var headerContext = Environment.NewLine + DGW.Rows[e.RowIndex].Cells[1].Value.ToString() + Environment.NewLine;
-            AddText(headerContext, Color.Red); var header = "HEADER";
-
-
-
-
-            AddText(GetWhiteSpaces(36) + "DESCRIPTION", Color.DarkBlue);
-            var descContext = Environment.NewLine + DGW.Rows[e.RowIndex].Cells[3].Value.ToString() + Environment.NewLine;
-            AddText(descContext, Color.Blue);
-
-
-
-            AddText(GetWhiteSpaces(37) + "CATEGORIES", Color.DarkGreen);
-
-            var temp = Environment.NewLine;
-            LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault()!.Categories.ForEach(x => temp += "#" + x + "#   ");
-            temp += Environment.NewLine;
-            AddText(temp, Color.DarkOliveGreen);
-
-
+            richTextBox1.Text = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
 
         }
 
-        private string GetWhiteSpaces(int count)
+        #endregion
+
+        #region FormLoad Actions
+        private void Form1_Load(object sender, EventArgs e)
         {
-            var temp = string.Empty;
-            Enumerable.Range(0, count).ToList().ForEach(x => temp += " ");
-            return temp;
+            DGW.CellPainting += DGW_CellPainting;
+            richTextBox1.SelectionIndent = 10;
+            richTextBox1.SelectionRightIndent = 10;
+
+            LinkManager.Control();
+            LoadDgw();
+            LoadCategories();
         }
-        public void AddText(string text, Color color)
+
+        public  void LoadCategories()
         {
-            richTextBox1.SelectionColor = color;
-            richTextBox1.AppendText(text);
-        }
+            // TODO : Burayý Düzenle
+
+            Program.MainFrm.categoryControlLb1.ClearItems();
+
+            CategoryManager.Categories.ForEach(x =>
+            {
+                Program.MainFrm.categoryControlLb1.AddItem(x);
+            });
+        } 
+        #endregion
+
+        #region CategorySelect-Action
         private void LbSelectedCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListBox lb = sender as ListBox;
 
-            if (lb!.SelectedIndex == -1) return;
+            Button btn = sender as Button;
 
-
-            if (totalCount == 8)
-            {
-                MessageBox.Show("The maximum number of categories is set to 8, you cannot add more. To add a category, first remove an existing category.");
-                return;
-
-            }
-
-            var item = lb.SelectedItem.ToString();
+            var item = btn.Text;
+            MessageBox.Show(item);
             if (!SelectedCategories.Contains(item)) { AddCategoryLabel(item); SelectedCategories.Add(item); }
 
             SearchByFilters();
 
         }
 
-        int x = 0;
-        int y = 0;
-        int count = 0;
-        int totalCount = 0;
+
         public void AddCategoryLabel(string str)
         {
 
-            System.Windows.Forms.Label lb = new System.Windows.Forms.Label();
+            Label lb = new Label();
             lb.Name = str;
             lb.Text = str;
             lb.TextAlign = ContentAlignment.MiddleCenter;
             lb.AutoSize = false;
             lb.ForeColor = Color.White;
-            lb.Font = new Font("Segoe UI", 8, FontStyle.Bold, GraphicsUnit.Point, 162);
-            lb.Location = new Point(x, y);
-            lb.Size = new Size(410, 22);
+            lb.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+
+            lb.Size = new Size(230, 30);
             lb.FlatStyle = FlatStyle.Flat;
             lb.BackColor = Color.FromArgb(2, 117, 216);
             lb.Margin = new Padding(3);
@@ -240,17 +183,9 @@ namespace HB.LinkSaver
             lb.MouseLeave += label1_MouseLeave!;
             lb.MouseHover += label1_MouseHover!;
             lb.Cursor = Cursors.Hand;
-            x += 183;
-            ++count;
-            ++totalCount;
 
-            if (count == 2)
-            {
 
-                y += 24;
-                x = 0;
-                count = 0;
-            }
+
 
             FlwPanel.Controls.Add(lb);
 
@@ -259,43 +194,70 @@ namespace HB.LinkSaver
         {
             var lbl = (System.Windows.Forms.Label)sender;
 
+
             SelectedCategories.Remove(lbl.Name);
-            //x = 0;
-            //y = 0;
-            //count = 0;
-            //--totalCount;
-            totalCount = 0;
+          
+
             FlwPanel.Controls.Clear();
             SelectedCategories.ForEach(x => AddCategoryLabel(x));
 
             SearchByFilters();
         }
 
-        private void label1_MouseHover(object sender, EventArgs e)
+        private void categoryControlLb1_BtnHandler(object sender, EventArgs e)
         {
-            Label lb = (Label)sender;
-            lb.ForeColor = Color.GreenYellow;
+            if (SelectedCategories.Count == 8) return;
+            Button btn = sender as Button;
+
+
+            var item = btn.Text;
+
+            if (!SelectedCategories.Contains(item)) { AddCategoryLabel(item); SelectedCategories.Add(item); }
+
+            
+            SearchByFilters();
+
         }
 
-        private void label1_MouseLeave(object sender, EventArgs e)
+
+        #endregion
+
+        #region pages
+
+        private void BtnAdd_Click(object sender, EventArgs e)
         {
-            Label lb = (Label)sender;
-            lb.ForeColor = SystemColors.ButtonFace;
+
+
+            AddForm addForm = new AddForm();
+            addForm.ShowDialog();
 
         }
-
         private void BtnUpdate_Click(object sender, EventArgs e)
         {
 
             if (CurrentLinkId == string.Empty) return;
-
             var data = LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault();
+            UpdateForm updateForm = new UpdateForm();
+            updateForm.OrginalLink = data!;
+            updateForm.ShowDialog();
 
-            AddPageI.UpdateMode = true;
-            AddPageI.EntityForUpdate = data!;
-            AddPageI.ModeSelect();
-            AddSelectedPage(AddPageI);
         }
+        private void BtnCategories_Click(object sender, EventArgs e)
+        {
+            CategoryForm categoryForm = new CategoryForm();
+            categoryForm.ShowDialog();
+        }
+
+
+        private void BtnSettings_Click(object sender, EventArgs e)
+        {
+            SettingsForm settingsForm = new SettingsForm(); 
+            settingsForm.ShowDialog();
+        }
+
+        #endregion
+
+        #region Browser Code
 
         public static void OpenLinkOnBrowser(string url)
         {
@@ -320,18 +282,14 @@ namespace HB.LinkSaver
         private void BtnOpenLink_Click(object sender, EventArgs e)
         {
 
-
-            //richTextBox1.Text = Program.MainFrm.Width.ToString();
-            //return;
             if (CurrentLink == string.Empty) return;
             OpenLinkOnBrowser(CurrentLink);
         }
 
+        #endregion
 
-        enum Search
-        {
+        #region Search Code
 
-        }
         public static void SearchByFilters(bool searchWithText = false)
         {
 
@@ -358,7 +316,19 @@ namespace HB.LinkSaver
             }
 
 
-            Program.MainFrm.DGW.DataSource = list;
+
+
+            var data = list.Select(x => new
+            {
+                Id = x.Id,
+                Header = x.Header,
+                Context = x.Content,
+                Description = x.Description,
+                Categories = string.Join("  /  ", x.Categories)
+            }).ToList();
+
+            Program.MainFrm.DGW.DataSource = data;
+
             Program.MainFrm.DGW.Update();
             Program.MainFrm.DGW.Refresh();
 
@@ -368,24 +338,12 @@ namespace HB.LinkSaver
         {
             SearchByFilters();
         }
-
-        private void BtnCategories_Click(object sender, EventArgs e)
+        private void CbHeaderOrDescription_CheckedChanged(object sender, EventArgs e)
         {
-            AddSelectedPage(CategoryPage);
+            SearchByFilters();
         }
 
-        private void btnInfo_Click(object sender, EventArgs e)
-        {
-
-
-            MessageBox.Show(@"""All filtering methods operate in a unified manner. If you do not wish to use Category filtering, clear the selected categories, or if you do not wish to filter by title/description fields, clear the relevant field. You can click the reset button for this.
-
-If both Category and title/description fields are filled simultaneously, these two filters are combined.
-
-Example: To find a result containing the categories ""music"" and ""youtube"" and with the title field as ""favorite music,"" select the ""music"" and ""youtube"" categories, then set your search option in the search field to search by title. Then enter ""favorite music"" in the search field. You will be able to see the desired results.""", "Filtering", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void resetBtn_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
             SelectedCategories.Clear();
@@ -394,6 +352,10 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
             SearchByFilters();
         }
 
+        #endregion
+
+        #region Delete
+
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             var dr = MessageBox.Show("do you want to delete this record ?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -401,14 +363,16 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
             if (dr == DialogResult.Yes)
             {
 
-                richTextBox1.Clear();
+                //richTextBox1.Clear();
                 LinkManager.Remove(CurrentLinkId);
                 LoadDgw();
                 CurrentLinkId = string.Empty;
             }
         }
 
+        #endregion
 
+        #region mainform-actions
         public void BringToTop()
         {
 
@@ -430,17 +394,6 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
                 TopMost = top;
             }
         }
-
-        private void BtnSettings_Click(object sender, EventArgs e)
-        {
-            AddSelectedPage(SettingsPage);
-
-            //SystemSounds.Beep.Play();
-
-
-
-        }
-
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Program.ServerStatus)
@@ -451,9 +404,82 @@ Example: To find a result containing the categories ""music"" and ""youtube"" an
 
         }
 
-        private void CbHeaderOrDescription_CheckedChanged(object sender, EventArgs e)
+
+        private void BtnClose_Click(object sender, EventArgs e)
         {
-            SearchByFilters();
+            Application.Exit();
         }
+
+        private void BtnMin_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
+        }
+
+        #endregion
+
+        #region display event
+        private void BtnDelete_MouseHover(object sender, EventArgs e)
+        {
+            IconButton btn = sender as IconButton;
+
+            btn.IconColor = Color.FromArgb(2, 117, 216);
+
+        }
+
+        private void BtnDelete_MouseLeave(object sender, EventArgs e)
+        {
+            IconButton btn = sender as IconButton;
+
+            btn.IconColor = Color.White;
+
+        }
+
+
+        private void label1_MouseHover(object sender, EventArgs e)
+        {
+            Label lb = (Label)sender;
+            lb.ForeColor = Color.GreenYellow;
+        }
+
+        private void label1_MouseLeave(object sender, EventArgs e)
+        {
+            Label lb = (Label)sender;
+            lb.ForeColor = SystemColors.ButtonFace;
+
+        }
+        private void DGW_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+
+
+                // Hücreyi çiz
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                // Sadece sað kenar çizgisini beyaz yap
+                using (Pen whitePen = new Pen(Color.White, 2))
+                {
+                    // Sað kenar çizgisi
+                    e.Graphics.DrawLine(whitePen, e.CellBounds.Right - 1, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom);
+                }
+
+                // Çizim iþlemini tamamladýðýný bildir
+                e.Handled = true;
+
+            }
+        }
+        private void MainForm_Paint(object sender, PaintEventArgs e)
+        {
+            using (Pen whitePen = new Pen(Color.White, 2))
+            {
+                // DataGridView'in dýþ sýnýrlarýný çiz
+                e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
+                e.Graphics.DrawRectangle(whitePen, categoryControlLb1.Left - 1, categoryControlLb1.Top - 1, categoryControlLb1.Width + 1, categoryControlLb1.Height + 1);
+                e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
+            }
+        }
+
+        #endregion
+
     }
 }
