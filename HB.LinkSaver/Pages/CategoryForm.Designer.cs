@@ -137,6 +137,8 @@
             // 
             // listBox1
             // 
+            listBox1.BackColor = Color.FromArgb(23, 29, 39);
+            listBox1.ForeColor = Color.White;
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
             listBox1.Location = new Point(12, 22);

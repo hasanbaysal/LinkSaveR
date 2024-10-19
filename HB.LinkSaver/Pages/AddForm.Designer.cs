@@ -42,6 +42,8 @@
             // 
             // lbCategories
             // 
+            lbCategories.BackColor = Color.FromArgb(23, 29, 39);
+            lbCategories.ForeColor = Color.White;
             lbCategories.FormattingEnabled = true;
             lbCategories.ItemHeight = 15;
             lbCategories.Location = new Point(12, 12);

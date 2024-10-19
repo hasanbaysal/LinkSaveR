@@ -378,22 +378,23 @@ namespace HB.LinkSaver
             // 
             richTextBox1.BackColor = Color.FromArgb(30, 30, 30);
             richTextBox1.ForeColor = Color.White;
-            richTextBox1.Location = new Point(862, 590);
+            richTextBox1.Location = new Point(862, 569);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(564, 80);
+            richTextBox1.Size = new Size(564, 101);
             richTextBox1.TabIndex = 56;
             richTextBox1.Text = "";
             // 
             // FlwPanel
             // 
             FlwPanel.AutoScroll = true;
+            FlwPanel.BackColor = Color.Transparent;
             FlwPanel.BorderStyle = BorderStyle.FixedSingle;
-            FlwPanel.Location = new Point(928, 444);
+            FlwPanel.Location = new Point(862, 447);
             FlwPanel.Margin = new Padding(3, 2, 3, 2);
             FlwPanel.Name = "FlwPanel";
             FlwPanel.Padding = new Padding(3, 2, 3, 2);
-            FlwPanel.Size = new Size(450, 127);
+            FlwPanel.Size = new Size(564, 107);
             FlwPanel.TabIndex = 49;
             // 
             // MainForm
@@ -405,7 +406,6 @@ namespace HB.LinkSaver
             Controls.Add(richTextBox1);
             Controls.Add(categoryControlLb1);
             Controls.Add(resetBtn);
-            Controls.Add(FlwPanel);
             Controls.Add(label4);
             Controls.Add(CbHeaderOrDescription);
             Controls.Add(textBox1);
@@ -417,6 +417,7 @@ namespace HB.LinkSaver
             Controls.Add(BtnUpdate);
             Controls.Add(BtnAdd);
             Controls.Add(PnlTop);
+            Controls.Add(FlwPanel);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
             Icon = (Icon)resources.GetObject("$this.Icon");

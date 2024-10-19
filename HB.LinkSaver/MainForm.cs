@@ -13,7 +13,6 @@ namespace HB.LinkSaver
 {
     public partial class MainForm : Form
     {
-
    
         public static List<string> SelectedCategories = new List<string>();
         public string CurrentLinkId = string.Empty;
@@ -46,25 +45,21 @@ namespace HB.LinkSaver
 
         #region tooltip
 
+        ToolTip MyToolTip = new ToolTip();
         private void InitializeToolTip()
         {
-            // ToolTip bileþeni oluþtur
-            var tt = new ToolTip();
-
-            // ToolTip'in özelliklerini ayarla (isteðe baðlý)
-
-            tt.AutoPopDelay = 5000;
-            tt.InitialDelay = 500;
-            tt.ReshowDelay = 100;
-            tt.ShowAlways = true;
+            MyToolTip.AutoPopDelay = 5000;
+            MyToolTip.InitialDelay = 100;
+            MyToolTip.ReshowDelay = 100;
+            MyToolTip.ShowAlways = true;
 
 
-            tt.SetToolTip(this.BtnOpenLink, "Open With Browser");
-            tt.SetToolTip(this.BtnDelete, "Delete Selected Link");
-            tt.SetToolTip(this.BtnAdd, "Add a Link");
-            tt.SetToolTip(this.BtnUpdate, "Update the Link");
-            tt.SetToolTip(this.BtnSettings, "Settings");
-            tt.SetToolTip(this.BtnCategories, "Category Add or Delete");
+            MyToolTip.SetToolTip(this.BtnOpenLink, "Open With Browser");
+            MyToolTip.SetToolTip(this.BtnDelete, "Delete Selected Link");
+            MyToolTip.SetToolTip(this.BtnAdd, "Add a Link");
+            MyToolTip.SetToolTip(this.BtnUpdate, "Update the Link");
+            MyToolTip.SetToolTip(this.BtnSettings, "Settings");
+            MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete");
 
         }
 
@@ -134,6 +129,7 @@ namespace HB.LinkSaver
             LinkManager.Control();
             LoadDgw();
             LoadCategories();
+            BackGroundLabel();
         }
 
         public  void LoadCategories()
@@ -147,25 +143,37 @@ namespace HB.LinkSaver
                 Program.MainFrm.categoryControlLb1.AddItem(x);
             });
         } 
+
+         Label InfoCategoryLbl = new Label();
+        public void BackGroundLabel()
+        {
+            InfoCategoryLbl.Text = "\u2191 Select a category for search \u2191";
+            InfoCategoryLbl.Font = new Font("Segoe UI", 9, FontStyle.Italic);
+            InfoCategoryLbl.ForeColor = Color.FromArgb(150, 150, 150);
+
+            InfoCategoryLbl.AutoSize = true;
+            InfoCategoryLbl.BackColor = Color.FromArgb(30, 30, 30);
+            int x = FlwPanel.Location.X + (FlwPanel.Width - InfoCategoryLbl.Width) / 2;
+            int y = FlwPanel.Location.Y + (FlwPanel.Height - InfoCategoryLbl.Height) / 2;
+            InfoCategoryLbl.TextAlign = ContentAlignment.MiddleCenter;
+            InfoCategoryLbl.Location = new Point(x-40, y);
+            this.Controls.Add(InfoCategoryLbl); 
+            InfoCategoryLbl.BringToFront();
+            
+        }
         #endregion
 
         #region CategorySelect-Action
-        private void LbSelectedCategories_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-            Button btn = sender as Button;
-
-            var item = btn.Text;
-            MessageBox.Show(item);
-            if (!SelectedCategories.Contains(item)) { AddCategoryLabel(item); SelectedCategories.Add(item); }
-
-            SearchByFilters();
-
-        }
+   
 
 
         public void AddCategoryLabel(string str)
         {
+
+            if (SelectedCategories.Count > 0)
+            {
+                InfoCategoryLbl.SendToBack();
+            }
 
             Label lb = new Label();
             lb.Name = str;
@@ -175,7 +183,7 @@ namespace HB.LinkSaver
             lb.ForeColor = Color.White;
             lb.Font = new Font("Segoe UI", 9, FontStyle.Regular);
 
-            lb.Size = new Size(230, 30);
+            lb.Size = new Size(202, 35);
             lb.FlatStyle = FlatStyle.Flat;
             lb.BackColor = Color.FromArgb(2, 117, 216);
             lb.Margin = new Padding(3);
@@ -183,7 +191,7 @@ namespace HB.LinkSaver
             lb.MouseLeave += label1_MouseLeave!;
             lb.MouseHover += label1_MouseHover!;
             lb.Cursor = Cursors.Hand;
-
+            MyToolTip.SetToolTip(lb, lb.Text);
 
 
 
@@ -194,10 +202,19 @@ namespace HB.LinkSaver
         {
             var lbl = (System.Windows.Forms.Label)sender;
 
+            MyToolTip.SetToolTip(lbl, null);
+            if(lbl.Parent != null)
+            {
+                lbl.Parent.Controls.Remove(lbl);
+            }
 
             SelectedCategories.Remove(lbl.Name);
-          
 
+            if (SelectedCategories.Count == 0)
+            {
+                InfoCategoryLbl.BringToFront();
+            }
+            lbl.Dispose();
             FlwPanel.Controls.Clear();
             SelectedCategories.ForEach(x => AddCategoryLabel(x));
 
@@ -212,9 +229,14 @@ namespace HB.LinkSaver
 
             var item = btn.Text;
 
-            if (!SelectedCategories.Contains(item)) { AddCategoryLabel(item); SelectedCategories.Add(item); }
+          
+            if (!SelectedCategories.Contains(item))
+            {
+                SelectedCategories.Add(item);
+                AddCategoryLabel(item);
+            }
 
-            
+
             SearchByFilters();
 
         }
@@ -439,6 +461,10 @@ namespace HB.LinkSaver
         {
             Label lb = (Label)sender;
             lb.ForeColor = Color.GreenYellow;
+            //MyToolTip.SetToolTip(lb, lb.Text);
+           
+           
+
         }
 
         private void label1_MouseLeave(object sender, EventArgs e)
