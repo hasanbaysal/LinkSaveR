@@ -13,7 +13,7 @@ namespace HB.LinkSaver
 {
     public partial class MainForm : Form
     {
-   
+
         public static List<string> SelectedCategories = new List<string>();
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
@@ -84,7 +84,7 @@ namespace HB.LinkSaver
                 Header = x.Header,
                 Context = x.Content,
                 Description = x.Description,
-                Categories = string.Join("-", x.Categories.Select(s => $" | {s} | "))
+                Categories = string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
             }).ToList();
 
             DGW.DataSource = data;
@@ -117,6 +117,7 @@ namespace HB.LinkSaver
 
         }
 
+
         #endregion
 
         #region FormLoad Actions
@@ -132,9 +133,9 @@ namespace HB.LinkSaver
             BackGroundLabel();
         }
 
-        public  void LoadCategories()
+        public void LoadCategories()
         {
-            // TODO : Burayý Düzenle
+
 
             Program.MainFrm.categoryControlLb1.ClearItems();
 
@@ -142,9 +143,9 @@ namespace HB.LinkSaver
             {
                 Program.MainFrm.categoryControlLb1.AddItem(x);
             });
-        } 
+        }
 
-         Label InfoCategoryLbl = new Label();
+        Label InfoCategoryLbl = new Label();
         public void BackGroundLabel()
         {
             InfoCategoryLbl.Text = "\u2191 Select a category for search \u2191";
@@ -156,15 +157,15 @@ namespace HB.LinkSaver
             int x = FlwPanel.Location.X + (FlwPanel.Width - InfoCategoryLbl.Width) / 2;
             int y = FlwPanel.Location.Y + (FlwPanel.Height - InfoCategoryLbl.Height) / 2;
             InfoCategoryLbl.TextAlign = ContentAlignment.MiddleCenter;
-            InfoCategoryLbl.Location = new Point(x-40, y);
-            this.Controls.Add(InfoCategoryLbl); 
+            InfoCategoryLbl.Location = new Point(x - 40, y);
+            this.Controls.Add(InfoCategoryLbl);
             InfoCategoryLbl.BringToFront();
-            
+
         }
         #endregion
 
         #region CategorySelect-Action
-   
+
 
 
         public void AddCategoryLabel(string str)
@@ -203,7 +204,7 @@ namespace HB.LinkSaver
             var lbl = (System.Windows.Forms.Label)sender;
 
             MyToolTip.SetToolTip(lbl, null);
-            if(lbl.Parent != null)
+            if (lbl.Parent != null)
             {
                 lbl.Parent.Controls.Remove(lbl);
             }
@@ -229,7 +230,7 @@ namespace HB.LinkSaver
 
             var item = btn.Text;
 
-          
+
             if (!SelectedCategories.Contains(item))
             {
                 SelectedCategories.Add(item);
@@ -273,7 +274,7 @@ namespace HB.LinkSaver
 
         private void BtnSettings_Click(object sender, EventArgs e)
         {
-            SettingsForm settingsForm = new SettingsForm(); 
+            SettingsForm settingsForm = new SettingsForm();
             settingsForm.ShowDialog();
         }
 
@@ -462,8 +463,8 @@ namespace HB.LinkSaver
             Label lb = (Label)sender;
             lb.ForeColor = Color.GreenYellow;
             //MyToolTip.SetToolTip(lb, lb.Text);
-           
-           
+
+
 
         }
 
@@ -507,5 +508,10 @@ namespace HB.LinkSaver
 
         #endregion
 
+        private  void textBox2_KeyUp(object sender, KeyEventArgs e)
+        {
+            var data = ((TextBox)sender).Text;
+             categoryControlLb1.FilterCategory(data);
+        }
     }
 }

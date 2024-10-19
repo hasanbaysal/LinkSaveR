@@ -13,8 +13,8 @@ namespace HB.LinkSaver.Components
 {
     public partial class CategoryControlLb : UserControl
     {
-        List<Category> categories = new List<Category>();
-       
+
+        public List<string> CurrentCategories = new(); 
 
         [Browsable(true)] // Tasarımcıda görünür olmasını sağlar
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)] // Serileştirilebilir yapar
@@ -32,6 +32,7 @@ namespace HB.LinkSaver.Components
 
         }
 
+        List<Button> CurrentButtons = new List<Button>();   
         public void AddItem(string item)
         {
             
@@ -45,14 +46,48 @@ namespace HB.LinkSaver.Components
             btnTemp.Font = new Font("Segoe UI", 12, FontStyle.Regular);
             btnTemp.FlatStyle = FlatStyle.Flat;
             btnTemp.Text = item;
+            btnTemp.Name = item;
             btnTemp.Click += BtnHandler;
             flowLayoutPanel1.Controls.Add(btnTemp);
-
-
+            flowLayoutPanel1.Refresh();
+            CurrentButtons.Add(btnTemp);
         }
         public void ClearItems()
         {
+            CurrentButtons.Clear();
             flowLayoutPanel1.Controls.Clear();
+            flowLayoutPanel1.Refresh(); 
+        }
+
+        public void FilterCategory(string filter)
+        {
+            // TODO : Performans olarak biraz sorunlu çok büyük kayıtlarda!
+            flowLayoutPanel1.Visible = false;
+            CurrentButtons.ForEach(x => x.Visible = true);
+
+
+            //alternatif arama olarak düşünülebilir
+          //await  Task.Run(() =>
+          //  {
+          //      Parallel.ForEach(CurrentButtons, button =>
+          //      {
+                   
+          //          this.Invoke((Action)(() => button.Visible = true));
+          //      });
+          //  });
+
+
+            if (string.IsNullOrEmpty(filter))
+            {
+                CurrentButtons.ForEach(x=>x.Visible = true);
+                flowLayoutPanel1.Visible = true;
+                return;
+            }
+            
+            var result = CurrentButtons.Where(x => !(x.Text.StartsWith(filter))).ToList();
+            result.ForEach(x => x.Visible = false);
+            flowLayoutPanel1.Visible = true;
+
         }
     }
 }

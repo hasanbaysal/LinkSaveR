@@ -34,6 +34,7 @@ namespace HB.LinkSaver.Pages
                 tbCategoryAdd.Clear();
                 MessageBox.Show("succesfull");
                 lblUpdate.Text = string.Empty;
+                Program.MainFrm.LoadCategories(); // OK
             }
             else
             {
@@ -97,7 +98,9 @@ namespace HB.LinkSaver.Pages
                 CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
                 SelectedCategory = string.Empty;
                 lblUpdate.Text = string.Empty;
+                Program.MainFrm.LoadCategories();
             }
         }
+
     }
 }

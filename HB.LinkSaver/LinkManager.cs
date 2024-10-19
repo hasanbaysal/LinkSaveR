@@ -166,7 +166,9 @@ namespace HB.LinkSaver
             {
                 if (sendFromApi)
                 {
-                    Program.MainFrm.BringToTop();
+
+                    // TODO : Gereksiz Gibi Gibi
+                    //Program.MainFrm.BringToTop();
 
                 }
                 MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);

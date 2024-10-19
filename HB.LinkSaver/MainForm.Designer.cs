@@ -52,6 +52,7 @@ namespace HB.LinkSaver
             categoryControlLb1 = new Components.CategoryControlLb();
             richTextBox1 = new RichTextBox();
             FlwPanel = new FlowLayoutPanel();
+            textBox2 = new TextBox();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -397,6 +398,16 @@ namespace HB.LinkSaver
             FlwPanel.Size = new Size(564, 107);
             FlwPanel.TabIndex = 49;
             // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(862, 54);
+            textBox2.Margin = new Padding(3, 2, 3, 2);
+            textBox2.Name = "textBox2";
+            textBox2.PlaceholderText = "Search Category";
+            textBox2.Size = new Size(221, 23);
+            textBox2.TabIndex = 41;
+            textBox2.KeyUp += textBox2_KeyUp;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -408,6 +419,7 @@ namespace HB.LinkSaver
             Controls.Add(resetBtn);
             Controls.Add(label4);
             Controls.Add(CbHeaderOrDescription);
+            Controls.Add(textBox2);
             Controls.Add(textBox1);
             Controls.Add(DGW);
             Controls.Add(BtnDelete);
@@ -457,5 +469,6 @@ namespace HB.LinkSaver
         private Components.CategoryControlLb categoryControlLb1;
         private RichTextBox richTextBox1;
         private FlowLayoutPanel FlwPanel;
+        private TextBox textBox2;
     }
 }
