@@ -39,9 +39,13 @@
             groupBox1 = new GroupBox();
             label1 = new Label();
             backupBtn = new Button();
+            groupBox4 = new GroupBox();
+            button1 = new Button();
+            label4 = new Label();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
+            groupBox4.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox3
@@ -49,9 +53,9 @@
             groupBox3.Controls.Add(button2);
             groupBox3.Controls.Add(label3);
             groupBox3.ForeColor = SystemColors.ButtonHighlight;
-            groupBox3.Location = new Point(55, 457);
+            groupBox3.Location = new Point(55, 408);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(334, 86);
+            groupBox3.Size = new Size(334, 124);
             groupBox3.TabIndex = 6;
             groupBox3.TabStop = false;
             groupBox3.Text = "Load Back Up";
@@ -59,20 +63,21 @@
             // button2
             // 
             button2.FlatStyle = FlatStyle.Flat;
-            button2.Location = new Point(17, 22);
+            button2.Location = new Point(17, 43);
             button2.Name = "button2";
             button2.Size = new Size(102, 47);
             button2.TabIndex = 0;
             button2.Text = "import backup folder";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // label3
             // 
-            label3.Location = new Point(191, 22);
+            label3.Location = new Point(147, 22);
             label3.Name = "label3";
-            label3.Size = new Size(127, 50);
+            label3.Size = new Size(171, 88);
             label3.TabIndex = 1;
-            label3.Text = "This feature is not ready yet";
+            label3.Text = "select your files to upload your backups";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // groupBox2
@@ -81,7 +86,7 @@
             groupBox2.Controls.Add(lblStatus);
             groupBox2.Controls.Add(label2);
             groupBox2.ForeColor = SystemColors.ButtonHighlight;
-            groupBox2.Location = new Point(55, 255);
+            groupBox2.Location = new Point(55, 223);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(340, 179);
             groupBox2.TabIndex = 5;
@@ -125,7 +130,7 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(backupBtn);
             groupBox1.ForeColor = SystemColors.ButtonFace;
-            groupBox1.Location = new Point(55, 44);
+            groupBox1.Location = new Point(55, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(340, 195);
             groupBox1.TabIndex = 4;
@@ -153,12 +158,45 @@
             backupBtn.UseVisualStyleBackColor = true;
             backupBtn.Click += backupBtn_Click;
             // 
+            // groupBox4
+            // 
+            groupBox4.Controls.Add(button1);
+            groupBox4.Controls.Add(label4);
+            groupBox4.ForeColor = SystemColors.ButtonHighlight;
+            groupBox4.Location = new Point(55, 551);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(334, 168);
+            groupBox4.TabIndex = 6;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Mail Backup";
+            // 
+            // button1
+            // 
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(17, 22);
+            button1.Name = "button1";
+            button1.Size = new Size(102, 67);
+            button1.TabIndex = 0;
+            button1.Text = "Send Backup To Mail";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button2_Click;
+            // 
+            // label4
+            // 
+            label4.Location = new Point(191, 30);
+            label4.Name = "label4";
+            label4.Size = new Size(127, 50);
+            label4.TabIndex = 1;
+            label4.Text = "send your backups to your email";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // SettingsForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            ClientSize = new Size(451, 587);
+            ClientSize = new Size(451, 731);
+            Controls.Add(groupBox4);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -170,6 +208,7 @@
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
+            groupBox4.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -185,5 +224,8 @@
         private GroupBox groupBox1;
         private Label label1;
         private Button backupBtn;
+        private GroupBox groupBox4;
+        private Button button1;
+        private Label label4;
     }
 }

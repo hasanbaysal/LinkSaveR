@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace HB.LinkSaver.Pages
 {
@@ -53,6 +55,52 @@ namespace HB.LinkSaver.Pages
             File.Copy(Path.Combine(Directory.GetCurrentDirectory(), LinkManager.CategoriesPath), Path.Combine(desktopPath, backupFolderName, LinkManager.CategoriesPath));
 
             MessageBox.Show(@"The files have been copied to the desktop. you can use these files in case you lose the files on your system. you need to add the json extension files in the backup folder to the directory where the application is running.", backupFolderName + " BACK UP FOLDER CREATED", MessageBoxButtons.OK);
+        }
+
+        string linksPath = Path.Combine(Directory.GetCurrentDirectory(), LinkManager.LinksPath);
+        string CategoriesPath = Path.Combine(Directory.GetCurrentDirectory(), LinkManager.CategoriesPath);
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog fd = new OpenFileDialog())
+            {
+                fd.Filter = "JSON Files (*.json)|*.json";
+                fd.Multiselect = true;
+
+                if (fd.ShowDialog() == DialogResult.OK)
+                {
+                    string[] selectedFiles = fd.FileNames;
+                    if(selectedFiles.Length != 2) { MessageBox.Show("select link and category file together"); return; }
+                    string selectedLinkJson = null;
+                    string selectedCategoryJson = null;
+
+                    var controllink = false;
+                    var controlCategory = false;
+
+                    foreach ( var file in selectedFiles) { 
+                    
+                        if(Path.GetFileName(file).ToLower() == LinkManager.LinksPath.ToLower()) { 
+                            controllink = true; 
+                            selectedLinkJson = file;
+                        }
+                        if(Path.GetFileName(file).ToLower() == LinkManager.CategoriesPath.ToLower()) { 
+                            controlCategory = true;
+                            selectedCategoryJson = file;
+                        }
+
+                    }
+                    if (!(controllink && controlCategory)) { MessageBox.Show("please select links.json and categories.json backup files "); return; }
+                    else
+                    {
+                        File.Copy(selectedLinkJson!, linksPath, true); // true, üzerine yazmayı sağlar
+                        File.Copy(selectedCategoryJson!, CategoriesPath, true);
+                        MessageBox.Show("back-up files uploaded. the application will be restart");
+                        Application.Restart();  
+                    }    
+
+
+                }
+            }
         }
     }
 }
