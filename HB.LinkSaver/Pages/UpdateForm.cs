@@ -40,8 +40,9 @@ namespace HB.LinkSaver.Pages
             lb.Text = data;
             lb.BackColor = Color.White;
             lb.ForeColor = Color.Black;
-            lb.Click += Lbl_Click;
+            lb.Click += Lbl_Click!;
             flowLayoutPanel1.Controls.Add(lb);
+          
         }
         public void RemoveCategory(string data)
         {
@@ -68,6 +69,7 @@ namespace HB.LinkSaver.Pages
 
             var result = LinkManager.Update(new Link()
             {
+                Id = OrginalLink.Id,
                 Categories = SelectedCategories,
                 Content = tbLink.Text,
                 Description = tbDescription.Text,
@@ -77,6 +79,8 @@ namespace HB.LinkSaver.Pages
             {
                 Program.MainFrm.LoadDgw();
                 MessageBox.Show("success");
+                Program.MainFrm.CurrentLink = string.Empty;
+                Program.MainFrm.CurrentLinkId = string.Empty;
                 this.Close();
             }
 

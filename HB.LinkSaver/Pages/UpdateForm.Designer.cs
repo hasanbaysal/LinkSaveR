@@ -132,6 +132,7 @@
             lbCategories.Name = "lbCategories";
             lbCategories.Size = new Size(144, 334);
             lbCategories.TabIndex = 6;
+            lbCategories.TabStop = false;
             lbCategories.SelectedIndexChanged += lbCategories_SelectedIndexChanged;
             // 
             // UpdateForm

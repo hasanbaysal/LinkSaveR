@@ -24,6 +24,7 @@ namespace HB.LinkSaver.Pages
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            lblMailHtmlInfo.Visible = false;
             lblInfo.Visible = false;
             var txt = Program.GetUseServerSettingsStatus() ? "server active" : "server deactivated ";
 
@@ -145,7 +146,7 @@ namespace HB.LinkSaver.Pages
             mail.To.Add(mailSettings.RecipientMailAddress);
             mail.Subject = "LinkSaver Backup System";
             mail.IsBodyHtml = true;
-            mail.Body = "Backup date : "+DateTime.Now.ToString() ;
+            mail.Body = "Backup date : " + DateTime.Now.ToString();
 
             using (OpenFileDialog fd = new OpenFileDialog())
             {
@@ -199,6 +200,65 @@ namespace HB.LinkSaver.Pages
                     MessageBox.Show("please check your mail configurations or smtp server");
                 }
             }
+        }
+
+        private void btnHtmlGenerator_Click(object sender, EventArgs e)
+        {
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            HtmlGenerator htmlGenerator = new HtmlGenerator(LinkManager.GetAll());
+
+            var data = htmlGenerator.GenerateGtml();
+
+            File.WriteAllText(Path.Combine(desktopPath, "data.html"), data);
+            MessageBox.Show("backup created on your desktop");
+        }
+
+        private async void MailHtml_Click(object sender, EventArgs e)
+        {
+            var mailSettings = new MailSettingsOption();
+
+            mailSettings = JsonSerializer.Deserialize<MailSettingsOption>(File.ReadAllText(Path.Combine(Environment.CurrentDirectory, LinkManager.MailSettingsPath)));
+
+
+            if (mailSettings.MailAddress.Contains("none") ||
+                mailSettings.AppPassword.Contains("none") ||
+                mailSettings.RecipientMailAddress.Contains("none") ||
+                mailSettings.PortNumber.ToString() == "0" ||
+                mailSettings.StmpServer.Contains("none"))
+            {
+                MessageBox.Show("please edit your mail configurations");
+            }
+
+
+            SmtpClient sc = new SmtpClient(mailSettings.StmpServer, mailSettings.PortNumber);
+            sc.EnableSsl = true;
+            sc.Credentials = new NetworkCredential(mailSettings.MailAddress, mailSettings.AppPassword);
+            sc.DeliveryMethod = SmtpDeliveryMethod.Network;
+            sc.UseDefaultCredentials = false;
+            MailMessage mail = new MailMessage();
+            mail.Priority = MailPriority.High;
+            mail.From = new MailAddress(mailSettings.MailAddress, "LinkSaver Backup System");
+            mail.To.Add(mailSettings.RecipientMailAddress);
+            mail.Subject = "LinkSaver Backup System";
+            mail.IsBodyHtml = true;
+            mail.Body = "Backup date : " + DateTime.Now.ToString();
+
+            string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+
+            HtmlGenerator htmlGenerator = new HtmlGenerator(LinkManager.GetAll());
+
+            var data = htmlGenerator.GenerateGtml();
+
+            File.WriteAllText(Path.Combine(desktopPath, "data.html"), data);
+
+            var filePath = Path.Combine(desktopPath, "data.html");
+            mail.Attachments.Add(new Attachment( filePath));
+
+            lblMailHtmlInfo.Visible = true;
+            await sc.SendMailAsync(mail);
+            lblMailHtmlInfo.Visible = false;
+            MessageBox.Show("success");
         }
     }
 }

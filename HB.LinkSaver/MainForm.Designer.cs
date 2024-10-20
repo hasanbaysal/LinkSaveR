@@ -39,7 +39,7 @@ namespace HB.LinkSaver
             BtnClose = new FontAwesome.Sharp.IconButton();
             label1 = new Label();
             CbHeaderOrDescription = new Components.RJToggleButton();
-            textBox1 = new TextBox();
+            tbLinkSearch = new TextBox();
             DGW = new DataGridView();
             BtnDelete = new FontAwesome.Sharp.IconButton();
             BtnOpenLink = new FontAwesome.Sharp.IconButton();
@@ -49,10 +49,10 @@ namespace HB.LinkSaver
             BtnAdd = new FontAwesome.Sharp.IconButton();
             label4 = new Label();
             resetBtn = new FontAwesome.Sharp.IconButton();
-            categoryControlLb1 = new Components.CategoryControlLb();
-            richTextBox1 = new RichTextBox();
+            CategoryControlPanel = new Components.CategoryControlLb();
+            tbDescription = new RichTextBox();
             FlwPanel = new FlowLayoutPanel();
-            textBox2 = new TextBox();
+            tbCategorySearch = new TextBox();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -159,15 +159,15 @@ namespace HB.LinkSaver
             CbHeaderOrDescription.UseVisualStyleBackColor = true;
             CbHeaderOrDescription.CheckedChanged += CbHeaderOrDescription_CheckedChanged;
             // 
-            // textBox1
+            // tbLinkSearch
             // 
-            textBox1.Location = new Point(12, 49);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Search By Header Or Description";
-            textBox1.Size = new Size(280, 23);
-            textBox1.TabIndex = 41;
-            textBox1.KeyUp += textBox1_KeyUp;
+            tbLinkSearch.Location = new Point(12, 49);
+            tbLinkSearch.Margin = new Padding(3, 2, 3, 2);
+            tbLinkSearch.Name = "tbLinkSearch";
+            tbLinkSearch.PlaceholderText = "Search By Header Or Description";
+            tbLinkSearch.Size = new Size(280, 23);
+            tbLinkSearch.TabIndex = 41;
+            tbLinkSearch.KeyUp += textBox1_KeyUp;
             // 
             // DGW
             // 
@@ -180,6 +180,7 @@ namespace HB.LinkSaver
             DGW.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             DGW.BackgroundColor = Color.FromArgb(30, 30, 30);
             DGW.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            DGW.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(45, 45, 45);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
@@ -343,7 +344,7 @@ namespace HB.LinkSaver
             // 
             label4.Anchor = AnchorStyles.Bottom;
             label4.BackColor = Color.Silver;
-            label4.Location = new Point(8, 694);
+            label4.Location = new Point(8, 681);
             label4.Name = "label4";
             label4.Size = new Size(1446, 1);
             label4.TabIndex = 48;
@@ -365,26 +366,26 @@ namespace HB.LinkSaver
             resetBtn.UseVisualStyleBackColor = false;
             resetBtn.Click += resetBtn_Click;
             // 
-            // categoryControlLb1
+            // CategoryControlPanel
             // 
-            categoryControlLb1.BackColor = Color.FromArgb(50, 50, 50);
-            categoryControlLb1.BorderStyle = BorderStyle.FixedSingle;
-            categoryControlLb1.Location = new Point(862, 83);
-            categoryControlLb1.Name = "categoryControlLb1";
-            categoryControlLb1.Size = new Size(564, 342);
-            categoryControlLb1.TabIndex = 54;
-            categoryControlLb1.BtnHandler += categoryControlLb1_BtnHandler;
+            CategoryControlPanel.BackColor = Color.FromArgb(50, 50, 50);
+            CategoryControlPanel.BorderStyle = BorderStyle.FixedSingle;
+            CategoryControlPanel.Location = new Point(862, 83);
+            CategoryControlPanel.Name = "CategoryControlPanel";
+            CategoryControlPanel.Size = new Size(564, 342);
+            CategoryControlPanel.TabIndex = 54;
+            CategoryControlPanel.BtnHandler += categoryControlLb1_BtnHandler;
             // 
-            // richTextBox1
+            // tbDescription
             // 
-            richTextBox1.BackColor = Color.FromArgb(30, 30, 30);
-            richTextBox1.ForeColor = Color.White;
-            richTextBox1.Location = new Point(862, 569);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(564, 101);
-            richTextBox1.TabIndex = 56;
-            richTextBox1.Text = "";
+            tbDescription.BackColor = Color.FromArgb(30, 30, 30);
+            tbDescription.ForeColor = Color.White;
+            tbDescription.Location = new Point(862, 569);
+            tbDescription.Name = "tbDescription";
+            tbDescription.ReadOnly = true;
+            tbDescription.Size = new Size(564, 101);
+            tbDescription.TabIndex = 56;
+            tbDescription.Text = "";
             // 
             // FlwPanel
             // 
@@ -398,29 +399,29 @@ namespace HB.LinkSaver
             FlwPanel.Size = new Size(564, 107);
             FlwPanel.TabIndex = 49;
             // 
-            // textBox2
+            // tbCategorySearch
             // 
-            textBox2.Location = new Point(862, 54);
-            textBox2.Margin = new Padding(3, 2, 3, 2);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "Search Category";
-            textBox2.Size = new Size(221, 23);
-            textBox2.TabIndex = 41;
-            textBox2.KeyUp += textBox2_KeyUp;
+            tbCategorySearch.Location = new Point(862, 54);
+            tbCategorySearch.Margin = new Padding(3, 2, 3, 2);
+            tbCategorySearch.Name = "tbCategorySearch";
+            tbCategorySearch.PlaceholderText = "Search Category";
+            tbCategorySearch.Size = new Size(221, 23);
+            tbCategorySearch.TabIndex = 41;
+            tbCategorySearch.KeyUp += textBox2_KeyUp;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1438, 698);
-            Controls.Add(richTextBox1);
-            Controls.Add(categoryControlLb1);
+            ClientSize = new Size(1438, 685);
+            Controls.Add(tbDescription);
+            Controls.Add(CategoryControlPanel);
             Controls.Add(resetBtn);
             Controls.Add(label4);
             Controls.Add(CbHeaderOrDescription);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(tbCategorySearch);
+            Controls.Add(tbLinkSearch);
             Controls.Add(DGW);
             Controls.Add(BtnDelete);
             Controls.Add(BtnOpenLink);
@@ -455,7 +456,7 @@ namespace HB.LinkSaver
         private FontAwesome.Sharp.IconButton BtnMin;
         private Panel panel2;
         private Components.RJToggleButton CbHeaderOrDescription;
-        private TextBox textBox1;
+        private TextBox tbLinkSearch;
         private DataGridView DGW;
         private FontAwesome.Sharp.IconButton BtnDelete;
         private FontAwesome.Sharp.IconButton BtnOpenLink;
@@ -466,9 +467,9 @@ namespace HB.LinkSaver
         private Label label8;
         private Label label4;
         private FontAwesome.Sharp.IconButton resetBtn;
-        private Components.CategoryControlLb categoryControlLb1;
-        private RichTextBox richTextBox1;
+        private Components.CategoryControlLb CategoryControlPanel;
+        private RichTextBox tbDescription;
         private FlowLayoutPanel FlwPanel;
-        private TextBox textBox2;
+        private TextBox tbCategorySearch;
     }
 }

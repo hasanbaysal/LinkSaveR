@@ -84,7 +84,7 @@ namespace HB.LinkSaver
                 Header = x.Header,
                 Context = x.Content,
                 Description = x.Description,
-                Categories = string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
+                Categories = x.Categories.Count == 1 ?    "* "+x.Categories.First() :  string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
             }).ToList();
 
             DGW.DataSource = data;
@@ -113,7 +113,7 @@ namespace HB.LinkSaver
 
             CurrentLinkId = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
             CurrentLink = DGW.Rows[e.RowIndex].Cells[2].Value.ToString()!;
-            richTextBox1.Text = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
+            tbDescription.Text = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
 
         }
 
@@ -124,8 +124,8 @@ namespace HB.LinkSaver
         private void Form1_Load(object sender, EventArgs e)
         {
             DGW.CellPainting += DGW_CellPainting;
-            richTextBox1.SelectionIndent = 10;
-            richTextBox1.SelectionRightIndent = 10;
+            tbDescription.SelectionIndent = 10;
+            tbDescription.SelectionRightIndent = 10;
 
             LinkManager.Control();
             LoadDgw();
@@ -137,11 +137,11 @@ namespace HB.LinkSaver
         {
 
 
-            Program.MainFrm.categoryControlLb1.ClearItems();
+            Program.MainFrm.CategoryControlPanel.ClearItems();
 
             CategoryManager.Categories.ForEach(x =>
             {
-                Program.MainFrm.categoryControlLb1.AddItem(x);
+                Program.MainFrm.CategoryControlPanel.AddItem(x);
             });
         }
 
@@ -260,6 +260,7 @@ namespace HB.LinkSaver
 
             if (CurrentLinkId == string.Empty) return;
             var data = LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault();
+            
             UpdateForm updateForm = new UpdateForm();
             updateForm.OrginalLink = data!;
             updateForm.ShowDialog();
@@ -313,6 +314,11 @@ namespace HB.LinkSaver
 
         #region Search Code
 
+        private void textBox2_KeyUp(object sender, KeyEventArgs e)
+        {
+            var data = ((TextBox)sender).Text;
+            CategoryControlPanel.FilterCategory(data);
+        }
         public static void SearchByFilters(bool searchWithText = false)
         {
 
@@ -326,15 +332,15 @@ namespace HB.LinkSaver
 
 
 
-            if (!string.IsNullOrEmpty(Program.MainFrm.textBox1.Text))
+            if (!string.IsNullOrEmpty(Program.MainFrm.tbLinkSearch.Text))
             {
                 if (!Program.MainFrm.CbHeaderOrDescription.Checked)
                 {
-                    list = list.Where(x => x.Header.Contains((Program.MainFrm.textBox1.Text))).ToList();
+                    list = list.Where(x => x.Header.Contains((Program.MainFrm.tbLinkSearch.Text))).ToList();
                 }
                 else
                 {
-                    list = list.Where(x => x.Description.Contains((Program.MainFrm.textBox1.Text))).ToList();
+                    list = list.Where(x => x.Description.Contains((Program.MainFrm.tbLinkSearch.Text))).ToList();
                 }
             }
 
@@ -368,7 +374,7 @@ namespace HB.LinkSaver
 
         private void resetBtn_Click(object sender, EventArgs e)
         {
-            textBox1.Clear();
+            tbLinkSearch.Clear();
             SelectedCategories.Clear();
             FlwPanel.Controls.Clear();
 
@@ -390,6 +396,8 @@ namespace HB.LinkSaver
                 LinkManager.Remove(CurrentLinkId);
                 LoadDgw();
                 CurrentLinkId = string.Empty;
+                CurrentLink = string.Empty ;
+                tbDescription.Text = string.Empty;
             }
         }
 
@@ -501,17 +509,13 @@ namespace HB.LinkSaver
             {
                 // DataGridView'in dýþ sýnýrlarýný çiz
                 e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
-                e.Graphics.DrawRectangle(whitePen, categoryControlLb1.Left - 1, categoryControlLb1.Top - 1, categoryControlLb1.Width + 1, categoryControlLb1.Height + 1);
+                e.Graphics.DrawRectangle(whitePen, CategoryControlPanel.Left - 1, CategoryControlPanel.Top - 1, CategoryControlPanel.Width + 1, CategoryControlPanel.Height + 1);
                 e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
             }
         }
 
         #endregion
 
-        private  void textBox2_KeyUp(object sender, KeyEventArgs e)
-        {
-            var data = ((TextBox)sender).Text;
-             categoryControlLb1.FilterCategory(data);
-        }
+      
     }
 }

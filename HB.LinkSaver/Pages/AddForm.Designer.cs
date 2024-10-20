@@ -50,6 +50,7 @@
             lbCategories.Name = "lbCategories";
             lbCategories.Size = new Size(144, 334);
             lbCategories.TabIndex = 0;
+            lbCategories.TabStop = false;
             lbCategories.SelectedIndexChanged += lbCategories_SelectedIndexChanged;
             // 
             // flowLayoutPanel1
@@ -58,7 +59,7 @@
             flowLayoutPanel1.Location = new Point(181, 39);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(212, 259);
-            flowLayoutPanel1.TabIndex = 1;
+            flowLayoutPanel1.TabIndex = 6;
             // 
             // label1
             // 
