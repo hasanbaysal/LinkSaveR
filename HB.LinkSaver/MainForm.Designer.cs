@@ -130,6 +130,7 @@ namespace HB.LinkSaver
             BtnClose.Name = "BtnClose";
             BtnClose.Size = new Size(33, 21);
             BtnClose.TabIndex = 0;
+            BtnClose.TabStop = false;
             BtnClose.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnClose.UseVisualStyleBackColor = false;
             BtnClose.Click += BtnClose_Click;
@@ -156,6 +157,7 @@ namespace HB.LinkSaver
             CbHeaderOrDescription.OnToggleColor = Color.WhiteSmoke;
             CbHeaderOrDescription.Size = new Size(39, 16);
             CbHeaderOrDescription.TabIndex = 43;
+            CbHeaderOrDescription.TabStop = false;
             CbHeaderOrDescription.UseVisualStyleBackColor = true;
             CbHeaderOrDescription.CheckedChanged += CbHeaderOrDescription_CheckedChanged;
             // 
@@ -167,6 +169,7 @@ namespace HB.LinkSaver
             tbLinkSearch.PlaceholderText = "Search By Header Or Description";
             tbLinkSearch.Size = new Size(280, 23);
             tbLinkSearch.TabIndex = 41;
+            tbLinkSearch.TabStop = false;
             tbLinkSearch.KeyUp += textBox1_KeyUp;
             // 
             // DGW
@@ -232,6 +235,7 @@ namespace HB.LinkSaver
             BtnDelete.Name = "BtnDelete";
             BtnDelete.Size = new Size(45, 26);
             BtnDelete.TabIndex = 38;
+            BtnDelete.TabStop = false;
             BtnDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnDelete.UseVisualStyleBackColor = false;
             BtnDelete.Click += BtnDelete_Click;
@@ -254,6 +258,7 @@ namespace HB.LinkSaver
             BtnOpenLink.Name = "BtnOpenLink";
             BtnOpenLink.Size = new Size(45, 26);
             BtnOpenLink.TabIndex = 37;
+            BtnOpenLink.TabStop = false;
             BtnOpenLink.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnOpenLink.UseVisualStyleBackColor = false;
             BtnOpenLink.Click += BtnOpenLink_Click;
@@ -276,6 +281,7 @@ namespace HB.LinkSaver
             BtnCategories.Name = "BtnCategories";
             BtnCategories.Size = new Size(40, 35);
             BtnCategories.TabIndex = 36;
+            BtnCategories.TabStop = false;
             BtnCategories.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnCategories.UseVisualStyleBackColor = false;
             BtnCategories.Click += BtnCategories_Click;
@@ -296,6 +302,7 @@ namespace HB.LinkSaver
             BtnSettings.Name = "BtnSettings";
             BtnSettings.Size = new Size(40, 35);
             BtnSettings.TabIndex = 35;
+            BtnSettings.TabStop = false;
             BtnSettings.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnSettings.UseVisualStyleBackColor = false;
             BtnSettings.Click += BtnSettings_Click;
@@ -316,6 +323,7 @@ namespace HB.LinkSaver
             BtnUpdate.Name = "BtnUpdate";
             BtnUpdate.Size = new Size(40, 35);
             BtnUpdate.TabIndex = 39;
+            BtnUpdate.TabStop = false;
             BtnUpdate.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnUpdate.UseVisualStyleBackColor = false;
             BtnUpdate.Click += BtnUpdate_Click;
@@ -336,6 +344,7 @@ namespace HB.LinkSaver
             BtnAdd.Name = "BtnAdd";
             BtnAdd.Size = new Size(40, 35);
             BtnAdd.TabIndex = 34;
+            BtnAdd.TabStop = false;
             BtnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnAdd.UseVisualStyleBackColor = false;
             BtnAdd.Click += BtnAdd_Click;
@@ -362,6 +371,7 @@ namespace HB.LinkSaver
             resetBtn.Name = "resetBtn";
             resetBtn.Size = new Size(32, 22);
             resetBtn.TabIndex = 53;
+            resetBtn.TabStop = false;
             resetBtn.TextImageRelation = TextImageRelation.ImageAboveText;
             resetBtn.UseVisualStyleBackColor = false;
             resetBtn.Click += resetBtn_Click;
@@ -374,6 +384,7 @@ namespace HB.LinkSaver
             CategoryControlPanel.Name = "CategoryControlPanel";
             CategoryControlPanel.Size = new Size(564, 342);
             CategoryControlPanel.TabIndex = 54;
+            CategoryControlPanel.TabStop = false;
             CategoryControlPanel.BtnHandler += categoryControlLb1_BtnHandler;
             // 
             // tbDescription
@@ -385,6 +396,7 @@ namespace HB.LinkSaver
             tbDescription.ReadOnly = true;
             tbDescription.Size = new Size(564, 101);
             tbDescription.TabIndex = 56;
+            tbDescription.TabStop = false;
             tbDescription.Text = "";
             // 
             // FlwPanel
@@ -407,6 +419,7 @@ namespace HB.LinkSaver
             tbCategorySearch.PlaceholderText = "Search Category";
             tbCategorySearch.Size = new Size(221, 23);
             tbCategorySearch.TabIndex = 41;
+            tbCategorySearch.TabStop = false;
             tbCategorySearch.KeyUp += textBox2_KeyUp;
             // 
             // MainForm
