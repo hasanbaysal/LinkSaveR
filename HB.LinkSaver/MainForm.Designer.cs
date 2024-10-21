@@ -379,7 +379,7 @@ namespace HB.LinkSaver
             // 
             // CategoryControlPanel
             // 
-            CategoryControlPanel.BackColor = Color.FromArgb(50, 50, 50);
+            CategoryControlPanel.BackColor = Color.Transparent;
             CategoryControlPanel.BorderStyle = BorderStyle.FixedSingle;
             CategoryControlPanel.Location = new Point(862, 83);
             CategoryControlPanel.Name = "CategoryControlPanel";

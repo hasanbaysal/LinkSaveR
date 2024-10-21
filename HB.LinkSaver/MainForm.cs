@@ -565,17 +565,17 @@ namespace HB.LinkSaver
             {
 
 
-                // Hücreyi çiz
+                
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
-                // Sadece sað kenar çizgisini beyaz yap
+                
                 using (Pen whitePen = new Pen(Color.White, 2))
                 {
-                    // Sað kenar çizgisi
+                    
                     e.Graphics.DrawLine(whitePen, e.CellBounds.Right - 1, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom);
                 }
 
-                // Çizim iþlemini tamamladýðýný bildir
+                
                 e.Handled = true;
 
             }
@@ -584,10 +584,11 @@ namespace HB.LinkSaver
         {
             using (Pen whitePen = new Pen(Color.White, 2))
             {
-                // DataGridView'in dýþ sýnýrlarýný çiz
+                
                 e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
                 e.Graphics.DrawRectangle(whitePen, CategoryControlPanel.Left - 1, CategoryControlPanel.Top - 1, CategoryControlPanel.Width + 1, CategoryControlPanel.Height + 1);
                 e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
+                //e.Graphics.DrawRectangle(whitePen, tbDescription.Left - 1, tbDescription.Top - 1, tbDescription.Width + 1, tbDescription.Height + 1);
             }
         }
 

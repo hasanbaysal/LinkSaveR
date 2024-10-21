@@ -33,7 +33,7 @@
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.BackColor = Color.FromArgb(70, 70, 70);
+            flowLayoutPanel1.BackColor = Color.Transparent;
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -44,7 +44,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.SteelBlue;
+            BackColor = Color.Transparent;
             Controls.Add(flowLayoutPanel1);
             Name = "CategoryControlLb";
             Size = new Size(600, 400);
