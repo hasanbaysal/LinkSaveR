@@ -18,7 +18,7 @@ namespace HB.LinkSaver.Pages
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             if (tbCategoryAdd.Text == string.Empty)
 
@@ -29,10 +29,11 @@ namespace HB.LinkSaver.Pages
 
             if (CategoryManager.Add(tbCategoryAdd.Text))//? "succesfull" : "already exist";
             {
-
+                lblResultAdd.Visible = true;
+                await Task.Delay(350);
+                lblResultAdd.Visible = false;
                 listBox1.Items.Add(tbCategoryAdd.Text);
                 tbCategoryAdd.Clear();
-                MessageBox.Show("succesfull");
                 lblUpdate.Text = string.Empty;
                 Program.MainFrm.LoadCategories(); // OK
             }
@@ -44,6 +45,10 @@ namespace HB.LinkSaver.Pages
         }
         private void CategoryForm_Load(object sender, EventArgs e)
         {
+            this.KeyPreview = true;
+            lblResultAdd.Visible = false;
+            lblResultUpdate.Visible = false;
+            lblDeleteResult.Visible = false;
             LinkManager.Control();
 
             CategoryManager.Categories.ForEach(c => listBox1.Items.Add(c));
@@ -56,7 +61,7 @@ namespace HB.LinkSaver.Pages
             SelectedCategory = item;
             lblUpdate.Text = "old value : " + item;
         }
-        private void UpdateBtn_Click(object sender, EventArgs e)
+        private async void UpdateBtn_Click(object sender, EventArgs e)
         {
             if (tbUpdate.Text == string.Empty)
             {
@@ -77,15 +82,18 @@ namespace HB.LinkSaver.Pages
 
                 lblUpdate.Text = string.Empty;
                 SelectedCategory = string.Empty;
-                MessageBox.Show("success!");
+
+                lblResultUpdate.Visible = true;
+                await Task.Delay(350);
+                lblResultUpdate.Visible = false;
                 listBox1.Items.Clear();
                 CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
                 Program.MainFrm.LoadDgw();
                 Program.MainFrm.LoadCategories();
-                this.Close();
+              
             }
         }
-        private void button2_Click(object sender, EventArgs e)
+        private async void button2_Click(object sender, EventArgs e)
         {
             if (SelectedCategory == string.Empty) return;
             var result = CategoryManager.Delete(SelectedCategory);
@@ -94,6 +102,9 @@ namespace HB.LinkSaver.Pages
                 MessageBox.Show("you cant delete this category because there are record that has it ");
             else
             {
+                lblDeleteResult.Visible = true;
+                await Task.Delay(350);
+                lblDeleteResult.Visible = false;
                 listBox1.Items.Clear();
                 CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
                 SelectedCategory = string.Empty;
@@ -102,5 +113,12 @@ namespace HB.LinkSaver.Pages
             }
         }
 
+        private void CategoryForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
+        }
     }
 }

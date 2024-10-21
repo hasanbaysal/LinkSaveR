@@ -22,6 +22,8 @@ namespace HB.LinkSaver.Pages
 
         private void AddForm_Load(object sender, EventArgs e)
         {
+            lblResult.Visible = false;
+            this.KeyPreview = true;
             LinkManager.Control();
             CategoryManager.GetAll().ForEach(c => { lbCategories.Items.Add(c); });
 
@@ -67,7 +69,7 @@ namespace HB.LinkSaver.Pages
             RemoveCategory(lbl.Text);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             var status = OperationControl();
 
@@ -83,15 +85,17 @@ namespace HB.LinkSaver.Pages
 
             });
 
-            if(result)
+            if (result)
             {
-                MessageBox.Show("success");
+                lblResult.Visible = true;
+                await Task.Delay(350);
                 SelectedCategories.Clear();
                 flowLayoutPanel1.Controls.Clear();
                 tbHeader.Clear();
                 tbDescription.Clear();
                 tbLink.Clear();
                 Program.MainFrm.LoadDgw();
+                lblResult.Visible = false;
             }
 
         }
@@ -129,6 +133,14 @@ namespace HB.LinkSaver.Pages
 
             }
             return status;
+        }
+
+        private void AddForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+             this.Close();
+            }
         }
     }
 }

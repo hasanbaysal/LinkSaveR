@@ -68,7 +68,7 @@ namespace HB.LinkSaver
             PnlTop.Location = new Point(0, 0);
             PnlTop.Margin = new Padding(3, 2, 3, 2);
             PnlTop.Name = "PnlTop";
-            PnlTop.Size = new Size(1438, 26);
+            PnlTop.Size = new Size(1438, 30);
             PnlTop.TabIndex = 2;
             PnlTop.MouseDown += PnlTop_MouseDown;
             // 
@@ -92,11 +92,12 @@ namespace HB.LinkSaver
             panel2.Location = new Point(1371, 0);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(67, 25);
+            panel2.Size = new Size(67, 29);
             panel2.TabIndex = 4;
             // 
             // BtnMin
             // 
+            BtnMin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BtnMin.BackColor = Color.SteelBlue;
             BtnMin.FlatAppearance.BorderSize = 0;
             BtnMin.FlatStyle = FlatStyle.Flat;
@@ -105,10 +106,10 @@ namespace HB.LinkSaver
             BtnMin.IconColor = Color.White;
             BtnMin.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnMin.IconSize = 30;
-            BtnMin.Location = new Point(3, 2);
+            BtnMin.Location = new Point(3, 0);
             BtnMin.Margin = new Padding(3, 2, 3, 2);
             BtnMin.Name = "BtnMin";
-            BtnMin.Size = new Size(22, 21);
+            BtnMin.Size = new Size(22, 27);
             BtnMin.TabIndex = 0;
             BtnMin.TabStop = false;
             BtnMin.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -117,6 +118,7 @@ namespace HB.LinkSaver
             // 
             // BtnClose
             // 
+            BtnClose.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BtnClose.BackColor = Color.SteelBlue;
             BtnClose.FlatAppearance.BorderSize = 0;
             BtnClose.FlatStyle = FlatStyle.Flat;
@@ -125,10 +127,10 @@ namespace HB.LinkSaver
             BtnClose.IconColor = Color.White;
             BtnClose.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnClose.IconSize = 30;
-            BtnClose.Location = new Point(32, 2);
+            BtnClose.Location = new Point(31, 0);
             BtnClose.Margin = new Padding(3, 2, 3, 2);
             BtnClose.Name = "BtnClose";
-            BtnClose.Size = new Size(33, 21);
+            BtnClose.Size = new Size(33, 27);
             BtnClose.TabIndex = 0;
             BtnClose.TabStop = false;
             BtnClose.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -139,7 +141,7 @@ namespace HB.LinkSaver
             // 
             label1.BackColor = Color.Silver;
             label1.Dock = DockStyle.Bottom;
-            label1.Location = new Point(0, 25);
+            label1.Location = new Point(0, 29);
             label1.Name = "label1";
             label1.Size = new Size(1438, 1);
             label1.TabIndex = 0;
@@ -147,7 +149,7 @@ namespace HB.LinkSaver
             // CbHeaderOrDescription
             // 
             CbHeaderOrDescription.AutoSize = true;
-            CbHeaderOrDescription.Location = new Point(343, 54);
+            CbHeaderOrDescription.Location = new Point(336, 59);
             CbHeaderOrDescription.Margin = new Padding(3, 2, 3, 2);
             CbHeaderOrDescription.MinimumSize = new Size(39, 16);
             CbHeaderOrDescription.Name = "CbHeaderOrDescription";
@@ -163,7 +165,7 @@ namespace HB.LinkSaver
             // 
             // tbLinkSearch
             // 
-            tbLinkSearch.Location = new Point(12, 49);
+            tbLinkSearch.Location = new Point(12, 54);
             tbLinkSearch.Margin = new Padding(3, 2, 3, 2);
             tbLinkSearch.Name = "tbLinkSearch";
             tbLinkSearch.PlaceholderText = "Search By Header Or Description";
@@ -205,7 +207,6 @@ namespace HB.LinkSaver
             DGW.EnableHeadersVisualStyles = false;
             DGW.GridColor = Color.FromArgb(60, 60, 60);
             DGW.Location = new Point(12, 83);
-            DGW.Margin = new Padding(3, 2, 3, 2);
             DGW.MultiSelect = false;
             DGW.Name = "DGW";
             DGW.ReadOnly = true;
@@ -213,7 +214,7 @@ namespace HB.LinkSaver
             DGW.RowHeadersWidth = 51;
             DGW.RowTemplate.Height = 35;
             DGW.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DGW.Size = new Size(826, 588);
+            DGW.Size = new Size(826, 587);
             DGW.TabIndex = 1;
             DGW.TabStop = false;
             DGW.CellClick += DGW_CellClick;
@@ -276,7 +277,7 @@ namespace HB.LinkSaver
             BtnCategories.IconColor = Color.White;
             BtnCategories.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnCategories.IconSize = 30;
-            BtnCategories.Location = new Point(1386, 39);
+            BtnCategories.Location = new Point(1340, 39);
             BtnCategories.Margin = new Padding(3, 2, 3, 2);
             BtnCategories.Name = "BtnCategories";
             BtnCategories.Size = new Size(40, 35);
@@ -297,7 +298,7 @@ namespace HB.LinkSaver
             BtnSettings.IconColor = Color.White;
             BtnSettings.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnSettings.IconSize = 30;
-            BtnSettings.Location = new Point(1340, 39);
+            BtnSettings.Location = new Point(1386, 40);
             BtnSettings.Margin = new Padding(3, 2, 3, 2);
             BtnSettings.Name = "BtnSettings";
             BtnSettings.Size = new Size(40, 35);
@@ -353,7 +354,7 @@ namespace HB.LinkSaver
             // 
             label4.Anchor = AnchorStyles.Bottom;
             label4.BackColor = Color.Silver;
-            label4.Location = new Point(8, 681);
+            label4.Location = new Point(8, 678);
             label4.Name = "label4";
             label4.Size = new Size(1446, 1);
             label4.TabIndex = 48;
@@ -367,9 +368,9 @@ namespace HB.LinkSaver
             resetBtn.IconColor = Color.White;
             resetBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             resetBtn.IconSize = 15;
-            resetBtn.Location = new Point(305, 50);
+            resetBtn.Location = new Point(298, 54);
             resetBtn.Name = "resetBtn";
-            resetBtn.Size = new Size(32, 22);
+            resetBtn.Size = new Size(32, 23);
             resetBtn.TabIndex = 53;
             resetBtn.TabStop = false;
             resetBtn.TextImageRelation = TextImageRelation.ImageAboveText;
@@ -390,6 +391,7 @@ namespace HB.LinkSaver
             // tbDescription
             // 
             tbDescription.BackColor = Color.FromArgb(30, 30, 30);
+            tbDescription.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 162);
             tbDescription.ForeColor = Color.White;
             tbDescription.Location = new Point(862, 569);
             tbDescription.Name = "tbDescription";
@@ -398,6 +400,8 @@ namespace HB.LinkSaver
             tbDescription.TabIndex = 56;
             tbDescription.TabStop = false;
             tbDescription.Text = "";
+            tbDescription.MouseLeave += tbDescription_MouseLeave;
+            tbDescription.MouseHover += tbDescription_MouseHover;
             // 
             // FlwPanel
             // 
@@ -427,7 +431,7 @@ namespace HB.LinkSaver
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1438, 685);
+            ClientSize = new Size(1438, 682);
             Controls.Add(tbDescription);
             Controls.Add(CategoryControlPanel);
             Controls.Add(resetBtn);
@@ -454,6 +458,7 @@ namespace HB.LinkSaver
             FormClosing += MainForm_FormClosing;
             Load += Form1_Load;
             Paint += MainForm_Paint;
+            KeyDown += MainForm_KeyDown;
             PnlTop.ResumeLayout(false);
             PnlTop.PerformLayout();
             panel2.ResumeLayout(false);

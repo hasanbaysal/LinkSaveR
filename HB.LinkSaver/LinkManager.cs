@@ -81,6 +81,11 @@ namespace HB.LinkSaver
             //add rule 
 
         }
+        public static Link GetById(string id)
+        {
+
+            return Links.Where(x => x.Id == id).FirstOrDefault()!;
+        }
         public static void Remove(string id)
         {
 

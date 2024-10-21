@@ -253,12 +253,20 @@ namespace HB.LinkSaver.Pages
             File.WriteAllText(Path.Combine(desktopPath, "data.html"), data);
 
             var filePath = Path.Combine(desktopPath, "data.html");
-            mail.Attachments.Add(new Attachment( filePath));
+            mail.Attachments.Add(new Attachment(filePath));
 
             lblMailHtmlInfo.Visible = true;
             await sc.SendMailAsync(mail);
             lblMailHtmlInfo.Visible = false;
             MessageBox.Show("success");
+        }
+
+        private void SettingsForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -18,12 +19,15 @@ namespace HB.LinkSaver
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
         public bool SearchForText = false;
-
+        public Size FirstSize;
+        public Point FirstLocation;
         public MainForm()
         {
             InitializeComponent();
             InitializeToolTip();
             CheckForIllegalCrossThreadCalls = false;
+            FirstSize = tbDescription.Size;
+            FirstLocation = tbDescription.Location;
         }
 
 
@@ -55,11 +59,12 @@ namespace HB.LinkSaver
 
 
             MyToolTip.SetToolTip(this.BtnOpenLink, "Open With Browser");
-            MyToolTip.SetToolTip(this.BtnDelete, "Delete Selected Link");
-            MyToolTip.SetToolTip(this.BtnAdd, "Add a Link");
-            MyToolTip.SetToolTip(this.BtnUpdate, "Update the Link");
-            MyToolTip.SetToolTip(this.BtnSettings, "Settings");
-            MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete");
+            MyToolTip.SetToolTip(this.BtnDelete, $"Select a record before clicking to delete {Environment.NewLine} Please make a selection first (DEL)");
+            MyToolTip.SetToolTip(this.BtnAdd, "Add a Link (F1)");
+            MyToolTip.SetToolTip(this.BtnUpdate, $"Update the Link  {Environment.NewLine} (F2 after select a recod)");
+            MyToolTip.SetToolTip(this.BtnSettings, "Settings (F4)");
+            MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete (F3)");
+
 
         }
 
@@ -84,7 +89,7 @@ namespace HB.LinkSaver
                 Header = x.Header,
                 Context = x.Content,
                 Description = x.Description,
-                Categories = x.Categories.Count == 1 ?    "* "+x.Categories.First() :  string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
+                Categories = x.Categories.Count == 1 ? "* " + x.Categories.First() : string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
             }).ToList();
 
             DGW.DataSource = data;
@@ -109,12 +114,80 @@ namespace HB.LinkSaver
 
             if (e.ColumnIndex == -1) return;
             if (e.RowIndex == -1) return;
-
-
+            tbDescription.Clear();
+            var categories = "";
             CurrentLinkId = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
             CurrentLink = DGW.Rows[e.RowIndex].Cells[2].Value.ToString()!;
-            tbDescription.Text = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
+            var description = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
+            LinkManager.GetById(CurrentLinkId).Categories.ForEach(x =>
+            {
+                categories += $" {x} |";
+            });
 
+            tbDescription.Text +=
+                GetDash("DESCRÝPTÝON")
+                + Environment.NewLine
+                + Environment.NewLine
+                + description
+                + Environment.NewLine
+                + GetDash("CATEGORÝES")
+                + Environment.NewLine
+                + Environment.NewLine
+                + categories
+                + Environment.NewLine;
+
+
+        }
+
+        private string GetDash(string header = "")
+        {
+            if (header != string.Empty)
+            {
+                var result = string.Empty;
+                var dashCount = (maxDashes - header.Length) / 2;
+                var halfLine = "";
+                // TODO : burayý deðiþtir!
+                Enumerable.Range(1, dashCount - 2).ToList().ForEach(x => halfLine += "_");
+
+                result += halfLine;
+                result += header.ToUpper();
+                result += halfLine;
+
+                return result;
+            }
+
+            var temp = string.Empty;
+
+            Enumerable.Range(1, maxDashes).ToList().ForEach(x => temp += "_");
+            return temp;
+        }
+
+        int maxDashes = 0;
+        private int CalculateDashCount(RichTextBox richTextBox, Font font)
+        {
+            string dash = "_";
+            int maxDashes = 0;
+            SizeF textSize;
+
+            using (Graphics g = richTextBox.CreateGraphics())
+            {
+
+                while (true)
+                {
+                    textSize = g.MeasureString(new string(dash[0], maxDashes + 1), font);
+
+                    if (textSize.Width <= richTextBox.ClientSize.Width)
+                    {
+                        maxDashes++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return maxDashes;
         }
 
 
@@ -123,6 +196,9 @@ namespace HB.LinkSaver
         #region FormLoad Actions
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+            this.KeyPreview = true;
             DGW.CellPainting += DGW_CellPainting;
             tbDescription.SelectionIndent = 10;
             tbDescription.SelectionRightIndent = 10;
@@ -131,6 +207,7 @@ namespace HB.LinkSaver
             LoadDgw();
             LoadCategories();
             BackGroundLabel();
+            maxDashes = CalculateDashCount(this.tbDescription, tbDescription.Font);
         }
 
         public void LoadCategories()
@@ -148,7 +225,7 @@ namespace HB.LinkSaver
         Label InfoCategoryLbl = new Label();
         public void BackGroundLabel()
         {
-            InfoCategoryLbl.Text = "\u2191 Select a category for search \u2191";
+            InfoCategoryLbl.Text = "\u2191 Select a category for search (max : 8) \u2191";
             InfoCategoryLbl.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             InfoCategoryLbl.ForeColor = Color.FromArgb(150, 150, 150);
 
@@ -260,7 +337,7 @@ namespace HB.LinkSaver
 
             if (CurrentLinkId == string.Empty) return;
             var data = LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault();
-            
+
             UpdateForm updateForm = new UpdateForm();
             updateForm.OrginalLink = data!;
             updateForm.ShowDialog();
@@ -387,8 +464,8 @@ namespace HB.LinkSaver
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
+            if (CurrentLink == string.Empty) { return; }
             var dr = MessageBox.Show("do you want to delete this record ?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
             if (dr == DialogResult.Yes)
             {
 
@@ -396,7 +473,7 @@ namespace HB.LinkSaver
                 LinkManager.Remove(CurrentLinkId);
                 LoadDgw();
                 CurrentLinkId = string.Empty;
-                CurrentLink = string.Empty ;
+                CurrentLink = string.Empty;
                 tbDescription.Text = string.Empty;
             }
         }
@@ -514,8 +591,56 @@ namespace HB.LinkSaver
             }
         }
 
+
+        private void tbDescription_MouseHover(object sender, EventArgs e)
+        {
+            tbDescription.Size = new Size(FirstSize.Width, FirstSize.Height + 200);
+            tbDescription.Location = new Point(FirstLocation.X, FirstLocation.Y - 200);
+            InfoCategoryLbl.SendToBack();
+        }
+
+        private void tbDescription_MouseLeave(object sender, EventArgs e)
+        {
+            tbDescription.Size = FirstSize;
+            tbDescription.Location = FirstLocation;
+
+            if (SelectedCategories.Count == 0)
+            {
+                InfoCategoryLbl.BringToFront();
+            }
+            else
+            {
+                InfoCategoryLbl.SendToBack();
+            }
+        }
         #endregion
 
-      
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1)
+            {
+                BtnAdd.PerformClick();
+            }
+            if (e.KeyCode == Keys.F2)
+            {
+
+                BtnUpdate.PerformClick();
+            }
+            if (e.KeyCode == Keys.F3)
+            {
+                BtnCategories.PerformClick();
+                e.Handled = true;
+            }
+            if (e.KeyCode == Keys.F4)
+            {
+                BtnSettings.PerformClick();
+            }
+            if (e.KeyCode == Keys.Delete)
+            {
+                BtnDelete.PerformClick();
+            }
+
+
+        }
     }
 }

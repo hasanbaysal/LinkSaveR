@@ -171,6 +171,7 @@
             Controls.Add(tbSenderMail);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "MailSettings";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "MailSettings";
             Load += MailSettings_Load;
             ResumeLayout(false);

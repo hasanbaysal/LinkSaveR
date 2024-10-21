@@ -298,8 +298,10 @@
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "SettingsForm";
-            Text = "SettingsForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Settings Page (ESC to Close)";
             Load += SettingsForm_Load;
+            KeyDown += SettingsForm_KeyDown;
             groupBox3.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox1.ResumeLayout(false);

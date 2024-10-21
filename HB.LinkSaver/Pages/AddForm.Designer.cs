@@ -38,6 +38,7 @@
             label4 = new Label();
             tbDescription = new RichTextBox();
             button1 = new Button();
+            lblResult = new Label();
             SuspendLayout();
             // 
             // lbCategories
@@ -46,9 +47,9 @@
             lbCategories.ForeColor = Color.White;
             lbCategories.FormattingEnabled = true;
             lbCategories.ItemHeight = 15;
-            lbCategories.Location = new Point(12, 12);
+            lbCategories.Location = new Point(8, 12);
             lbCategories.Name = "lbCategories";
-            lbCategories.Size = new Size(144, 334);
+            lbCategories.Size = new Size(213, 334);
             lbCategories.TabIndex = 0;
             lbCategories.TabStop = false;
             lbCategories.SelectedIndexChanged += lbCategories_SelectedIndexChanged;
@@ -56,16 +57,16 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel1.Location = new Point(181, 39);
+            flowLayoutPanel1.Location = new Point(227, 30);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(212, 259);
+            flowLayoutPanel1.Size = new Size(212, 316);
             flowLayoutPanel1.TabIndex = 6;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(232, 12);
+            label1.Location = new Point(264, 12);
             label1.Name = "label1";
             label1.Size = new Size(148, 15);
             label1.TabIndex = 2;
@@ -127,7 +128,7 @@
             // 
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(246, 552);
+            button1.Location = new Point(254, 552);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 3;
@@ -135,12 +136,23 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // lblResult
+            // 
+            lblResult.AutoSize = true;
+            lblResult.ForeColor = Color.FromArgb(128, 255, 128);
+            lblResult.Location = new Point(146, 556);
+            lblResult.Name = "lblResult";
+            lblResult.Size = new Size(43, 15);
+            lblResult.TabIndex = 7;
+            lblResult.Text = "Succes";
+            // 
             // AddForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
             ClientSize = new Size(451, 587);
+            Controls.Add(lblResult);
             Controls.Add(button1);
             Controls.Add(tbDescription);
             Controls.Add(tbLink);
@@ -153,8 +165,10 @@
             Controls.Add(lbCategories);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "AddForm";
-            Text = "Link Add Page";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Link Add Page (ESC to close)";
             Load += AddForm_Load;
+            KeyDown += AddForm_KeyDown;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -171,5 +185,6 @@
         private Label label4;
         private RichTextBox tbDescription;
         private Button button1;
+        private Label lblResult;
     }
 }
