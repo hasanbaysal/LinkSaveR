@@ -149,13 +149,13 @@ namespace HB.LinkSaver
             // CbHeaderOrDescription
             // 
             CbHeaderOrDescription.AutoSize = true;
-            CbHeaderOrDescription.Location = new Point(336, 59);
+            CbHeaderOrDescription.Location = new Point(307, 57);
             CbHeaderOrDescription.Margin = new Padding(3, 2, 3, 2);
             CbHeaderOrDescription.MinimumSize = new Size(39, 16);
             CbHeaderOrDescription.Name = "CbHeaderOrDescription";
             CbHeaderOrDescription.OffBackColor = Color.Gray;
             CbHeaderOrDescription.OffToggleColor = Color.Gainsboro;
-            CbHeaderOrDescription.OnBackColor = Color.MediumSlateBlue;
+            CbHeaderOrDescription.OnBackColor = Color.SteelBlue;
             CbHeaderOrDescription.OnToggleColor = Color.WhiteSmoke;
             CbHeaderOrDescription.Size = new Size(39, 16);
             CbHeaderOrDescription.TabIndex = 43;
@@ -215,9 +215,12 @@ namespace HB.LinkSaver
             DGW.RowTemplate.Height = 35;
             DGW.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DGW.Size = new Size(826, 587);
+            DGW.StandardTab = true;
             DGW.TabIndex = 1;
             DGW.TabStop = false;
             DGW.CellClick += DGW_CellClick;
+            DGW.CellDoubleClick += DGW_CellDoubleClick;
+            DGW.CellEnter += DGW_CellEnter;
             DGW.CellPainting += DGW_CellPainting;
             // 
             // BtnDelete
@@ -254,7 +257,7 @@ namespace HB.LinkSaver
             BtnOpenLink.IconColor = Color.White;
             BtnOpenLink.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnOpenLink.IconSize = 30;
-            BtnOpenLink.Location = new Point(779, 49);
+            BtnOpenLink.Location = new Point(779, 48);
             BtnOpenLink.Margin = new Padding(3, 2, 3, 2);
             BtnOpenLink.Name = "BtnOpenLink";
             BtnOpenLink.Size = new Size(45, 26);
@@ -361,21 +364,24 @@ namespace HB.LinkSaver
             // 
             // resetBtn
             // 
-            resetBtn.BackColor = Color.FromArgb(2, 117, 216);
+            resetBtn.BackColor = Color.Transparent;
             resetBtn.FlatAppearance.BorderSize = 0;
             resetBtn.FlatStyle = FlatStyle.Flat;
+            resetBtn.ForeColor = Color.White;
             resetBtn.IconChar = FontAwesome.Sharp.IconChar.Refresh;
             resetBtn.IconColor = Color.White;
             resetBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            resetBtn.IconSize = 15;
-            resetBtn.Location = new Point(298, 54);
+            resetBtn.IconSize = 30;
+            resetBtn.Location = new Point(677, 48);
             resetBtn.Name = "resetBtn";
-            resetBtn.Size = new Size(32, 23);
+            resetBtn.Size = new Size(45, 26);
             resetBtn.TabIndex = 53;
             resetBtn.TabStop = false;
             resetBtn.TextImageRelation = TextImageRelation.ImageAboveText;
             resetBtn.UseVisualStyleBackColor = false;
             resetBtn.Click += resetBtn_Click;
+            resetBtn.MouseLeave += BtnDelete_MouseLeave;
+            resetBtn.MouseHover += BtnDelete_MouseHover;
             // 
             // CategoryControlPanel
             // 

@@ -64,6 +64,7 @@ namespace HB.LinkSaver
             MyToolTip.SetToolTip(this.BtnUpdate, $"Update the Link  {Environment.NewLine} (F2 after select a recod)");
             MyToolTip.SetToolTip(this.BtnSettings, "Settings (F4)");
             MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete (F3)");
+            MyToolTip.SetToolTip(this.resetBtn, "Clear All Filter  Refresh (F5)");
 
 
         }
@@ -197,6 +198,9 @@ namespace HB.LinkSaver
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            DGW.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 45);
+            DGW.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
 
             this.KeyPreview = true;
             DGW.CellPainting += DGW_CellPainting;
@@ -208,6 +212,10 @@ namespace HB.LinkSaver
             LoadCategories();
             BackGroundLabel();
             maxDashes = CalculateDashCount(this.tbDescription, tbDescription.Font);
+            if (DGW.Rows.Count > 0)
+            {
+                DGW.ClearSelection();
+            }
         }
 
         public void LoadCategories()
@@ -231,7 +239,7 @@ namespace HB.LinkSaver
 
             InfoCategoryLbl.AutoSize = true;
             InfoCategoryLbl.BackColor = Color.FromArgb(30, 30, 30);
-            int x = FlwPanel.Location.X + (FlwPanel.Width - InfoCategoryLbl.Width) / 2;
+            int x = (FlwPanel.Location.X + (FlwPanel.Width - InfoCategoryLbl.Width) / 2) - 55;
             int y = FlwPanel.Location.Y + (FlwPanel.Height - InfoCategoryLbl.Height) / 2;
             InfoCategoryLbl.TextAlign = ContentAlignment.MiddleCenter;
             InfoCategoryLbl.Location = new Point(x - 40, y);
@@ -413,11 +421,11 @@ namespace HB.LinkSaver
             {
                 if (!Program.MainFrm.CbHeaderOrDescription.Checked)
                 {
-                    list = list.Where(x => x.Header.Contains((Program.MainFrm.tbLinkSearch.Text))).ToList();
+                    list = list.Where(x => x.Header.Contains((Program.MainFrm.tbLinkSearch.Text),StringComparison.OrdinalIgnoreCase)).ToList();
                 }
                 else
                 {
-                    list = list.Where(x => x.Description.Contains((Program.MainFrm.tbLinkSearch.Text))).ToList();
+                    list = list.Where(x => x.Description.Contains((Program.MainFrm.tbLinkSearch.Text),StringComparison.OrdinalIgnoreCase)).ToList();
                 }
             }
 
@@ -430,7 +438,7 @@ namespace HB.LinkSaver
                 Header = x.Header,
                 Context = x.Content,
                 Description = x.Description,
-                Categories = string.Join("  /  ", x.Categories)
+                Categories = x.Categories.Count == 1 ? "* " + x.Categories.First() : string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
             }).ToList();
 
             Program.MainFrm.DGW.DataSource = data;
@@ -451,11 +459,18 @@ namespace HB.LinkSaver
 
         private void resetBtn_Click(object sender, EventArgs e)
         {
+            InfoCategoryLbl.BringToFront();
             tbLinkSearch.Clear();
             SelectedCategories.Clear();
+            tbDescription.Clear();
             FlwPanel.Controls.Clear();
-
+            CurrentLink = string.Empty;
+            CurrentLinkId = string.Empty;
             SearchByFilters();
+            if (DGW.Rows.Count > 0)
+            {
+                DGW.ClearSelection();
+            }
         }
 
         #endregion
@@ -565,17 +580,17 @@ namespace HB.LinkSaver
             {
 
 
-                
+
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
-                
+
                 using (Pen whitePen = new Pen(Color.White, 2))
                 {
-                    
+
                     e.Graphics.DrawLine(whitePen, e.CellBounds.Right - 1, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom);
                 }
 
-                
+
                 e.Handled = true;
 
             }
@@ -584,7 +599,7 @@ namespace HB.LinkSaver
         {
             using (Pen whitePen = new Pen(Color.White, 2))
             {
-                
+
                 e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
                 e.Graphics.DrawRectangle(whitePen, CategoryControlPanel.Left - 1, CategoryControlPanel.Top - 1, CategoryControlPanel.Width + 1, CategoryControlPanel.Height + 1);
                 e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
@@ -636,10 +651,36 @@ namespace HB.LinkSaver
             {
                 BtnSettings.PerformClick();
             }
+            if (e.KeyCode == Keys.F5)
+            {
+                resetBtn.PerformClick();
+            }
+
             if (e.KeyCode == Keys.Delete)
             {
                 BtnDelete.PerformClick();
             }
+
+
+        }
+
+        private void DGW_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void DGW_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+            if (e.ColumnIndex == -1) return;
+            if (e.RowIndex == -1) return;
+            tbDescription.Clear();
+            var id = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
+            var data = LinkManager.GetById(id);
+            LinkDetailForm detailForm = new LinkDetailForm();
+            detailForm.Link = data;
+            detailForm.ShowDialog();    
 
 
         }

@@ -163,7 +163,7 @@
             Controls.Add(label1);
             Controls.Add(flowLayoutPanel1);
             Controls.Add(lbCategories);
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            FormBorderStyle = FormBorderStyle.SizableToolWindow;
             Name = "AddForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Link Add Page (ESC to close)";
