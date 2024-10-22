@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -18,12 +19,15 @@ namespace HB.LinkSaver
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
         public bool SearchForText = false;
-
+        public Size FirstSize;
+        public Point FirstLocation;
         public MainForm()
         {
             InitializeComponent();
             InitializeToolTip();
             CheckForIllegalCrossThreadCalls = false;
+            FirstSize = tbDescription.Size;
+            FirstLocation = tbDescription.Location;
         }
 
 
@@ -55,11 +59,13 @@ namespace HB.LinkSaver
 
 
             MyToolTip.SetToolTip(this.BtnOpenLink, "Open With Browser");
-            MyToolTip.SetToolTip(this.BtnDelete, "Delete Selected Link");
-            MyToolTip.SetToolTip(this.BtnAdd, "Add a Link");
-            MyToolTip.SetToolTip(this.BtnUpdate, "Update the Link");
-            MyToolTip.SetToolTip(this.BtnSettings, "Settings");
-            MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete");
+            MyToolTip.SetToolTip(this.BtnDelete, $"Select a record before clicking to delete {Environment.NewLine} Please make a selection first (DEL)");
+            MyToolTip.SetToolTip(this.BtnAdd, "Add a Link (F1)");
+            MyToolTip.SetToolTip(this.BtnUpdate, $"Update the Link  {Environment.NewLine} (F2 after select a recod)");
+            MyToolTip.SetToolTip(this.BtnSettings, "Settings (F4)");
+            MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete (F3)");
+            MyToolTip.SetToolTip(this.resetBtn, "Clear All Filter  Refresh (F5)");
+
 
         }
 
@@ -84,7 +90,7 @@ namespace HB.LinkSaver
                 Header = x.Header,
                 Context = x.Content,
                 Description = x.Description,
-                Categories = string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
+                Categories = x.Categories.Count == 1 ? "* " + x.Categories.First() : string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
             }).ToList();
 
             DGW.DataSource = data;
@@ -109,12 +115,80 @@ namespace HB.LinkSaver
 
             if (e.ColumnIndex == -1) return;
             if (e.RowIndex == -1) return;
-
-
+            tbDescription.Clear();
+            var categories = "";
             CurrentLinkId = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
             CurrentLink = DGW.Rows[e.RowIndex].Cells[2].Value.ToString()!;
-            richTextBox1.Text = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
+            var description = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
+            LinkManager.GetById(CurrentLinkId).Categories.ForEach(x =>
+            {
+                categories += $" {x} |";
+            });
 
+            tbDescription.Text +=
+                GetDash("DESCRÝPTÝON")
+                + Environment.NewLine
+                + Environment.NewLine
+                + description
+                + Environment.NewLine
+                + GetDash("CATEGORÝES")
+                + Environment.NewLine
+                + Environment.NewLine
+                + categories
+                + Environment.NewLine;
+
+
+        }
+
+        private string GetDash(string header = "")
+        {
+            if (header != string.Empty)
+            {
+                var result = string.Empty;
+                var dashCount = (maxDashes - header.Length) / 2;
+                var halfLine = "";
+                // TODO : burayý deðiþtir!
+                Enumerable.Range(1, dashCount - 2).ToList().ForEach(x => halfLine += "_");
+
+                result += halfLine;
+                result += header.ToUpper();
+                result += halfLine;
+
+                return result;
+            }
+
+            var temp = string.Empty;
+
+            Enumerable.Range(1, maxDashes).ToList().ForEach(x => temp += "_");
+            return temp;
+        }
+
+        int maxDashes = 0;
+        private int CalculateDashCount(RichTextBox richTextBox, Font font)
+        {
+            string dash = "_";
+            int maxDashes = 0;
+            SizeF textSize;
+
+            using (Graphics g = richTextBox.CreateGraphics())
+            {
+
+                while (true)
+                {
+                    textSize = g.MeasureString(new string(dash[0], maxDashes + 1), font);
+
+                    if (textSize.Width <= richTextBox.ClientSize.Width)
+                    {
+                        maxDashes++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            return maxDashes;
         }
 
 
@@ -123,38 +197,49 @@ namespace HB.LinkSaver
         #region FormLoad Actions
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            DGW.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 45);
+            DGW.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
+
+
+            this.KeyPreview = true;
             DGW.CellPainting += DGW_CellPainting;
-            richTextBox1.SelectionIndent = 10;
-            richTextBox1.SelectionRightIndent = 10;
+            tbDescription.SelectionIndent = 10;
+            tbDescription.SelectionRightIndent = 10;
 
             LinkManager.Control();
             LoadDgw();
             LoadCategories();
             BackGroundLabel();
+            maxDashes = CalculateDashCount(this.tbDescription, tbDescription.Font);
+            if (DGW.Rows.Count > 0)
+            {
+                DGW.ClearSelection();
+            }
         }
 
         public void LoadCategories()
         {
 
 
-            Program.MainFrm.categoryControlLb1.ClearItems();
+            Program.MainFrm.CategoryControlPanel.ClearItems();
 
             CategoryManager.Categories.ForEach(x =>
             {
-                Program.MainFrm.categoryControlLb1.AddItem(x);
+                Program.MainFrm.CategoryControlPanel.AddItem(x);
             });
         }
 
         Label InfoCategoryLbl = new Label();
         public void BackGroundLabel()
         {
-            InfoCategoryLbl.Text = "\u2191 Select a category for search \u2191";
+            InfoCategoryLbl.Text = "\u2191 Select a category for search (max : 8) \u2191";
             InfoCategoryLbl.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             InfoCategoryLbl.ForeColor = Color.FromArgb(150, 150, 150);
 
             InfoCategoryLbl.AutoSize = true;
             InfoCategoryLbl.BackColor = Color.FromArgb(30, 30, 30);
-            int x = FlwPanel.Location.X + (FlwPanel.Width - InfoCategoryLbl.Width) / 2;
+            int x = (FlwPanel.Location.X + (FlwPanel.Width - InfoCategoryLbl.Width) / 2) - 55;
             int y = FlwPanel.Location.Y + (FlwPanel.Height - InfoCategoryLbl.Height) / 2;
             InfoCategoryLbl.TextAlign = ContentAlignment.MiddleCenter;
             InfoCategoryLbl.Location = new Point(x - 40, y);
@@ -260,6 +345,7 @@ namespace HB.LinkSaver
 
             if (CurrentLinkId == string.Empty) return;
             var data = LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault();
+
             UpdateForm updateForm = new UpdateForm();
             updateForm.OrginalLink = data!;
             updateForm.ShowDialog();
@@ -313,6 +399,11 @@ namespace HB.LinkSaver
 
         #region Search Code
 
+        private void textBox2_KeyUp(object sender, KeyEventArgs e)
+        {
+            var data = ((TextBox)sender).Text;
+            CategoryControlPanel.FilterCategory(data);
+        }
         public static void SearchByFilters(bool searchWithText = false)
         {
 
@@ -326,15 +417,15 @@ namespace HB.LinkSaver
 
 
 
-            if (!string.IsNullOrEmpty(Program.MainFrm.textBox1.Text))
+            if (!string.IsNullOrEmpty(Program.MainFrm.tbLinkSearch.Text))
             {
                 if (!Program.MainFrm.CbHeaderOrDescription.Checked)
                 {
-                    list = list.Where(x => x.Header.Contains((Program.MainFrm.textBox1.Text))).ToList();
+                    list = list.Where(x => x.Header.Contains((Program.MainFrm.tbLinkSearch.Text),StringComparison.OrdinalIgnoreCase)).ToList();
                 }
                 else
                 {
-                    list = list.Where(x => x.Description.Contains((Program.MainFrm.textBox1.Text))).ToList();
+                    list = list.Where(x => x.Description.Contains((Program.MainFrm.tbLinkSearch.Text),StringComparison.OrdinalIgnoreCase)).ToList();
                 }
             }
 
@@ -347,7 +438,7 @@ namespace HB.LinkSaver
                 Header = x.Header,
                 Context = x.Content,
                 Description = x.Description,
-                Categories = string.Join("  /  ", x.Categories)
+                Categories = x.Categories.Count == 1 ? "* " + x.Categories.First() : string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
             }).ToList();
 
             Program.MainFrm.DGW.DataSource = data;
@@ -368,11 +459,18 @@ namespace HB.LinkSaver
 
         private void resetBtn_Click(object sender, EventArgs e)
         {
-            textBox1.Clear();
+            InfoCategoryLbl.BringToFront();
+            tbLinkSearch.Clear();
             SelectedCategories.Clear();
+            tbDescription.Clear();
             FlwPanel.Controls.Clear();
-
+            CurrentLink = string.Empty;
+            CurrentLinkId = string.Empty;
             SearchByFilters();
+            if (DGW.Rows.Count > 0)
+            {
+                DGW.ClearSelection();
+            }
         }
 
         #endregion
@@ -381,8 +479,8 @@ namespace HB.LinkSaver
 
         private void BtnDelete_Click(object sender, EventArgs e)
         {
+            if (CurrentLink == string.Empty) { return; }
             var dr = MessageBox.Show("do you want to delete this record ?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
             if (dr == DialogResult.Yes)
             {
 
@@ -390,6 +488,8 @@ namespace HB.LinkSaver
                 LinkManager.Remove(CurrentLinkId);
                 LoadDgw();
                 CurrentLinkId = string.Empty;
+                CurrentLink = string.Empty;
+                tbDescription.Text = string.Empty;
             }
         }
 
@@ -480,17 +580,17 @@ namespace HB.LinkSaver
             {
 
 
-                // Hücreyi çiz
+
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
 
-                // Sadece sað kenar çizgisini beyaz yap
+
                 using (Pen whitePen = new Pen(Color.White, 2))
                 {
-                    // Sað kenar çizgisi
+
                     e.Graphics.DrawLine(whitePen, e.CellBounds.Right - 1, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom);
                 }
 
-                // Çizim iþlemini tamamladýðýný bildir
+
                 e.Handled = true;
 
             }
@@ -499,19 +599,90 @@ namespace HB.LinkSaver
         {
             using (Pen whitePen = new Pen(Color.White, 2))
             {
-                // DataGridView'in dýþ sýnýrlarýný çiz
+
                 e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
-                e.Graphics.DrawRectangle(whitePen, categoryControlLb1.Left - 1, categoryControlLb1.Top - 1, categoryControlLb1.Width + 1, categoryControlLb1.Height + 1);
+                e.Graphics.DrawRectangle(whitePen, CategoryControlPanel.Left - 1, CategoryControlPanel.Top - 1, CategoryControlPanel.Width + 1, CategoryControlPanel.Height + 1);
                 e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
+                //e.Graphics.DrawRectangle(whitePen, tbDescription.Left - 1, tbDescription.Top - 1, tbDescription.Width + 1, tbDescription.Height + 1);
             }
         }
 
+
+        private void tbDescription_MouseHover(object sender, EventArgs e)
+        {
+            tbDescription.Size = new Size(FirstSize.Width, FirstSize.Height + 200);
+            tbDescription.Location = new Point(FirstLocation.X, FirstLocation.Y - 200);
+            InfoCategoryLbl.SendToBack();
+        }
+
+        private void tbDescription_MouseLeave(object sender, EventArgs e)
+        {
+            tbDescription.Size = FirstSize;
+            tbDescription.Location = FirstLocation;
+
+            if (SelectedCategories.Count == 0)
+            {
+                InfoCategoryLbl.BringToFront();
+            }
+            else
+            {
+                InfoCategoryLbl.SendToBack();
+            }
+        }
         #endregion
 
-        private  void textBox2_KeyUp(object sender, KeyEventArgs e)
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
-            var data = ((TextBox)sender).Text;
-             categoryControlLb1.FilterCategory(data);
+            if (e.KeyCode == Keys.F1)
+            {
+                BtnAdd.PerformClick();
+            }
+            if (e.KeyCode == Keys.F2)
+            {
+
+                BtnUpdate.PerformClick();
+            }
+            if (e.KeyCode == Keys.F3)
+            {
+                BtnCategories.PerformClick();
+                e.Handled = true;
+            }
+            if (e.KeyCode == Keys.F4)
+            {
+                BtnSettings.PerformClick();
+            }
+            if (e.KeyCode == Keys.F5)
+            {
+                resetBtn.PerformClick();
+            }
+
+            if (e.KeyCode == Keys.Delete)
+            {
+                BtnDelete.PerformClick();
+            }
+
+
+        }
+
+        private void DGW_CellEnter(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void DGW_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+            if (e.ColumnIndex == -1) return;
+            if (e.RowIndex == -1) return;
+            tbDescription.Clear();
+            var id = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
+            var data = LinkManager.GetById(id);
+            LinkDetailForm detailForm = new LinkDetailForm();
+            detailForm.Link = data;
+            detailForm.ShowDialog();    
+
+
         }
     }
 }

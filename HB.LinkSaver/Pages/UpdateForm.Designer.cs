@@ -38,6 +38,7 @@
             label1 = new Label();
             flowLayoutPanel1 = new FlowLayoutPanel();
             lbCategories = new ListBox();
+            lblResult = new Label();
             SuspendLayout();
             // 
             // button1
@@ -108,7 +109,7 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.White;
-            label1.Location = new Point(242, 12);
+            label1.Location = new Point(278, 12);
             label1.Name = "label1";
             label1.Size = new Size(148, 15);
             label1.TabIndex = 11;
@@ -117,9 +118,9 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanel1.Location = new Point(191, 39);
+            flowLayoutPanel1.Location = new Point(235, 39);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(212, 259);
+            flowLayoutPanel1.Size = new Size(204, 307);
             flowLayoutPanel1.TabIndex = 7;
             // 
             // lbCategories
@@ -128,11 +129,22 @@
             lbCategories.ForeColor = Color.White;
             lbCategories.FormattingEnabled = true;
             lbCategories.ItemHeight = 15;
-            lbCategories.Location = new Point(22, 12);
+            lbCategories.Location = new Point(12, 12);
             lbCategories.Name = "lbCategories";
-            lbCategories.Size = new Size(144, 334);
+            lbCategories.Size = new Size(213, 334);
             lbCategories.TabIndex = 6;
+            lbCategories.TabStop = false;
             lbCategories.SelectedIndexChanged += lbCategories_SelectedIndexChanged;
+            // 
+            // lblResult
+            // 
+            lblResult.AutoSize = true;
+            lblResult.ForeColor = Color.FromArgb(128, 255, 128);
+            lblResult.Location = new Point(182, 556);
+            lblResult.Name = "lblResult";
+            lblResult.Size = new Size(43, 15);
+            lblResult.TabIndex = 12;
+            lblResult.Text = "Succes";
             // 
             // UpdateForm
             // 
@@ -140,6 +152,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
             ClientSize = new Size(451, 587);
+            Controls.Add(lblResult);
             Controls.Add(button1);
             Controls.Add(tbDescription);
             Controls.Add(tbLink);
@@ -152,8 +165,10 @@
             Controls.Add(lbCategories);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "UpdateForm";
-            Text = "UpdateForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Update Page (ESC to Close)";
             Load += UpdateForm_Load;
+            KeyDown += UpdateForm_KeyDown;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -170,5 +185,6 @@
         private Label label1;
         private FlowLayoutPanel flowLayoutPanel1;
         private ListBox lbCategories;
+        private Label lblResult;
     }
 }

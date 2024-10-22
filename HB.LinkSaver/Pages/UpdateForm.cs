@@ -23,6 +23,8 @@ namespace HB.LinkSaver.Pages
         public List<string> SelectedCategories = new List<string>();
         private void UpdateForm_Load(object sender, EventArgs e)
         {
+            lblResult.Visible = false;
+            this.KeyPreview = true;
             LinkManager.Control();
             CategoryManager.GetAll().ForEach(c => { lbCategories.Items.Add(c); });
             OrginalLink.Categories.ForEach(x => AddCategory(x));
@@ -40,8 +42,9 @@ namespace HB.LinkSaver.Pages
             lb.Text = data;
             lb.BackColor = Color.White;
             lb.ForeColor = Color.Black;
-            lb.Click += Lbl_Click;
+            lb.Click += Lbl_Click!;
             flowLayoutPanel1.Controls.Add(lb);
+
         }
         public void RemoveCategory(string data)
         {
@@ -59,7 +62,7 @@ namespace HB.LinkSaver.Pages
             SelectedCategories.ForEach(x => AddCategory(x));
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             var status = OperationControl();
 
@@ -68,6 +71,7 @@ namespace HB.LinkSaver.Pages
 
             var result = LinkManager.Update(new Link()
             {
+                Id = OrginalLink.Id,
                 Categories = SelectedCategories,
                 Content = tbLink.Text,
                 Description = tbDescription.Text,
@@ -76,7 +80,11 @@ namespace HB.LinkSaver.Pages
             if (result)
             {
                 Program.MainFrm.LoadDgw();
-                MessageBox.Show("success");
+                lblResult.Visible = true;
+                await Task.Delay(500);
+                lblResult.Visible = false;
+                Program.MainFrm.CurrentLink = string.Empty;
+                Program.MainFrm.CurrentLinkId = string.Empty;
                 this.Close();
             }
 
@@ -131,6 +139,14 @@ namespace HB.LinkSaver.Pages
             {
                 SelectedCategories.Add(lb.SelectedItem!.ToString()!);
                 AddCategory(lb.SelectedItem!.ToString()!);
+            }
+        }
+
+        private void UpdateForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();
             }
         }
     }

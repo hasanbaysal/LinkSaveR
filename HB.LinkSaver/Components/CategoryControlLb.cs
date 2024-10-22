@@ -47,6 +47,7 @@ namespace HB.LinkSaver.Components
             btnTemp.FlatStyle = FlatStyle.Flat;
             btnTemp.Text = item;
             btnTemp.Name = item;
+            btnTemp.TabStop = false;
             btnTemp.Click += BtnHandler;
             flowLayoutPanel1.Controls.Add(btnTemp);
             flowLayoutPanel1.Refresh();

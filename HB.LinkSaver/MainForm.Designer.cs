@@ -39,7 +39,7 @@ namespace HB.LinkSaver
             BtnClose = new FontAwesome.Sharp.IconButton();
             label1 = new Label();
             CbHeaderOrDescription = new Components.RJToggleButton();
-            textBox1 = new TextBox();
+            tbLinkSearch = new TextBox();
             DGW = new DataGridView();
             BtnDelete = new FontAwesome.Sharp.IconButton();
             BtnOpenLink = new FontAwesome.Sharp.IconButton();
@@ -49,10 +49,10 @@ namespace HB.LinkSaver
             BtnAdd = new FontAwesome.Sharp.IconButton();
             label4 = new Label();
             resetBtn = new FontAwesome.Sharp.IconButton();
-            categoryControlLb1 = new Components.CategoryControlLb();
-            richTextBox1 = new RichTextBox();
+            CategoryControlPanel = new Components.CategoryControlLb();
+            tbDescription = new RichTextBox();
             FlwPanel = new FlowLayoutPanel();
-            textBox2 = new TextBox();
+            tbCategorySearch = new TextBox();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -68,7 +68,7 @@ namespace HB.LinkSaver
             PnlTop.Location = new Point(0, 0);
             PnlTop.Margin = new Padding(3, 2, 3, 2);
             PnlTop.Name = "PnlTop";
-            PnlTop.Size = new Size(1438, 26);
+            PnlTop.Size = new Size(1438, 30);
             PnlTop.TabIndex = 2;
             PnlTop.MouseDown += PnlTop_MouseDown;
             // 
@@ -92,11 +92,12 @@ namespace HB.LinkSaver
             panel2.Location = new Point(1371, 0);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(67, 25);
+            panel2.Size = new Size(67, 29);
             panel2.TabIndex = 4;
             // 
             // BtnMin
             // 
+            BtnMin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BtnMin.BackColor = Color.SteelBlue;
             BtnMin.FlatAppearance.BorderSize = 0;
             BtnMin.FlatStyle = FlatStyle.Flat;
@@ -105,10 +106,10 @@ namespace HB.LinkSaver
             BtnMin.IconColor = Color.White;
             BtnMin.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnMin.IconSize = 30;
-            BtnMin.Location = new Point(3, 2);
+            BtnMin.Location = new Point(3, 0);
             BtnMin.Margin = new Padding(3, 2, 3, 2);
             BtnMin.Name = "BtnMin";
-            BtnMin.Size = new Size(22, 21);
+            BtnMin.Size = new Size(22, 27);
             BtnMin.TabIndex = 0;
             BtnMin.TabStop = false;
             BtnMin.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -117,6 +118,7 @@ namespace HB.LinkSaver
             // 
             // BtnClose
             // 
+            BtnClose.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BtnClose.BackColor = Color.SteelBlue;
             BtnClose.FlatAppearance.BorderSize = 0;
             BtnClose.FlatStyle = FlatStyle.Flat;
@@ -125,11 +127,12 @@ namespace HB.LinkSaver
             BtnClose.IconColor = Color.White;
             BtnClose.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnClose.IconSize = 30;
-            BtnClose.Location = new Point(32, 2);
+            BtnClose.Location = new Point(31, 0);
             BtnClose.Margin = new Padding(3, 2, 3, 2);
             BtnClose.Name = "BtnClose";
-            BtnClose.Size = new Size(33, 21);
+            BtnClose.Size = new Size(33, 27);
             BtnClose.TabIndex = 0;
+            BtnClose.TabStop = false;
             BtnClose.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnClose.UseVisualStyleBackColor = false;
             BtnClose.Click += BtnClose_Click;
@@ -138,7 +141,7 @@ namespace HB.LinkSaver
             // 
             label1.BackColor = Color.Silver;
             label1.Dock = DockStyle.Bottom;
-            label1.Location = new Point(0, 25);
+            label1.Location = new Point(0, 29);
             label1.Name = "label1";
             label1.Size = new Size(1438, 1);
             label1.TabIndex = 0;
@@ -146,28 +149,30 @@ namespace HB.LinkSaver
             // CbHeaderOrDescription
             // 
             CbHeaderOrDescription.AutoSize = true;
-            CbHeaderOrDescription.Location = new Point(343, 54);
+            CbHeaderOrDescription.Location = new Point(307, 57);
             CbHeaderOrDescription.Margin = new Padding(3, 2, 3, 2);
             CbHeaderOrDescription.MinimumSize = new Size(39, 16);
             CbHeaderOrDescription.Name = "CbHeaderOrDescription";
             CbHeaderOrDescription.OffBackColor = Color.Gray;
             CbHeaderOrDescription.OffToggleColor = Color.Gainsboro;
-            CbHeaderOrDescription.OnBackColor = Color.MediumSlateBlue;
+            CbHeaderOrDescription.OnBackColor = Color.SteelBlue;
             CbHeaderOrDescription.OnToggleColor = Color.WhiteSmoke;
             CbHeaderOrDescription.Size = new Size(39, 16);
             CbHeaderOrDescription.TabIndex = 43;
+            CbHeaderOrDescription.TabStop = false;
             CbHeaderOrDescription.UseVisualStyleBackColor = true;
             CbHeaderOrDescription.CheckedChanged += CbHeaderOrDescription_CheckedChanged;
             // 
-            // textBox1
+            // tbLinkSearch
             // 
-            textBox1.Location = new Point(12, 49);
-            textBox1.Margin = new Padding(3, 2, 3, 2);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Search By Header Or Description";
-            textBox1.Size = new Size(280, 23);
-            textBox1.TabIndex = 41;
-            textBox1.KeyUp += textBox1_KeyUp;
+            tbLinkSearch.Location = new Point(12, 54);
+            tbLinkSearch.Margin = new Padding(3, 2, 3, 2);
+            tbLinkSearch.Name = "tbLinkSearch";
+            tbLinkSearch.PlaceholderText = "Search By Header Or Description";
+            tbLinkSearch.Size = new Size(280, 23);
+            tbLinkSearch.TabIndex = 41;
+            tbLinkSearch.TabStop = false;
+            tbLinkSearch.KeyUp += textBox1_KeyUp;
             // 
             // DGW
             // 
@@ -180,6 +185,7 @@ namespace HB.LinkSaver
             DGW.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             DGW.BackgroundColor = Color.FromArgb(30, 30, 30);
             DGW.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+            DGW.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = Color.FromArgb(45, 45, 45);
             dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
@@ -201,7 +207,6 @@ namespace HB.LinkSaver
             DGW.EnableHeadersVisualStyles = false;
             DGW.GridColor = Color.FromArgb(60, 60, 60);
             DGW.Location = new Point(12, 83);
-            DGW.Margin = new Padding(3, 2, 3, 2);
             DGW.MultiSelect = false;
             DGW.Name = "DGW";
             DGW.ReadOnly = true;
@@ -209,10 +214,13 @@ namespace HB.LinkSaver
             DGW.RowHeadersWidth = 51;
             DGW.RowTemplate.Height = 35;
             DGW.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DGW.Size = new Size(826, 588);
+            DGW.Size = new Size(826, 587);
+            DGW.StandardTab = true;
             DGW.TabIndex = 1;
             DGW.TabStop = false;
             DGW.CellClick += DGW_CellClick;
+            DGW.CellDoubleClick += DGW_CellDoubleClick;
+            DGW.CellEnter += DGW_CellEnter;
             DGW.CellPainting += DGW_CellPainting;
             // 
             // BtnDelete
@@ -231,6 +239,7 @@ namespace HB.LinkSaver
             BtnDelete.Name = "BtnDelete";
             BtnDelete.Size = new Size(45, 26);
             BtnDelete.TabIndex = 38;
+            BtnDelete.TabStop = false;
             BtnDelete.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnDelete.UseVisualStyleBackColor = false;
             BtnDelete.Click += BtnDelete_Click;
@@ -248,11 +257,12 @@ namespace HB.LinkSaver
             BtnOpenLink.IconColor = Color.White;
             BtnOpenLink.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnOpenLink.IconSize = 30;
-            BtnOpenLink.Location = new Point(779, 49);
+            BtnOpenLink.Location = new Point(779, 48);
             BtnOpenLink.Margin = new Padding(3, 2, 3, 2);
             BtnOpenLink.Name = "BtnOpenLink";
             BtnOpenLink.Size = new Size(45, 26);
             BtnOpenLink.TabIndex = 37;
+            BtnOpenLink.TabStop = false;
             BtnOpenLink.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnOpenLink.UseVisualStyleBackColor = false;
             BtnOpenLink.Click += BtnOpenLink_Click;
@@ -270,11 +280,12 @@ namespace HB.LinkSaver
             BtnCategories.IconColor = Color.White;
             BtnCategories.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnCategories.IconSize = 30;
-            BtnCategories.Location = new Point(1386, 39);
+            BtnCategories.Location = new Point(1340, 39);
             BtnCategories.Margin = new Padding(3, 2, 3, 2);
             BtnCategories.Name = "BtnCategories";
             BtnCategories.Size = new Size(40, 35);
             BtnCategories.TabIndex = 36;
+            BtnCategories.TabStop = false;
             BtnCategories.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnCategories.UseVisualStyleBackColor = false;
             BtnCategories.Click += BtnCategories_Click;
@@ -290,11 +301,12 @@ namespace HB.LinkSaver
             BtnSettings.IconColor = Color.White;
             BtnSettings.IconFont = FontAwesome.Sharp.IconFont.Auto;
             BtnSettings.IconSize = 30;
-            BtnSettings.Location = new Point(1340, 39);
+            BtnSettings.Location = new Point(1386, 40);
             BtnSettings.Margin = new Padding(3, 2, 3, 2);
             BtnSettings.Name = "BtnSettings";
             BtnSettings.Size = new Size(40, 35);
             BtnSettings.TabIndex = 35;
+            BtnSettings.TabStop = false;
             BtnSettings.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnSettings.UseVisualStyleBackColor = false;
             BtnSettings.Click += BtnSettings_Click;
@@ -315,6 +327,7 @@ namespace HB.LinkSaver
             BtnUpdate.Name = "BtnUpdate";
             BtnUpdate.Size = new Size(40, 35);
             BtnUpdate.TabIndex = 39;
+            BtnUpdate.TabStop = false;
             BtnUpdate.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnUpdate.UseVisualStyleBackColor = false;
             BtnUpdate.Click += BtnUpdate_Click;
@@ -335,6 +348,7 @@ namespace HB.LinkSaver
             BtnAdd.Name = "BtnAdd";
             BtnAdd.Size = new Size(40, 35);
             BtnAdd.TabIndex = 34;
+            BtnAdd.TabStop = false;
             BtnAdd.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnAdd.UseVisualStyleBackColor = false;
             BtnAdd.Click += BtnAdd_Click;
@@ -343,48 +357,57 @@ namespace HB.LinkSaver
             // 
             label4.Anchor = AnchorStyles.Bottom;
             label4.BackColor = Color.Silver;
-            label4.Location = new Point(8, 694);
+            label4.Location = new Point(8, 678);
             label4.Name = "label4";
             label4.Size = new Size(1446, 1);
             label4.TabIndex = 48;
             // 
             // resetBtn
             // 
-            resetBtn.BackColor = Color.FromArgb(2, 117, 216);
+            resetBtn.BackColor = Color.Transparent;
             resetBtn.FlatAppearance.BorderSize = 0;
             resetBtn.FlatStyle = FlatStyle.Flat;
+            resetBtn.ForeColor = Color.White;
             resetBtn.IconChar = FontAwesome.Sharp.IconChar.Refresh;
             resetBtn.IconColor = Color.White;
             resetBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            resetBtn.IconSize = 15;
-            resetBtn.Location = new Point(305, 50);
+            resetBtn.IconSize = 30;
+            resetBtn.Location = new Point(677, 48);
             resetBtn.Name = "resetBtn";
-            resetBtn.Size = new Size(32, 22);
+            resetBtn.Size = new Size(45, 26);
             resetBtn.TabIndex = 53;
+            resetBtn.TabStop = false;
             resetBtn.TextImageRelation = TextImageRelation.ImageAboveText;
             resetBtn.UseVisualStyleBackColor = false;
             resetBtn.Click += resetBtn_Click;
+            resetBtn.MouseLeave += BtnDelete_MouseLeave;
+            resetBtn.MouseHover += BtnDelete_MouseHover;
             // 
-            // categoryControlLb1
+            // CategoryControlPanel
             // 
-            categoryControlLb1.BackColor = Color.FromArgb(50, 50, 50);
-            categoryControlLb1.BorderStyle = BorderStyle.FixedSingle;
-            categoryControlLb1.Location = new Point(862, 83);
-            categoryControlLb1.Name = "categoryControlLb1";
-            categoryControlLb1.Size = new Size(564, 342);
-            categoryControlLb1.TabIndex = 54;
-            categoryControlLb1.BtnHandler += categoryControlLb1_BtnHandler;
+            CategoryControlPanel.BackColor = Color.Transparent;
+            CategoryControlPanel.BorderStyle = BorderStyle.FixedSingle;
+            CategoryControlPanel.Location = new Point(862, 83);
+            CategoryControlPanel.Name = "CategoryControlPanel";
+            CategoryControlPanel.Size = new Size(564, 342);
+            CategoryControlPanel.TabIndex = 54;
+            CategoryControlPanel.TabStop = false;
+            CategoryControlPanel.BtnHandler += categoryControlLb1_BtnHandler;
             // 
-            // richTextBox1
+            // tbDescription
             // 
-            richTextBox1.BackColor = Color.FromArgb(30, 30, 30);
-            richTextBox1.ForeColor = Color.White;
-            richTextBox1.Location = new Point(862, 569);
-            richTextBox1.Name = "richTextBox1";
-            richTextBox1.ReadOnly = true;
-            richTextBox1.Size = new Size(564, 101);
-            richTextBox1.TabIndex = 56;
-            richTextBox1.Text = "";
+            tbDescription.BackColor = Color.FromArgb(30, 30, 30);
+            tbDescription.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            tbDescription.ForeColor = Color.White;
+            tbDescription.Location = new Point(862, 569);
+            tbDescription.Name = "tbDescription";
+            tbDescription.ReadOnly = true;
+            tbDescription.Size = new Size(564, 101);
+            tbDescription.TabIndex = 56;
+            tbDescription.TabStop = false;
+            tbDescription.Text = "";
+            tbDescription.MouseLeave += tbDescription_MouseLeave;
+            tbDescription.MouseHover += tbDescription_MouseHover;
             // 
             // FlwPanel
             // 
@@ -398,29 +421,30 @@ namespace HB.LinkSaver
             FlwPanel.Size = new Size(564, 107);
             FlwPanel.TabIndex = 49;
             // 
-            // textBox2
+            // tbCategorySearch
             // 
-            textBox2.Location = new Point(862, 54);
-            textBox2.Margin = new Padding(3, 2, 3, 2);
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "Search Category";
-            textBox2.Size = new Size(221, 23);
-            textBox2.TabIndex = 41;
-            textBox2.KeyUp += textBox2_KeyUp;
+            tbCategorySearch.Location = new Point(862, 54);
+            tbCategorySearch.Margin = new Padding(3, 2, 3, 2);
+            tbCategorySearch.Name = "tbCategorySearch";
+            tbCategorySearch.PlaceholderText = "Search Category";
+            tbCategorySearch.Size = new Size(221, 23);
+            tbCategorySearch.TabIndex = 41;
+            tbCategorySearch.TabStop = false;
+            tbCategorySearch.KeyUp += textBox2_KeyUp;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1438, 698);
-            Controls.Add(richTextBox1);
-            Controls.Add(categoryControlLb1);
+            ClientSize = new Size(1438, 682);
+            Controls.Add(tbDescription);
+            Controls.Add(CategoryControlPanel);
             Controls.Add(resetBtn);
             Controls.Add(label4);
             Controls.Add(CbHeaderOrDescription);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(tbCategorySearch);
+            Controls.Add(tbLinkSearch);
             Controls.Add(DGW);
             Controls.Add(BtnDelete);
             Controls.Add(BtnOpenLink);
@@ -440,6 +464,7 @@ namespace HB.LinkSaver
             FormClosing += MainForm_FormClosing;
             Load += Form1_Load;
             Paint += MainForm_Paint;
+            KeyDown += MainForm_KeyDown;
             PnlTop.ResumeLayout(false);
             PnlTop.PerformLayout();
             panel2.ResumeLayout(false);
@@ -455,7 +480,7 @@ namespace HB.LinkSaver
         private FontAwesome.Sharp.IconButton BtnMin;
         private Panel panel2;
         private Components.RJToggleButton CbHeaderOrDescription;
-        private TextBox textBox1;
+        private TextBox tbLinkSearch;
         private DataGridView DGW;
         private FontAwesome.Sharp.IconButton BtnDelete;
         private FontAwesome.Sharp.IconButton BtnOpenLink;
@@ -466,9 +491,9 @@ namespace HB.LinkSaver
         private Label label8;
         private Label label4;
         private FontAwesome.Sharp.IconButton resetBtn;
-        private Components.CategoryControlLb categoryControlLb1;
-        private RichTextBox richTextBox1;
+        private Components.CategoryControlLb CategoryControlPanel;
+        private RichTextBox tbDescription;
         private FlowLayoutPanel FlwPanel;
-        private TextBox textBox2;
+        private TextBox tbCategorySearch;
     }
 }
