@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Cryptography.Pkcs;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Text.Json;
 
 namespace HB.LinkSaver.Pages
 {
@@ -93,7 +83,7 @@ namespace HB.LinkSaver.Pages
             text += "Port Number : " + result.PortNumber.ToString() + Environment.NewLine;
             text += "Smpt Server Address : " + result.StmpServer + Environment.NewLine;
 
-            File.WriteAllText(desktopPath+"/MailSettings.txt", text);
+            File.WriteAllText(desktopPath + "/MailSettings.txt", text);
             MessageBox.Show("Succes");
 
         }

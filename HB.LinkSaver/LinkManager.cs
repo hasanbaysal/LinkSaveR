@@ -1,6 +1,4 @@
-﻿using HB.LinkSaver.Pages;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
+﻿using System.Text.Json;
 
 namespace HB.LinkSaver
 {
@@ -11,7 +9,7 @@ namespace HB.LinkSaver
         public const string MailSettingsPath = "MailSettings.json";
 
         public static List<Link> Links = new();
-        
+
         public static void Control()
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
@@ -32,7 +30,7 @@ namespace HB.LinkSaver
                 StreamWriter sw = new StreamWriter(fs);
                 var list = new List<Link>();
                 list.Add(exampeLink);
-                sw.Write(JsonSerializer.Serialize(list,options));
+                sw.Write(JsonSerializer.Serialize(list, options));
                 sw.Close();
 
             }
@@ -40,8 +38,8 @@ namespace HB.LinkSaver
             {
                 using var fs = File.Create(Path.Combine(Directory.GetCurrentDirectory(), MailSettingsPath));
                 StreamWriter sw = new StreamWriter(fs);
-                var data = new MailSettingsOption() { AppPassword = "none",MailAddress="none",PortNumber = 0,StmpServer ="none",RecipientMailAddress = "none"  };
-                sw.Write(JsonSerializer.Serialize(data,options));
+                var data = new MailSettingsOption() { AppPassword = "none", MailAddress = "none", PortNumber = 0, StmpServer = "none", RecipientMailAddress = "none" };
+                sw.Write(JsonSerializer.Serialize(data, options));
                 sw.Close();
 
             }
@@ -186,7 +184,7 @@ namespace HB.LinkSaver
         private static void WriteFile(List<Link> data)
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
-            File.WriteAllText(LinksPath, JsonSerializer.Serialize(data,options)); 
+            File.WriteAllText(LinksPath, JsonSerializer.Serialize(data, options));
         }
 
     }

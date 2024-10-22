@@ -1,14 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace HB.LinkSaver.Pages
+﻿namespace HB.LinkSaver.Pages
 {
     /// <summary>
     /// Bu sınıftan instance alırken originallink'i doldur!

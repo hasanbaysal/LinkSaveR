@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Media.Imaging;
-using static System.Windows.Forms.LinkLabel;
-
-namespace HB.LinkSaver.Pages
+﻿namespace HB.LinkSaver.Pages
 {
     public partial class AddForm : Form
     {
@@ -139,7 +127,7 @@ namespace HB.LinkSaver.Pages
         {
             if (e.KeyCode == Keys.Escape)
             {
-             this.Close();
+                this.Close();
             }
         }
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HB.LinkSaver
+﻿namespace HB.LinkSaver
 {
     public class HtmlGenerator
     {
@@ -105,12 +99,12 @@ namespace HB.LinkSaver
         {
             var temp = "";
 
-            foreach (var link in links) 
+            foreach (var link in links)
             {
                 temp += "<tr>";
                 temp += $"<td>{link.Header}</td>";
                 temp += $"<td>{link.Description}</td>";
-                temp += @$"<td>  <a href={"https:/"+link.Content} target=""_blank""> Link  </a> </td>";
+                temp += @$"<td>  <a href={"https:/" + link.Content} target=""_blank""> Link  </a> </td>";
                 temp += "<td>";
                 foreach (var category in link.Categories)
                 {

@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace HB.LinkSaver.Components
 {
     public partial class CategoryControlLb : UserControl
     {
 
-        public List<string> CurrentCategories = new(); 
+        public List<string> CurrentCategories = new();
 
         [Browsable(true)] // Tasarımcıda görünür olmasını sağlar
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)] // Serileştirilebilir yapar
@@ -28,14 +20,14 @@ namespace HB.LinkSaver.Components
 
         private void CategoryControlLb_Load(object sender, EventArgs e)
         {
-    
+
 
         }
 
-        List<Button> CurrentButtons = new List<Button>();   
+        List<Button> CurrentButtons = new List<Button>();
         public void AddItem(string item)
         {
-            
+
             var btnTemp = new Button();
             btnTemp.BackColor = Color.FromArgb(30, 30, 30);
             btnTemp.Margin = new Padding(25, 3, 3, 25);
@@ -57,7 +49,7 @@ namespace HB.LinkSaver.Components
         {
             CurrentButtons.Clear();
             flowLayoutPanel1.Controls.Clear();
-            flowLayoutPanel1.Refresh(); 
+            flowLayoutPanel1.Refresh();
         }
 
         public void FilterCategory(string filter)
@@ -68,23 +60,23 @@ namespace HB.LinkSaver.Components
 
 
             //alternatif arama olarak düşünülebilir
-          //await  Task.Run(() =>
-          //  {
-          //      Parallel.ForEach(CurrentButtons, button =>
-          //      {
-                   
-          //          this.Invoke((Action)(() => button.Visible = true));
-          //      });
-          //  });
+            //await  Task.Run(() =>
+            //  {
+            //      Parallel.ForEach(CurrentButtons, button =>
+            //      {
+
+            //          this.Invoke((Action)(() => button.Visible = true));
+            //      });
+            //  });
 
 
             if (string.IsNullOrEmpty(filter))
             {
-                CurrentButtons.ForEach(x=>x.Visible = true);
+                CurrentButtons.ForEach(x => x.Visible = true);
                 flowLayoutPanel1.Visible = true;
                 return;
             }
-            
+
             var result = CurrentButtons.Where(x => !(x.Text.StartsWith(filter))).ToList();
             result.ForEach(x => x.Visible = false);
             flowLayoutPanel1.Visible = true;

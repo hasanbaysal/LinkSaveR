@@ -1,13 +1,9 @@
 using FontAwesome.Sharp;
-using HB.LinkSaver.Components;
 using HB.LinkSaver.Pages;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
-using System.Runtime.ExceptionServices;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 
 
 namespace HB.LinkSaver
@@ -421,11 +417,11 @@ namespace HB.LinkSaver
             {
                 if (!Program.MainFrm.CbHeaderOrDescription.Checked)
                 {
-                    list = list.Where(x => x.Header.Contains((Program.MainFrm.tbLinkSearch.Text),StringComparison.OrdinalIgnoreCase)).ToList();
+                    list = list.Where(x => x.Header.Contains((Program.MainFrm.tbLinkSearch.Text), StringComparison.OrdinalIgnoreCase)).ToList();
                 }
                 else
                 {
-                    list = list.Where(x => x.Description.Contains((Program.MainFrm.tbLinkSearch.Text),StringComparison.OrdinalIgnoreCase)).ToList();
+                    list = list.Where(x => x.Description.Contains((Program.MainFrm.tbLinkSearch.Text), StringComparison.OrdinalIgnoreCase)).ToList();
                 }
             }
 
@@ -680,7 +676,7 @@ namespace HB.LinkSaver
             var data = LinkManager.GetById(id);
             LinkDetailForm detailForm = new LinkDetailForm();
             detailForm.Link = data;
-            detailForm.ShowDialog();    
+            detailForm.ShowDialog();
 
 
         }
