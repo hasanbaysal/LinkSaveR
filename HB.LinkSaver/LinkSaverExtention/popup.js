@@ -47,8 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
   var activeTab = tabs[0];
   var url = activeTab.url;
-  console.log(url); // URL'yi konsola yazdır
-  // Burada istediğiniz işlemi yapabilirsiniz, örneğin URL'yi bir div içine yazdırabilirsiniz
+  console.log(url); 
+  
   document.getElementById("datax").innerText = url;
 });
 

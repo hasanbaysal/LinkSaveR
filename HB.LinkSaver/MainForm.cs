@@ -17,6 +17,8 @@ namespace HB.LinkSaver
         public bool SearchForText = false;
         public Size FirstSize;
         public Point FirstLocation;
+        public char TbDescriptionSeperator;
+        int maxDashes = 0;
         public MainForm()
         {
             InitializeComponent();
@@ -24,6 +26,7 @@ namespace HB.LinkSaver
             CheckForIllegalCrossThreadCalls = false;
             FirstSize = tbDescription.Size;
             FirstLocation = tbDescription.Location;
+            TbDescriptionSeperator = '_';
         }
 
 
@@ -72,10 +75,6 @@ namespace HB.LinkSaver
         public void LoadDgw()
         {
 
-
-
-
-
             DGW.DataSource = null;
             DGW.Update();
             DGW.Refresh();
@@ -88,12 +87,9 @@ namespace HB.LinkSaver
                 Description = x.Description,
                 Categories = x.Categories.Count == 1 ? "* " + x.Categories.First() : string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
             }).ToList();
-
             DGW.DataSource = data;
-
             DGW.Columns[0].Visible = false;
             DGW.Columns[2].Visible = false;
-
 
             foreach (DataGridViewColumn column in DGW.Columns)
             {
@@ -102,9 +98,23 @@ namespace HB.LinkSaver
 
             DGW.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             DGW.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-
             DGW.Update();
             DGW.Refresh();
+        }
+        private void DGW_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+            if (e.ColumnIndex == -1) return;
+            if (e.RowIndex == -1) return;
+            tbDescription.Clear();
+            var id = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
+            var data = LinkManager.GetById(id);
+            LinkDetailForm detailForm = new LinkDetailForm();
+            detailForm.Link = data;
+            detailForm.ShowDialog();
+
+
         }
         private void DGW_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -133,7 +143,6 @@ namespace HB.LinkSaver
                 + categories
                 + Environment.NewLine;
 
-
         }
 
         private string GetDash(string header = "")
@@ -143,8 +152,8 @@ namespace HB.LinkSaver
                 var result = string.Empty;
                 var dashCount = (maxDashes - header.Length) / 2;
                 var halfLine = "";
-                // TODO : burayý deðiþtir!
-                Enumerable.Range(1, dashCount - 2).ToList().ForEach(x => halfLine += "_");
+               
+                Enumerable.Range(1, dashCount - 2).ToList().ForEach(x => halfLine += TbDescriptionSeperator.ToString());
 
                 result += halfLine;
                 result += header.ToUpper();
@@ -155,14 +164,14 @@ namespace HB.LinkSaver
 
             var temp = string.Empty;
 
-            Enumerable.Range(1, maxDashes).ToList().ForEach(x => temp += "_");
+            Enumerable.Range(1, maxDashes).ToList().ForEach(x => temp += TbDescriptionSeperator.ToString());
             return temp;
         }
 
-        int maxDashes = 0;
-        private int CalculateDashCount(RichTextBox richTextBox, Font font)
+       
+        private int CalculateDashCount(RichTextBox richTextBox, Font font,char charachter)
         {
-            string dash = "_";
+            string dash = charachter.ToString();
             int maxDashes = 0;
             SizeF textSize;
 
@@ -199,7 +208,7 @@ namespace HB.LinkSaver
 
 
             this.KeyPreview = true;
-            DGW.CellPainting += DGW_CellPainting;
+            DGW.CellPainting += DGW_CellPainting!;
             tbDescription.SelectionIndent = 10;
             tbDescription.SelectionRightIndent = 10;
 
@@ -207,7 +216,7 @@ namespace HB.LinkSaver
             LoadDgw();
             LoadCategories();
             BackGroundLabel();
-            maxDashes = CalculateDashCount(this.tbDescription, tbDescription.Font);
+            maxDashes = CalculateDashCount(this.tbDescription, tbDescription.Font,TbDescriptionSeperator);
             if (DGW.Rows.Count > 0)
             {
                 DGW.ClearSelection();
@@ -216,7 +225,6 @@ namespace HB.LinkSaver
 
         public void LoadCategories()
         {
-
 
             Program.MainFrm.CategoryControlPanel.ClearItems();
 
@@ -264,7 +272,6 @@ namespace HB.LinkSaver
             lb.AutoSize = false;
             lb.ForeColor = Color.White;
             lb.Font = new Font("Segoe UI", 9, FontStyle.Regular);
-
             lb.Size = new Size(202, 35);
             lb.FlatStyle = FlatStyle.Flat;
             lb.BackColor = Color.FromArgb(2, 117, 216);
@@ -274,9 +281,6 @@ namespace HB.LinkSaver
             lb.MouseHover += label1_MouseHover!;
             lb.Cursor = Cursors.Hand;
             MyToolTip.SetToolTip(lb, lb.Text);
-
-
-
             FlwPanel.Controls.Add(lb);
 
         }
@@ -306,7 +310,7 @@ namespace HB.LinkSaver
         private void categoryControlLb1_BtnHandler(object sender, EventArgs e)
         {
             if (SelectedCategories.Count == 8) return;
-            Button btn = sender as Button;
+            Button btn = (sender as Button)!;
 
 
             var item = btn.Text;
@@ -627,6 +631,8 @@ namespace HB.LinkSaver
         }
         #endregion
 
+        #region KeyDown
+
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F1)
@@ -660,25 +666,9 @@ namespace HB.LinkSaver
 
         }
 
-        private void DGW_CellEnter(object sender, DataGridViewCellEventArgs e)
-        {
+        #endregion
+    
 
-        }
-
-        private void DGW_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-
-            if (e.ColumnIndex == -1) return;
-            if (e.RowIndex == -1) return;
-            tbDescription.Clear();
-            var id = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
-            var data = LinkManager.GetById(id);
-            LinkDetailForm detailForm = new LinkDetailForm();
-            detailForm.Link = data;
-            detailForm.ShowDialog();
-
-
-        }
+     
     }
 }
