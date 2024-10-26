@@ -1,6 +1,8 @@
-﻿namespace HB.LinkSaver
+﻿using System.Windows;
+
+namespace HB.LinkSaver
 {
-    public class HtmlGenerator
+    public class HtmlGenerator 
     {
         private List<Link> Links;
 
@@ -8,6 +10,9 @@
         {
             Links = links;
         }
+
+        
+
         public string GenerateGtml()
         {
 
@@ -16,7 +21,7 @@
                 <head>
                     <meta charset=""UTF-8"">
                     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-                    <title>Stylish Table</title>
+                    <title>Link Saver Backup</title>
                     <style>
                         body {{
                             display: flex;
@@ -36,6 +41,7 @@
                             padding: 12px 15px;
                             text-align: center;
                             border: 1px solid #ddd;
+                            
                         }}
                         th {{
                             background-color: #2da1b6;
@@ -56,6 +62,26 @@
                             font-weight: bold;
                             margin-bottom: 10px;
                         }}
+
+
+                     th:nth-child(1), td:nth-child(1) {{width: 15%;
+                            }}
+                            th:nth-child(2), td:nth-child(2) {{width: 40%;
+                            }}
+                            th:nth-child(3), td:nth-child(3) {{width: 15%;
+                            }}
+                            th:nth-child(4), td:nth-child(4) {{width: 30%;
+                            }}
+                            ul {{list-style-type: none;
+                            }}
+
+                    li{{
+
+                        border : 1px solid black;
+                        padding: 3px;
+                        margin: 3px;
+                      }}
+
                     </style>
                 </head>
                 <body>
@@ -106,10 +132,13 @@
                 temp += $"<td>{link.Description}</td>";
                 temp += @$"<td>  <a href={"https:/" + link.Content} target=""_blank""> Link  </a> </td>";
                 temp += "<td>";
+                temp += "<ul>";
                 foreach (var category in link.Categories)
                 {
-                    temp += $"# {category}<br>";
+                    
+                    temp += $"<li> {category} </li>";
                 }
+                temp += "</ul>";
                 temp += "</td>";
                 temp += "</tr>";
                 temp += Environment.NewLine;

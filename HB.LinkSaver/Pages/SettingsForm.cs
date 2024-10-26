@@ -14,6 +14,7 @@ namespace HB.LinkSaver.Pages
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
+            this.KeyPreview = true;
             lblMailHtmlInfo.Visible = false;
             lblInfo.Visible = false;
             var txt = Program.GetUseServerSettingsStatus() ? "server active" : "server deactivated ";
@@ -197,11 +198,15 @@ namespace HB.LinkSaver.Pages
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
             HtmlGenerator htmlGenerator = new HtmlGenerator(LinkManager.GetAll());
+            
 
             var data = htmlGenerator.GenerateGtml();
 
             File.WriteAllText(Path.Combine(desktopPath, "data.html"), data);
             MessageBox.Show("backup created on your desktop");
+
+              
+
         }
 
         private async void MailHtml_Click(object sender, EventArgs e)
@@ -253,6 +258,7 @@ namespace HB.LinkSaver.Pages
 
         private void SettingsForm_KeyDown(object sender, KeyEventArgs e)
         {
+
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
