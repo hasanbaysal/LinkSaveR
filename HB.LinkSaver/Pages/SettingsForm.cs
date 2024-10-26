@@ -43,7 +43,7 @@ namespace HB.LinkSaver.Pages
 
             string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
 
-            var backupFolderName = "backup-" + DateTime.Now.ToString("yyyy-dd-mm-ss");
+            var backupFolderName = "BACKUP - " + DateTime.Now.ToString("dd-MM-yyyy-HH-mm");
 
             Directory.CreateDirectory(Path.Combine(desktopPath, backupFolderName));
 
