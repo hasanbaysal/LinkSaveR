@@ -31,9 +31,10 @@ namespace HB.LinkSaver.Components
             var btnTemp = new Button();
             btnTemp.BackColor = Color.FromArgb(30, 30, 30);
             btnTemp.Margin = new Padding(25, 3, 3, 25);
+            
             btnTemp.Width = 270;
             btnTemp.Height = 35;
-            btnTemp.TextAlign = ContentAlignment.TopCenter;
+            btnTemp.TextAlign = ContentAlignment.MiddleCenter;
             btnTemp.ForeColor = Color.White;
             btnTemp.Font = new Font("Segoe UI", 12, FontStyle.Regular);
             btnTemp.FlatStyle = FlatStyle.Flat;
@@ -77,7 +78,7 @@ namespace HB.LinkSaver.Components
                 return;
             }
 
-            var result = CurrentButtons.Where(x => !(x.Text.StartsWith(filter))).ToList();
+            var result = CurrentButtons.Where(x => !(x.Text.StartsWith(filter,StringComparison.OrdinalIgnoreCase))).ToList();
             result.ForEach(x => x.Visible = false);
             flowLayoutPanel1.Visible = true;
 
