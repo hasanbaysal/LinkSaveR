@@ -220,7 +220,6 @@ namespace HB.LinkSaver
             DGW.TabStop = false;
             DGW.CellClick += DGW_CellClick;
             DGW.CellDoubleClick += DGW_CellDoubleClick;
-            
             DGW.CellPainting += DGW_CellPainting;
             // 
             // BtnDelete

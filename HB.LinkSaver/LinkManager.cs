@@ -167,14 +167,11 @@ namespace HB.LinkSaver
 
             if (!result)
             {
-                if (sendFromApi)
-                {
 
-                    // TODO : Gereksiz Gibi Gibi
-                    //Program.MainFrm.BringToTop();
-
-                }
+                if(!sendFromApi)
                 MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                
+
 
             }
             return result;

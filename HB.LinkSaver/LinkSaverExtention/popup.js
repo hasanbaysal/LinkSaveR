@@ -1,56 +1,56 @@
 
 
-document.addEventListener('DOMContentLoaded', function() {
-   
-
-
-
-    
- fetch('http://localhost:5003/home/customaction')
- .then(function(response) {
-   if (!response.ok) {
-    console.log("hata");
-    throw new Error('fail ' + response.status);
-
-   }
-   return response.json();
- })
- .then(function(data) {
-
-  
-   var myContainer = document.getElementById('myContainer');
-   data.forEach(function(category) {
-     var option = document.createElement('span');
-     option.classList.add("CategoryItem");
-     option.textContent = category;
-
-     myContainer.appendChild(option);
-   });
-
- })
- .catch(function(error) {
-   
-
-  var container =  document.getElementById('myContainer');
-  
-  var text =  "You cannot use this Google extension when your desktop application is closed. Please open your application and refresh the page";
-  var pItem = document.createElement('p');
-  pItem.innerText = text;
-  container.appendChild(pItem);
-
- });
+document.addEventListener('DOMContentLoaded', function () {
 
 
 
 
 
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  var activeTab = tabs[0];
-  var url = activeTab.url;
-  console.log(url); 
-  
-  document.getElementById("datax").innerText = url;
-});
+    fetch('http://localhost:5003/home/customaction')
+        .then(function (response) {
+            if (!response.ok) {
+                console.log("hata");
+                throw new Error('fail ' + response.status);
+
+            }
+            return response.json();
+        })
+        .then(function (data) {
+
+
+            var myContainer = document.getElementById('myContainer');
+            data.forEach(function (category) {
+                var option = document.createElement('span');
+                option.classList.add("CategoryItem");
+                option.textContent = category;
+
+                myContainer.appendChild(option);
+            });
+
+        })
+        .catch(function (error) {
+
+
+            var container = document.getElementById('myContainer');
+
+            var text = "You cannot use this Google extension when your desktop application is closed. Please open your application and refresh the page";
+            var pItem = document.createElement('p');
+            pItem.innerText = text;
+            container.appendChild(pItem);
+
+        });
+
+
+
+
+
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        var activeTab = tabs[0];
+        var url = activeTab.url;
+        console.log(url);
+
+        document.getElementById("datax").innerText = url;
+    });
 
 
 
@@ -63,96 +63,110 @@ let selectedItems = [];
 
 let btnSender = document.getElementById("mybtn");
 
-btnSender.addEventListener('click',()=>{
-  
-
-
-  // var encodedUrl = encodeURI(urlData);
-
-  // console.log(encodedUrl);
+btnSender.addEventListener('click', () => {
 
 
 
-  var desc= document.getElementById("description").value;
-  var header= document.getElementById("header").value;
-  var content =document.getElementById('datax').innerText;
+    // var encodedUrl = encodeURI(urlData);
 
-
-  if(desc == "" || header == "" ||  selectedItems.length == 0){
-
-      alert("header , description cannot be empty and you have to select at least one category ");
-      return;
-
-  }
-  var postData = {
-
-    Header:header,
-    Description : desc,
-    Content :encodeURI(content),
-    Categories : selectedItems
-
-  };
-  // var json = JSON.stringify(postData);
-
-
-  var requestOptions = {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept':'application/json'
-    },
-    body: JSON.stringify(postData)
-};
+    // console.log(encodedUrl);
 
 
 
-fetch('http://localhost:5003/home/savedata', requestOptions)
-    .then(response => {
-      // console.log(requestOptions);
-        if (!response.ok) {
-            throw new Error('HTTP error, status = ' + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('success:', data);
-    })
-    .catch(error => {
-        console.log('fail:', error.message);
-    });
+    var desc = document.getElementById("description").value;
+    var header = document.getElementById("header").value;
+    var content = document.getElementById('datax').innerText;
+
+
+    if (desc == "" || header == "" || selectedItems.length == 0) {
+
+        alert("header , description cannot be empty and you have to select at least one category ");
+        return;
+
+    }
+    var postData = {
+
+        Header: header,
+        Description: desc,
+        Content: encodeURI(content),
+        Categories: selectedItems
+
+    };
+    // var json = JSON.stringify(postData);
+
+
+    var requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(postData)
+    };
+
+
+
+    fetch('http://localhost:5003/home/savedata', requestOptions)
+        .then(response => {
+            // console.log(requestOptions);
+            if (!response.ok) {
+                throw new Error('HTTP error, status = ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('success:', data);
+            alert("Added!");
+        })
+        .catch(error => {
+
+            alert("Already Exist");
+            console.log('fail:', error);
+
+
+        });
 
 
 
 });
 
-
+var selectedCounter = 0;
 var mydiv = document.getElementById("myContainer");
 
-mydiv.addEventListener('click',function(event){
+mydiv.addEventListener('click', function (event) {
+
+    ++selectedCounter;
 
 
-  var target = event.target;
+    var target = event.target;
 
-  
-    if(target.tagName=="SPAN")
-      {
-        var spanContent =target.textContent;
+
+    if (target.tagName == "SPAN") {
+        var spanContent = target.textContent;
 
         var indexS = selectedItems.indexOf(spanContent);
 
-        if(indexS == -1 ){
+        if (indexS == -1) {
 
-          selectedItems.push(spanContent);
+
+            if (selectedCounter > 8) {
+                console.log("max 8");
+                return;
+            }
+
+
+            selectedItems.push(spanContent);
             target.classList.add("selected");
         }
-        else{
+        else {
 
-          selectedItems.splice(indexS,1);
-          target.classList.remove("selected");
+            selectedItems.splice(indexS, 1);
+            target.classList.remove("selected");
+            --selectedCounter;
         }
 
 
-      }
+    }
 
 })
 

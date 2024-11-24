@@ -1,94 +1,114 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Extension</title>
- 
-
-  <style>
-
-.selected {
-        background-color: rgb(27, 117, 208);
-        color: white;
-    }
-
-    #categorySelect option:checked {
-  background-color: none; /* ya da background-color: transparent; */
-
-}
-
-#categorySelect{
-  width: 100%;
-  margin-bottom: 5px;
-}
+    <title>My Extension</title>
 
 
- #categorySelect option {
+    <style>
 
-  padding:  3px;
-  margin: 3px;
+               .selected {
+                   background-color: rgb(27, 117, 208);
+                   color: white;
+               }
+
+               #categorySelect option:checked {
+                   background-color: none; /* ya da background-color: transparent; */
+               }
+
+               #categorySelect {
+                   width: 100%;
+                   margin-bottom: 5px;
+               }
 
 
- }
- #myContainer{
+                   #categorySelect option {
+                       padding: 3px;
+                       margin: 3px;
+                   }
+               /* #myContainer{
 
-  width: 100%;
-  padding: 3px;
-  border :1px solid  black;
-  height: 100px;
-  overflow-y: auto;
- }
- .CategoryItem{
+         width: 100%;
+         padding: 3px;
+         border :1px solid  black;
+         height: 300px;
+         overflow-y: auto;
+        }
+        .CategoryItem{
 
-    display: block;
-    width: 200px;
-    height: 25px;
-    border: 1px solid black;
-    margin-bottom: 2px;
-    text-align: center;
-    padding: 2px;
- }
- #datax{
-  display: none;
- }
- h2{
-    text-align: center;
- }
- textarea{
+           display: block;
+           width: 200px;
+           height: 25px;
+           border: 1px solid black;
+           margin-bottom: 2px;
+           text-align: center;
+           padding: 2px;
+        }
+        */
 
-  width: 90%;
 
- }
- .text-container{
+               #myContainer {
+                   display: flex;
+                   flex-wrap: wrap; /* Öðelerin taþmasýný engellemek için */
+                   gap: 10px; /* Öðeler arasýndaki boþluðu ayarlayabilirsiniz */
+                   padding: 3px;
+                   border: 1px solid black;
+                   height: 300px;
+                   overflow-y: auto;
+               }
 
-    text-align: center;
- }
-  </style>
+               .CategoryItem {
+                   display: inline-block; /* Yan yana sýralanmasý için */
+                   width: 200px;
+                   height: 25px;
+                   border: 1px solid black;
+                   text-align: center;
+                   padding: 2px;
+               }
+
+
+
+               #datax {
+                   display: none;
+               }
+
+               h2 {
+                   text-align: center;
+               }
+
+               textarea {
+                   width: 90%;
+               }
+
+               .text-container {
+                   text-align: center;
+               }
+    </style>
 </head>
-<body  style="width: 230px;">
-  <h2>Select a category</h2>
-  <div id="myContainer">
-    
-  </div>
+<body style="width: 455px;">
+    <h2>Select a category</h2>
+    <div id="myContainer">
 
-  <div class="text-container">
+    </div>
+
+    <div class="text-container">
+
+        <br>
+        <textarea id="header" placeholder="Enter header"></textarea>
+        <br>
+        <br>
+        <textarea id="description" placeholder="Enter description"></textarea>
+        <br>
+        <br>
+        <button id="mybtn">save this link</button>
+
+
+    </div>
+
 
     <br>
-    <textarea id="header" placeholder="Enter header"></textarea>
-    <br>
-    <br>
-    <textarea id="description" placeholder="Enter description"></textarea>
-    <br>
-    <br>
-    <button id="mybtn">save this link</button>
 
 
-  </div>
-
-
-<br>
-
-
-<h3 id="datax">d</h3>
+    <h3 id="datax">d</h3>
 
 </body>
 <script src="popup.js"></script>

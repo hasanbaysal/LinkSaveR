@@ -20,7 +20,7 @@ namespace HB.LinkSaver.Controllers
         public IActionResult SaveData([FromBody] AddDto dto)
         {
 
-            //var txt = str.ToString();   
+           
 
             var link = new Link()
             {
@@ -30,9 +30,20 @@ namespace HB.LinkSaver.Controllers
                 Header = dto.Header
             };
 
-            LinkManager.Add(link, true);
-            Program.MainFrm.LoadDgw();
-            return Ok();
+          var result =   LinkManager.Add(link, true);
+          
+
+
+          
+
+          
+            if (result)
+            {
+                Program.MainFrm.LoadDgw();
+                return Ok("ok");
+            }
+            else
+                return BadRequest("error");
         }
 
 

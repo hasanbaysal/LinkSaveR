@@ -8,8 +8,8 @@ namespace HB.LinkSaver.Components
 
         public List<string> CurrentCategories = new();
 
-        [Browsable(true)] // Tasarımcıda görünür olmasını sağlar
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)] // Serileştirilebilir yapar
+        [Browsable(true)] 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)] 
         public event EventHandler BtnHandler;
         public CategoryControlLb()
         {
@@ -30,7 +30,7 @@ namespace HB.LinkSaver.Components
 
             var btnTemp = new Button();
             btnTemp.BackColor = Color.FromArgb(30, 30, 30);
-            btnTemp.Margin = new Padding(25, 3, 3, 25);
+            btnTemp.Margin = new Padding(30, 3, 3, 25);
             
             btnTemp.Width = 270;
             btnTemp.Height = 35;

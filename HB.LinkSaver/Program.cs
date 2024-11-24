@@ -9,6 +9,7 @@ namespace HB.LinkSaver
 
         public static MainForm MainFrm = new MainForm();
         public static WebApplication WebApp { get; set; }
+        public static string GlobalMessage { get; set; } = string.Empty;
         public static bool ServerStatus { get; set; }
         [STAThread]
         static void Main()

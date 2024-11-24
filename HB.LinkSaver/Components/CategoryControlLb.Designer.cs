@@ -37,6 +37,7 @@
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Padding = new Padding(0, 10, 0, 0);
             flowLayoutPanel1.Size = new Size(600, 400);
             flowLayoutPanel1.TabIndex = 0;
             // 

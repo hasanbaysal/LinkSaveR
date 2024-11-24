@@ -47,12 +47,18 @@ namespace HB.LinkSaver
                             background-color: #2da1b6;
                             color: white;
                         }}
+
                         tr:nth-child(even) {{
                             background-color: #f2f2f2;
                         }}
                         tr:nth-child(odd) {{
                             background-color: #ffffff;
                         }}
+
+
+
+
+
                         tr:hover {{
                             background-color: #ddd;
                         }}
