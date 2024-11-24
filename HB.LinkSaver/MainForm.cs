@@ -64,6 +64,7 @@ namespace HB.LinkSaver
             MyToolTip.SetToolTip(this.BtnSettings, "Settings (F4)");
             MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete (F3)");
             MyToolTip.SetToolTip(this.resetBtn, "Clear All Filter  Refresh (F5)");
+            MyToolTip.SetToolTip(this.btnStatusInfo, "Server Status For Google Extention. If you gonna use extention turn on server");
 
 
         }
@@ -202,6 +203,11 @@ namespace HB.LinkSaver
         #region FormLoad Actions
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+            btnStatusInfo.IconColor = Program.GetUseServerSettingsStatus() ? Color.Green : Color.Red;
+            btnStatusInfo.ForeColor = Program.GetUseServerSettingsStatus() ? Color.Green : Color.Red;
+
 
             DGW.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 45);
             DGW.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;

@@ -33,6 +33,7 @@ namespace HB.LinkSaver
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             PnlTop = new Panel();
+            btnStatusInfo = new FontAwesome.Sharp.IconButton();
             label8 = new Label();
             panel2 = new Panel();
             BtnMin = new FontAwesome.Sharp.IconButton();
@@ -61,6 +62,7 @@ namespace HB.LinkSaver
             // PnlTop
             // 
             PnlTop.BackColor = Color.SteelBlue;
+            PnlTop.Controls.Add(btnStatusInfo);
             PnlTop.Controls.Add(label8);
             PnlTop.Controls.Add(panel2);
             PnlTop.Controls.Add(label1);
@@ -71,6 +73,21 @@ namespace HB.LinkSaver
             PnlTop.Size = new Size(1438, 30);
             PnlTop.TabIndex = 2;
             PnlTop.MouseDown += PnlTop_MouseDown;
+            // 
+            // btnStatusInfo
+            // 
+            btnStatusInfo.FlatAppearance.BorderSize = 0;
+            btnStatusInfo.FlatStyle = FlatStyle.Flat;
+            btnStatusInfo.IconChar = FontAwesome.Sharp.IconChar.SquarePollVertical;
+            btnStatusInfo.IconColor = Color.Black;
+            btnStatusInfo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            btnStatusInfo.IconSize = 40;
+            btnStatusInfo.Location = new Point(90, 3);
+            btnStatusInfo.Name = "btnStatusInfo";
+            btnStatusInfo.Size = new Size(30, 24);
+            btnStatusInfo.TabIndex = 6;
+            btnStatusInfo.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnStatusInfo.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -494,5 +511,6 @@ namespace HB.LinkSaver
         private RichTextBox tbDescription;
         private FlowLayoutPanel FlwPanel;
         private TextBox tbCategorySearch;
+        private FontAwesome.Sharp.IconButton btnStatusInfo;
     }
 }

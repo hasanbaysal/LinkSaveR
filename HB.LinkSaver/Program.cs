@@ -11,24 +11,21 @@ namespace HB.LinkSaver
         public static WebApplication WebApp { get; set; }
         public static string GlobalMessage { get; set; } = string.Empty;
         public static bool ServerStatus { get; set; }
+        public static Mutex AppMutex { get; private set; }
+
         [STAThread]
         static void Main()
         {
 
 
-            using (Mutex mutext = new Mutex(false, "xxxx1"))
-            {
+            Mutex AppMutex = new Mutex(false, "xxxx1");
+            
 
-                if (!mutext.WaitOne(0, false))
+                if (!AppMutex.WaitOne(0, false))
                 {
                     //single instance  check!
                     MessageBox.Show("Instance already running");
-
                     return;
-
-
-
-
                 }
 
 
@@ -48,8 +45,7 @@ namespace HB.LinkSaver
                 Application.Run(MainFrm);
                 //Application.Run(new AddForm());
 
-            }
-
+            
 
 
         }

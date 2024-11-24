@@ -32,7 +32,13 @@ namespace HB.LinkSaver.Pages
             var status = Program.GetUseServerSettingsStatus() ? "server:0" : "server:1";
             File.WriteAllText(path, status);
             MessageBox.Show("server status changed. Application will be restart");
+
+            Program.AppMutex?.ReleaseMutex();
+            Program.AppMutex?.Dispose();
+
+            Thread.Sleep(500);
             Application.Restart();
+            Environment.Exit(0);
         }
 
         private void backupBtn_Click(object sender, EventArgs e)
