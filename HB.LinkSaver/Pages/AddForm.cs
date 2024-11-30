@@ -1,5 +1,8 @@
 ﻿namespace HB.LinkSaver.Pages
 {
+
+    //loc 121; 392
+    //size 764; 72
     public partial class AddForm : Form
     {
         List<string> SelectedCategories = new List<string>();
@@ -13,26 +16,10 @@
             lblResult.Visible = false;
             this.KeyPreview = true;
             LinkManager.Control();
-            CategoryManager.GetAll().ForEach(c => { lbCategories.Items.Add(c); });
+            CategoryManager.GetAll().ForEach(c => { categoryControlLb1.AddItem(c); });
 
         }
-
-        int count = 0;
-        private void lbCategories_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ListBox lb = (sender as ListBox)!;
-            if (lb.SelectedIndex == -1) { return; }
-            if (SelectedCategories.Count == 8) { MessageBox.Show("you can add a maximum of eight categories"); return; }
-            if (SelectedCategories.Contains(lb.SelectedItem!.ToString()!))
-            {
-                MessageBox.Show("The Category alerdy selected");
-            }
-            else
-            {
-                SelectedCategories.Add(lb.SelectedItem!.ToString()!);
-                AddCategory(lb.SelectedItem!.ToString()!);
-            }
-        }
+    
         public void AddCategory(string data)
         {
             var lb = new Label();
@@ -43,22 +30,24 @@
             lb.BackColor = Color.White;
             lb.ForeColor = Color.Black;
             lb.Click += Lbl_Click;
-            flowLayoutPanel1.Controls.Add(lb);
+            FlwPanel.Controls.Add(lb);
         }
         public void RemoveCategory(string data)
         {
             SelectedCategories.Remove(data);
-            flowLayoutPanel1.Controls.Clear();
+            FlwPanel.Controls.Clear();
             SelectedCategories.ForEach(x => AddCategory(x));
         }
+      
         private void Lbl_Click(object sender, EventArgs e)
         {
             var lbl = (Label)sender;
             RemoveCategory(lbl.Text);
         }
-
-        private async void button1_Click(object sender, EventArgs e)
+        private async void SaveBtn_Click(object sender, EventArgs e)
         {
+
+            MessageBox.Show(SelectedCategories.FirstOrDefault() ?? "yok");
             var status = OperationControl();
 
             if (!status)
@@ -78,7 +67,7 @@
                 lblResult.Visible = true;
                 await Task.Delay(350);
                 SelectedCategories.Clear();
-                flowLayoutPanel1.Controls.Clear();
+                FlwPanel.Controls.Clear();
                 tbHeader.Clear();
                 tbDescription.Clear();
                 tbLink.Clear();
@@ -122,13 +111,89 @@
             }
             return status;
         }
-
         private void AddForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
+        }
+
+        public void AddCategoryLabel(string str)
+        {
+            Label lb = new Label();
+            lb.Name = str;
+            lb.Text = str;
+            lb.TextAlign = ContentAlignment.MiddleCenter;
+            lb.AutoSize = false;
+            lb.ForeColor = Color.White;
+            lb.Font = new Font("Segoe UI", 9, FontStyle.Regular);
+            lb.Size = new Size(202, 35);
+            lb.FlatStyle = FlatStyle.Flat;
+            lb.BackColor = Color.FromArgb(2, 117, 216);
+            lb.Margin = new Padding(3);
+            lb.Click += LblClick!;
+            lb.MouseLeave += label1_MouseLeave!;
+            lb.MouseHover += label1_MouseHover!;
+            lb.Cursor = Cursors.Hand;
+            FlwPanel.Controls.Add(lb);
+        }
+        private void LblClick(object sender, EventArgs e)
+        {
+            var lbl = (System.Windows.Forms.Label)sender;
+
+
+            if (lbl.Parent != null)
+            {
+                lbl.Parent.Controls.Remove(lbl);
+            }
+            SelectedCategories.Remove(lbl.Name);
+            lbl.Dispose();
+            FlwPanel.Controls.Clear();
+            SelectedCategories.ForEach(x => AddCategoryLabel(x));
+        }
+        private void label1_MouseHover(object sender, EventArgs e)
+        {
+            Label lb = (Label)sender;
+            lb.ForeColor = Color.GreenYellow;
+            //MyToolTip.SetToolTip(lb, lb.Text);
+
+
+
+        }
+        private void label1_MouseLeave(object sender, EventArgs e)
+        {
+            Label lb = (Label)sender;
+            lb.ForeColor = SystemColors.ButtonFace;
+
+        }
+        private void categoryControlLb1_BtnHandler(object sender, EventArgs e)
+        {
+            if (SelectedCategories.Count == 8) return;
+            Button btn = (sender as Button)!;
+
+
+            var item = btn.Text;
+
+
+            if (!SelectedCategories.Contains(item))
+            {
+                SelectedCategories.Add(item);
+                AddCategoryLabel(item);
+            }
+
+
+            //SearchByFilters();
+        }
+        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+        {
+            var data = ((TextBox)sender).Text;
+            categoryControlLb1.FilterCategory(data);
+        }
+        private void resetBtn_Click(object sender, EventArgs e)
+        {
+            textBox1.Clear();
+            categoryControlLb1.FilterCategory(string.Empty);
         }
     }
 }
