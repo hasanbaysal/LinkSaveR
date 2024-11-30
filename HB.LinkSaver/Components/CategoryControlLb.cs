@@ -55,20 +55,12 @@ namespace HB.LinkSaver.Components
 
         public void FilterCategory(string filter)
         {
-            // TODO : Performans olarak biraz sorunlu çok büyük kayıtlarda!
+            // TODO : Debounce eklemek gerek
             flowLayoutPanel1.Visible = false;
             CurrentButtons.ForEach(x => x.Visible = true);
 
 
-            //alternatif arama olarak düşünülebilir
-            //await  Task.Run(() =>
-            //  {
-            //      Parallel.ForEach(CurrentButtons, button =>
-            //      {
-
-            //          this.Invoke((Action)(() => button.Visible = true));
-            //      });
-            //  });
+         
 
 
             if (string.IsNullOrEmpty(filter))
@@ -78,7 +70,7 @@ namespace HB.LinkSaver.Components
                 return;
             }
 
-            var result = CurrentButtons.Where(x => !(x.Text.StartsWith(filter,StringComparison.OrdinalIgnoreCase))).ToList();
+            var result = CurrentButtons.Where(x => !(x.Text.Contains(filter,StringComparison.OrdinalIgnoreCase))).ToList();
             result.ForEach(x => x.Visible = false);
             flowLayoutPanel1.Visible = true;
 
