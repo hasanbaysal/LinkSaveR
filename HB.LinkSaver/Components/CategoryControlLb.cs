@@ -70,7 +70,7 @@ namespace HB.LinkSaver.Components
                 return;
             }
 
-            var result = CurrentButtons.Where(x => !(x.Text.Contains(filter,StringComparison.OrdinalIgnoreCase))).ToList();
+            var result = CurrentButtons.Where(x => !(x.Text.Contains(filter,StringComparison.CurrentCultureIgnoreCase))).ToList();
             result.ForEach(x => x.Visible = false);
             flowLayoutPanel1.Visible = true;
 

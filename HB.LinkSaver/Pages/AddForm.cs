@@ -71,6 +71,7 @@
                 tbLink.Clear();
                 Program.MainFrm.LoadDgw();
                 lblResult.Visible = false;
+                resetBtn.PerformClick();
             }
 
         }
