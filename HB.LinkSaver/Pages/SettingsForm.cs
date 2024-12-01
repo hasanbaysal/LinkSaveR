@@ -24,6 +24,12 @@ namespace HB.LinkSaver.Pages
 
 
             btnServer.Text = Program.GetUseServerSettingsStatus() ? "deactivate the server" : "activate the server";
+
+            var linkCount =  LinkManager.GetAll().Count;
+            var categoryCount = CategoryManager.GetAll().Count;
+
+            lblCount.Text = $"Link Count : {linkCount +Environment.NewLine}Category Count : {categoryCount} ";
+        
         }
 
         private void btnServer_Click(object sender, EventArgs e)

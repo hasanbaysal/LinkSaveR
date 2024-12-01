@@ -37,13 +37,13 @@
             lblStatus = new Label();
             label2 = new Label();
             groupBox1 = new GroupBox();
+            lblCount = new Label();
             label1 = new Label();
             backupBtn = new Button();
             groupBox4 = new GroupBox();
             button3 = new Button();
             button1 = new Button();
             lblInfo = new Label();
-            label4 = new Label();
             groupBox5 = new GroupBox();
             MailHtml = new Button();
             btnHtmlGenerator = new Button();
@@ -137,6 +137,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(lblCount);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(backupBtn);
             groupBox1.ForeColor = SystemColors.ButtonFace;
@@ -146,6 +147,16 @@
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Backup";
+            // 
+            // lblCount
+            // 
+            lblCount.AutoSize = true;
+            lblCount.ForeColor = Color.FromArgb(128, 255, 128);
+            lblCount.Location = new Point(6, 40);
+            lblCount.Name = "lblCount";
+            lblCount.Size = new Size(53, 15);
+            lblCount.TabIndex = 2;
+            lblCount.Text = "lblCount";
             // 
             // label1
             // 
@@ -160,7 +171,7 @@
             // 
             backupBtn.FlatStyle = FlatStyle.Flat;
             backupBtn.ForeColor = SystemColors.ButtonFace;
-            backupBtn.Location = new Point(108, 22);
+            backupBtn.Location = new Point(180, 22);
             backupBtn.Name = "backupBtn";
             backupBtn.Size = new Size(108, 68);
             backupBtn.TabIndex = 0;
@@ -174,7 +185,6 @@
             groupBox4.Controls.Add(button3);
             groupBox4.Controls.Add(button1);
             groupBox4.Controls.Add(lblInfo);
-            groupBox4.Controls.Add(label4);
             groupBox4.ForeColor = SystemColors.ButtonHighlight;
             groupBox4.Location = new Point(18, 343);
             groupBox4.Name = "groupBox4";
@@ -217,15 +227,6 @@
             lblInfo.TabIndex = 1;
             lblInfo.Text = "Sending";
             lblInfo.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            label4.Location = new Point(162, 43);
-            label4.Name = "label4";
-            label4.Size = new Size(149, 50);
-            label4.TabIndex = 1;
-            label4.Text = "send your backups to your email";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // groupBox5
             // 
@@ -305,6 +306,7 @@
             groupBox3.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             groupBox4.ResumeLayout(false);
             groupBox5.ResumeLayout(false);
             ResumeLayout(false);
@@ -324,7 +326,6 @@
         private Button backupBtn;
         private GroupBox groupBox4;
         private Button button1;
-        private Label label4;
         private Button button3;
         private Label lblInfo;
         private GroupBox groupBox5;
@@ -332,5 +333,6 @@
         private Label label5;
         private Button MailHtml;
         private Label lblMailHtmlInfo;
+        private Label lblCount;
     }
 }
