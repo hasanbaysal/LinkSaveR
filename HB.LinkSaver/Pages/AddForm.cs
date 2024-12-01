@@ -46,8 +46,6 @@
         }
         private async void SaveBtn_Click(object sender, EventArgs e)
         {
-
-            MessageBox.Show(SelectedCategories.FirstOrDefault() ?? "yok");
             var status = OperationControl();
 
             if (!status)

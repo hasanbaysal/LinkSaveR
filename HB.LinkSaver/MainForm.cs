@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using HB.LinkSaver.Helpers;
 
 
 namespace HB.LinkSaver
@@ -85,13 +86,17 @@ namespace HB.LinkSaver
                 Id = x.Id,
                 Header = x.Header,
                 Context = x.Content,
-                Description = x.Description,
-                Categories = x.Categories.Count == 1 ? "* " + x.Categories.First() : string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
+                Description = x.Description.GetCustomStringByLength(150,true),
+                Categories =
+                x.Categories.Count == 1 ?
+                "* " + x.Categories.First().GetCustomStringByLength(23,true) :
+                string.Join("", x.Categories.Select(s =>
+                $"* {s.GetCustomStringByLength(23,true)}{Environment.NewLine}"))
             }).ToList();
             DGW.DataSource = data;
             DGW.Columns[0].Visible = false;
             DGW.Columns[2].Visible = false;
-
+            
             foreach (DataGridViewColumn column in DGW.Columns)
             {
                 column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -126,7 +131,10 @@ namespace HB.LinkSaver
             var categories = "";
             CurrentLinkId = DGW.Rows[e.RowIndex].Cells[0].Value.ToString()!;
             CurrentLink = DGW.Rows[e.RowIndex].Cells[2].Value.ToString()!;
-            var description = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
+            //var description = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
+
+            var description = LinkManager.GetById(CurrentLinkId).Description;
+            
             LinkManager.GetById(CurrentLinkId).Categories.ForEach(x =>
             {
                 categories += $" {x} |";
@@ -443,8 +451,12 @@ namespace HB.LinkSaver
                 Id = x.Id,
                 Header = x.Header,
                 Context = x.Content,
-                Description = x.Description,
-                Categories = x.Categories.Count == 1 ? "* " + x.Categories.First() : string.Join("", x.Categories.Select(s => $"* {s}{Environment.NewLine}"))
+                Description = x.Description.GetCustomStringByLength(150, true),
+                Categories =
+                x.Categories.Count == 1 ?
+                "* " + x.Categories.First().GetCustomStringByLength(23, true) :
+                string.Join("", x.Categories.Select(s =>
+                $"* {s.GetCustomStringByLength(23, true)}{Environment.NewLine}"))
             }).ToList();
 
             Program.MainFrm.DGW.DataSource = data;
