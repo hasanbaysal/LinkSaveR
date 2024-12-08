@@ -64,7 +64,7 @@
             // label3
             // 
             label3.ForeColor = Color.White;
-            label3.Location = new Point(12, 54);
+            label3.Location = new Point(12, 91);
             label3.Name = "label3";
             label3.Size = new Size(81, 23);
             label3.TabIndex = 2;
@@ -73,7 +73,7 @@
             // 
             // tbLink
             // 
-            tbLink.Location = new Point(99, 54);
+            tbLink.Location = new Point(99, 91);
             tbLink.Name = "tbLink";
             tbLink.Size = new Size(308, 23);
             tbLink.TabIndex = 1;
@@ -81,7 +81,7 @@
             // label4
             // 
             label4.ForeColor = Color.White;
-            label4.Location = new Point(12, 89);
+            label4.Location = new Point(12, 166);
             label4.Name = "label4";
             label4.Size = new Size(81, 23);
             label4.TabIndex = 2;
@@ -90,7 +90,7 @@
             // 
             // tbDescription
             // 
-            tbDescription.Location = new Point(99, 89);
+            tbDescription.Location = new Point(99, 166);
             tbDescription.Name = "tbDescription";
             tbDescription.Size = new Size(308, 89);
             tbDescription.TabIndex = 2;
@@ -100,7 +100,7 @@
             // 
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(229, 210);
+            button1.Location = new Point(229, 287);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 3;
@@ -112,7 +112,7 @@
             // 
             lblResult.AutoSize = true;
             lblResult.ForeColor = Color.FromArgb(128, 255, 128);
-            lblResult.Location = new Point(121, 214);
+            lblResult.Location = new Point(121, 291);
             lblResult.Name = "lblResult";
             lblResult.Size = new Size(43, 15);
             lblResult.TabIndex = 7;
@@ -124,7 +124,7 @@
             categoryControlLb1.BorderStyle = BorderStyle.Fixed3D;
             categoryControlLb1.Location = new Point(423, 48);
             categoryControlLb1.Name = "categoryControlLb1";
-            categoryControlLb1.Size = new Size(555, 414);
+            categoryControlLb1.Size = new Size(555, 531);
             categoryControlLb1.TabIndex = 8;
             categoryControlLb1.TabStop = false;
             categoryControlLb1.BtnHandler += categoryControlLb1_BtnHandler;
@@ -132,7 +132,7 @@
             // FlwPanel
             // 
             FlwPanel.BorderStyle = BorderStyle.Fixed3D;
-            FlwPanel.Location = new Point(27, 274);
+            FlwPanel.Location = new Point(27, 389);
             FlwPanel.Name = "FlwPanel";
             FlwPanel.Padding = new Padding(2);
             FlwPanel.Size = new Size(380, 188);
@@ -182,7 +182,7 @@
             // 
             label1.Font = new Font("Segoe UI", 9F, FontStyle.Underline, GraphicsUnit.Point, 162);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(12, 248);
+            label1.Location = new Point(12, 363);
             label1.Name = "label1";
             label1.Size = new Size(132, 23);
             label1.TabIndex = 2;
@@ -194,7 +194,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            ClientSize = new Size(987, 482);
+            ClientSize = new Size(987, 591);
             Controls.Add(resetBtn);
             Controls.Add(textBox1);
             Controls.Add(FlwPanel);

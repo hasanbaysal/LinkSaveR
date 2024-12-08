@@ -231,7 +231,7 @@ namespace HB.LinkSaver
             DGW.RowHeadersWidth = 51;
             DGW.RowTemplate.Height = 35;
             DGW.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DGW.Size = new Size(826, 587);
+            DGW.Size = new Size(826, 680);
             DGW.StandardTab = true;
             DGW.TabIndex = 1;
             DGW.TabStop = false;
@@ -373,7 +373,7 @@ namespace HB.LinkSaver
             // 
             label4.Anchor = AnchorStyles.Bottom;
             label4.BackColor = Color.Silver;
-            label4.Location = new Point(8, 678);
+            label4.Location = new Point(8, 771);
             label4.Name = "label4";
             label4.Size = new Size(1446, 1);
             label4.TabIndex = 48;
@@ -405,7 +405,7 @@ namespace HB.LinkSaver
             CategoryControlPanel.BorderStyle = BorderStyle.FixedSingle;
             CategoryControlPanel.Location = new Point(862, 83);
             CategoryControlPanel.Name = "CategoryControlPanel";
-            CategoryControlPanel.Size = new Size(564, 342);
+            CategoryControlPanel.Size = new Size(564, 443);
             CategoryControlPanel.TabIndex = 54;
             CategoryControlPanel.TabStop = false;
             CategoryControlPanel.BtnHandler += categoryControlLb1_BtnHandler;
@@ -415,7 +415,7 @@ namespace HB.LinkSaver
             tbDescription.BackColor = Color.FromArgb(30, 30, 30);
             tbDescription.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 162);
             tbDescription.ForeColor = Color.White;
-            tbDescription.Location = new Point(862, 569);
+            tbDescription.Location = new Point(862, 653);
             tbDescription.Name = "tbDescription";
             tbDescription.ReadOnly = true;
             tbDescription.Size = new Size(564, 101);
@@ -430,7 +430,7 @@ namespace HB.LinkSaver
             FlwPanel.AutoScroll = true;
             FlwPanel.BackColor = Color.Transparent;
             FlwPanel.BorderStyle = BorderStyle.FixedSingle;
-            FlwPanel.Location = new Point(862, 447);
+            FlwPanel.Location = new Point(862, 541);
             FlwPanel.Margin = new Padding(3, 2, 3, 2);
             FlwPanel.Name = "FlwPanel";
             FlwPanel.Padding = new Padding(3, 2, 3, 2);
@@ -453,7 +453,7 @@ namespace HB.LinkSaver
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
-            ClientSize = new Size(1438, 682);
+            ClientSize = new Size(1438, 775);
             Controls.Add(tbDescription);
             Controls.Add(CategoryControlPanel);
             Controls.Add(resetBtn);
