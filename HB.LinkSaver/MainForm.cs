@@ -16,8 +16,14 @@ namespace HB.LinkSaver
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
         public bool SearchForText = false;
-        public Size FirstSize;
-        public Point FirstLocation;
+        
+        private Size _tbDescriptionFirstSize;
+        private Point _tbDescriptionFirstLocation;
+        private Size _mainFirstSize;
+
+        public Size SecondSize;
+        public Point SecondLocation;
+
         public char TbDescriptionSeperator;
         int maxDashes = 0;
         public MainForm()
@@ -25,8 +31,8 @@ namespace HB.LinkSaver
             InitializeComponent();
             InitializeToolTip();
             CheckForIllegalCrossThreadCalls = false;
-            FirstSize = tbDescription.Size;
-            FirstLocation = tbDescription.Location;
+            _tbDescriptionFirstSize = tbDescription.Size;
+            _tbDescriptionFirstLocation = tbDescription.Location;
             TbDescriptionSeperator = '_';
         }
 
@@ -86,17 +92,17 @@ namespace HB.LinkSaver
                 Id = x.Id,
                 Header = x.Header,
                 Context = x.Content,
-                Description = x.Description.GetCustomStringByLength(150,true),
+                Description = x.Description.GetCustomStringByLength(150, true),
                 Categories =
                 x.Categories.Count == 1 ?
-                "* " + x.Categories.First().GetCustomStringByLength(23,true) :
+                "* " + x.Categories.First().GetCustomStringByLength(23, true) :
                 string.Join("", x.Categories.Select(s =>
-                $"* {s.GetCustomStringByLength(23,true)}{Environment.NewLine}"))
+                $"* {s.GetCustomStringByLength(23, true)}{Environment.NewLine}"))
             }).ToList();
             DGW.DataSource = data;
             DGW.Columns[0].Visible = false;
             DGW.Columns[2].Visible = false;
-            
+
             foreach (DataGridViewColumn column in DGW.Columns)
             {
                 column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
@@ -134,7 +140,7 @@ namespace HB.LinkSaver
             //var description = DGW.Rows[e.RowIndex].Cells[3].Value.ToString()!;
 
             var description = LinkManager.GetById(CurrentLinkId).Description;
-            
+
             LinkManager.GetById(CurrentLinkId).Categories.ForEach(x =>
             {
                 categories += $" {x} |";
@@ -161,7 +167,7 @@ namespace HB.LinkSaver
                 var result = string.Empty;
                 var dashCount = (maxDashes - header.Length) / 2;
                 var halfLine = "";
-               
+
                 Enumerable.Range(1, dashCount - 2).ToList().ForEach(x => halfLine += TbDescriptionSeperator.ToString());
 
                 result += halfLine;
@@ -177,8 +183,8 @@ namespace HB.LinkSaver
             return temp;
         }
 
-       
-        private int CalculateDashCount(RichTextBox richTextBox, Font font,char charachter)
+
+        private int CalculateDashCount(RichTextBox richTextBox, Font font, char charachter)
         {
             string dash = charachter.ToString();
             int maxDashes = 0;
@@ -211,7 +217,8 @@ namespace HB.LinkSaver
         #region FormLoad Actions
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            _mainFirstSize = this.Size;
+            InfoCategoryLbl.Anchor = AnchorStyles.Right | AnchorStyles.Bottom;
 
             btnStatusInfo.IconColor = Program.GetUseServerSettingsStatus() ? Color.Green : Color.Red;
             btnStatusInfo.ForeColor = Program.GetUseServerSettingsStatus() ? Color.Green : Color.Red;
@@ -230,7 +237,7 @@ namespace HB.LinkSaver
             LoadDgw();
             LoadCategories();
             BackGroundLabel();
-            maxDashes = CalculateDashCount(this.tbDescription, tbDescription.Font,TbDescriptionSeperator);
+            maxDashes = CalculateDashCount(this.tbDescription, tbDescription.Font, TbDescriptionSeperator);
             if (DGW.Rows.Count > 0)
             {
                 DGW.ClearSelection();
@@ -254,6 +261,8 @@ namespace HB.LinkSaver
             InfoCategoryLbl.Text = "\u2191 Select a category for search (max : 8) \u2191";
             InfoCategoryLbl.Font = new Font("Segoe UI", 9, FontStyle.Italic);
             InfoCategoryLbl.ForeColor = Color.FromArgb(150, 150, 150);
+
+
 
             InfoCategoryLbl.AutoSize = true;
             InfoCategoryLbl.BackColor = Color.FromArgb(30, 30, 30);
@@ -360,7 +369,7 @@ namespace HB.LinkSaver
             if (CurrentLinkId == string.Empty) return;
             var data = LinkManager.Links.Where(x => x.Id == CurrentLinkId).FirstOrDefault();
 
-            UpdateForm updateForm = new UpdateForm();
+            UpdateForm2 updateForm = new UpdateForm2();
             updateForm.OrginalLink = data!;
             updateForm.ShowDialog();
 
@@ -477,6 +486,8 @@ namespace HB.LinkSaver
 
         private void resetBtn_Click(object sender, EventArgs e)
         {
+
+
             InfoCategoryLbl.BringToFront();
             tbLinkSearch.Clear();
             SelectedCategories.Clear();
@@ -615,28 +626,44 @@ namespace HB.LinkSaver
         }
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
-            using (Pen whitePen = new Pen(Color.White, 2))
-            {
+            //using (Pen whitePen = new Pen(Color.White, 2))
+            //{
 
-                e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
-                e.Graphics.DrawRectangle(whitePen, CategoryControlPanel.Left - 1, CategoryControlPanel.Top - 1, CategoryControlPanel.Width + 1, CategoryControlPanel.Height + 1);
-                e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
-                //e.Graphics.DrawRectangle(whitePen, tbDescription.Left - 1, tbDescription.Top - 1, tbDescription.Width + 1, tbDescription.Height + 1);
-            }
+            //    e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
+            //    e.Graphics.DrawRectangle(whitePen, CategoryControlPanel.Left - 1, CategoryControlPanel.Top - 1, CategoryControlPanel.Width + 1, CategoryControlPanel.Height + 1);
+            //    e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
+            //    //e.Graphics.DrawRectangle(whitePen, tbDescription.Left - 1, tbDescription.Top - 1, tbDescription.Width + 1, tbDescription.Height + 1);
+            //}
         }
 
 
+            int saðBoþluk = 10; // Sað taraftan olan boþluk
+            int altBoþluk = 10; // Alt taraftan olan boþluk
         private void tbDescription_MouseHover(object sender, EventArgs e)
         {
-            tbDescription.Size = new Size(FirstSize.Width, FirstSize.Height + 200);
-            tbDescription.Location = new Point(FirstLocation.X, FirstLocation.Y - 200);
+
+
+            tbDescription.Location = new Point(
+                this.ClientSize.Width - tbDescription.Width - saðBoþluk,
+                this.ClientSize.Height - tbDescription.Height - altBoþluk
+            );
+
+            
+            tbDescription.Size = new Size(_tbDescriptionFirstSize.Width, _tbDescriptionFirstSize.Height + 200);
+            //tbDescription.Location = new Point(FirstLocation.X, FirstLocation.Y - 200);
             InfoCategoryLbl.SendToBack();
         }
 
+
         private void tbDescription_MouseLeave(object sender, EventArgs e)
         {
-            tbDescription.Size = FirstSize;
-            tbDescription.Location = FirstLocation;
+            tbDescription.Size = _tbDescriptionFirstSize;
+            //tbDescription.Location = FirstLocation;
+
+            tbDescription.Location = new Point(
+               this.ClientSize.Width - tbDescription.Width - saðBoþluk,
+               this.ClientSize.Height - tbDescription.Height - altBoþluk
+           );
 
             if (SelectedCategories.Count == 0)
             {
@@ -685,8 +712,34 @@ namespace HB.LinkSaver
         }
 
         #endregion
-    
 
-     
+
+        bool isFullScreen = false;
+        private void togleSizeBtn_Click(object sender, EventArgs e)
+        {
+            isFullScreen = !isFullScreen;
+            
+            if(isFullScreen)
+            {
+
+                this.Bounds = Screen.FromHandle(this.Handle).Bounds;
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.Size = _mainFirstSize;
+                this.WindowState = FormWindowState.Normal;
+
+                this.StartPosition = FormStartPosition.CenterScreen;
+
+                Screen currentScreen = Screen.FromControl(this);
+                this.Location = new Point(
+                    (currentScreen.WorkingArea.Width - this.Width) / 2 + currentScreen.WorkingArea.Left,
+                    (currentScreen.WorkingArea.Height - this.Height) / 2 + currentScreen.WorkingArea.Top
+                );
+
+            }
+
+        }
     }
 }

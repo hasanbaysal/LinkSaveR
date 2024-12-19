@@ -209,7 +209,7 @@
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
-            FormBorderStyle = FormBorderStyle.SizableToolWindow;
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "AddForm";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Link Add Page (ESC to close)";

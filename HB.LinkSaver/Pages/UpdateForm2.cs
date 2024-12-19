@@ -1,23 +1,39 @@
-﻿namespace HB.LinkSaver.Pages
-{
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Input;
 
-    //loc 121; 392
-    //size 764; 72
-    public partial class AddForm : Form
+namespace HB.LinkSaver.Pages
+{
+    public partial class UpdateForm2 : Form
     {
         List<string> SelectedCategories = new List<string>();
-        public AddForm()
+        public Link OrginalLink { get; set; } = null!;
+        public UpdateForm2()
         {
             InitializeComponent();
         }
 
-        private void AddForm_Load(object sender, EventArgs e)
+        private void Update2_Load(object sender, EventArgs e)
         {
             lblResult.Visible = false;
             this.KeyPreview = true;
             LinkManager.Control();
             CategoryManager.GetAll().ForEach(c => { categoryControlLb1.AddItem(c); });
 
+            var data = LinkManager.GetById(OrginalLink.Id);
+
+            SelectedCategories.AddRange(data.Categories);
+            OrginalLink.Categories.ForEach(x => AddCategoryLabel(x));
+            tbDescription.Text = data.Description;
+            tbHeader.Text = data.Header;
+            tbLink.Text = data.Content;
         }
         public void RemoveCategory(string data)
         {
@@ -25,42 +41,10 @@
             FlwPanel.Controls.Clear();
             SelectedCategories.ForEach(x => AddCategoryLabel(x));
         }
-      
         private void Lbl_Click(object sender, EventArgs e)
         {
             var lbl = (Label)sender;
             RemoveCategory(lbl.Text);
-        }
-        private async void SaveBtn_Click(object sender, EventArgs e)
-        {
-            var status = OperationControl();
-
-            if (!status)
-                return;
-
-            var result = LinkManager.Add(new Link()
-            {
-                Categories = SelectedCategories,
-                Content = tbLink.Text,
-                Description = tbDescription.Text,
-                Header = tbHeader.Text,
-
-            });
-
-            if (result)
-            {
-                lblResult.Visible = true;
-                await Task.Delay(350);
-                SelectedCategories.Clear();
-                FlwPanel.Controls.Clear();
-                tbHeader.Clear();
-                tbDescription.Clear();
-                tbLink.Clear();
-                Program.MainFrm.LoadDgw();
-                lblResult.Visible = false;
-                resetBtn.PerformClick();
-            }
-
         }
         private bool OperationControl()
         {
@@ -97,14 +81,14 @@
             }
             return status;
         }
-        private void AddForm_KeyDown(object sender, KeyEventArgs e)
+        private void AddForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
                 this.Close();
             }
         }
-
+        // add into flowlayout
         public void AddCategoryLabel(string str)
         {
             Label lb = new Label();
@@ -121,22 +105,8 @@
             lb.Click += LblClick!;
             lb.MouseLeave += label1_MouseLeave!;
             lb.MouseHover += label1_MouseHover!;
-            lb.Cursor = Cursors.Hand;
+            lb.Cursor = System.Windows.Forms.Cursors.Hand;
             FlwPanel.Controls.Add(lb);
-        }
-        private void LblClick(object sender, EventArgs e)
-        {
-            var lbl = (System.Windows.Forms.Label)sender;
-
-
-            if (lbl.Parent != null)
-            {
-                lbl.Parent.Controls.Remove(lbl);
-            }
-            SelectedCategories.Remove(lbl.Name);
-            lbl.Dispose();
-            FlwPanel.Controls.Clear();
-            SelectedCategories.ForEach(x => AddCategoryLabel(x));
         }
         private void label1_MouseHover(object sender, EventArgs e)
         {
@@ -153,6 +123,22 @@
             lb.ForeColor = SystemColors.ButtonFace;
 
         }
+        private void LblClick(object sender, EventArgs e)
+        {
+            var lbl = (System.Windows.Forms.Label)sender;
+
+
+            if (lbl.Parent != null)
+            {
+                lbl.Parent.Controls.Remove(lbl);
+            }
+            SelectedCategories.Remove(lbl.Name);
+            lbl.Dispose();
+            FlwPanel.Controls.Clear();
+            SelectedCategories.ForEach(x => AddCategoryLabel(x));
+        }
+
+
         private void categoryControlLb1_BtnHandler(object sender, EventArgs e)
         {
             if (SelectedCategories.Count == 8) return;
@@ -171,11 +157,25 @@
 
             //SearchByFilters();
         }
-        private void textBox1_KeyUp(object sender, KeyEventArgs e)
+
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
+            //var cat = "";
+            //SelectedCategories.ForEach(x => cat += " " + x + " ");
+
+            //var msg = "";
+            //msg += tbHeader.Text + Environment.NewLine;
+            //msg += tbDescription.Text + Environment.NewLine;
+            //msg += cat+ Environment.NewLine;
+            //msg += tbLink.Text;
+        }
+
+        private void textBox1_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        {         
             var data = ((TextBox)sender).Text;
             categoryControlLb1.FilterCategory(data);
         }
+
         private void resetBtn_Click(object sender, EventArgs e)
         {
             textBox1.Clear();

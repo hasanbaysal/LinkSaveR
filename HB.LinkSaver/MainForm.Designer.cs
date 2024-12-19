@@ -33,6 +33,7 @@ namespace HB.LinkSaver
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             PnlTop = new Panel();
+            togleSizeBtn = new FontAwesome.Sharp.IconButton();
             btnStatusInfo = new FontAwesome.Sharp.IconButton();
             label8 = new Label();
             panel2 = new Panel();
@@ -62,6 +63,7 @@ namespace HB.LinkSaver
             // PnlTop
             // 
             PnlTop.BackColor = Color.SteelBlue;
+            PnlTop.Controls.Add(togleSizeBtn);
             PnlTop.Controls.Add(btnStatusInfo);
             PnlTop.Controls.Add(label8);
             PnlTop.Controls.Add(panel2);
@@ -73,6 +75,27 @@ namespace HB.LinkSaver
             PnlTop.Size = new Size(1438, 30);
             PnlTop.TabIndex = 2;
             PnlTop.MouseDown += PnlTop_MouseDown;
+            // 
+            // togleSizeBtn
+            // 
+            togleSizeBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            togleSizeBtn.BackColor = Color.SteelBlue;
+            togleSizeBtn.FlatAppearance.BorderSize = 0;
+            togleSizeBtn.FlatStyle = FlatStyle.Flat;
+            togleSizeBtn.ForeColor = Color.White;
+            togleSizeBtn.IconChar = FontAwesome.Sharp.IconChar.Expand;
+            togleSizeBtn.IconColor = Color.White;
+            togleSizeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            togleSizeBtn.IconSize = 30;
+            togleSizeBtn.Location = new Point(1340, 1);
+            togleSizeBtn.Margin = new Padding(3, 2, 3, 2);
+            togleSizeBtn.Name = "togleSizeBtn";
+            togleSizeBtn.Size = new Size(22, 27);
+            togleSizeBtn.TabIndex = 0;
+            togleSizeBtn.TabStop = false;
+            togleSizeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            togleSizeBtn.UseVisualStyleBackColor = false;
+            togleSizeBtn.Click += togleSizeBtn_Click;
             // 
             // btnStatusInfo
             // 
@@ -199,6 +222,7 @@ namespace HB.LinkSaver
             DGW.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = Color.FromArgb(45, 45, 45);
             DGW.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            DGW.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             DGW.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.DisplayedCells;
             DGW.BackgroundColor = Color.FromArgb(30, 30, 30);
             DGW.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
@@ -241,6 +265,7 @@ namespace HB.LinkSaver
             // 
             // BtnDelete
             // 
+            BtnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnDelete.BackColor = Color.Transparent;
             BtnDelete.FlatAppearance.BorderSize = 0;
             BtnDelete.FlatStyle = FlatStyle.Flat;
@@ -264,6 +289,7 @@ namespace HB.LinkSaver
             // 
             // BtnOpenLink
             // 
+            BtnOpenLink.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnOpenLink.BackColor = Color.Transparent;
             BtnOpenLink.FlatAppearance.BorderSize = 0;
             BtnOpenLink.FlatStyle = FlatStyle.Flat;
@@ -287,6 +313,7 @@ namespace HB.LinkSaver
             // 
             // BtnCategories
             // 
+            BtnCategories.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnCategories.BackColor = Color.FromArgb(23, 162, 184);
             BtnCategories.FlatAppearance.BorderSize = 0;
             BtnCategories.FlatStyle = FlatStyle.Flat;
@@ -308,6 +335,7 @@ namespace HB.LinkSaver
             // 
             // BtnSettings
             // 
+            BtnSettings.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnSettings.BackColor = Color.FromArgb(45, 64, 80);
             BtnSettings.FlatAppearance.BorderSize = 0;
             BtnSettings.FlatStyle = FlatStyle.Flat;
@@ -329,6 +357,7 @@ namespace HB.LinkSaver
             // 
             // BtnUpdate
             // 
+            BtnUpdate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnUpdate.BackColor = Color.FromArgb(209, 84, 0);
             BtnUpdate.FlatAppearance.BorderSize = 0;
             BtnUpdate.FlatStyle = FlatStyle.Flat;
@@ -350,6 +379,7 @@ namespace HB.LinkSaver
             // 
             // BtnAdd
             // 
+            BtnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnAdd.BackColor = Color.FromArgb(92, 184, 92);
             BtnAdd.FlatAppearance.BorderSize = 0;
             BtnAdd.FlatStyle = FlatStyle.Flat;
@@ -380,6 +410,7 @@ namespace HB.LinkSaver
             // 
             // resetBtn
             // 
+            resetBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             resetBtn.BackColor = Color.Transparent;
             resetBtn.FlatAppearance.BorderSize = 0;
             resetBtn.FlatStyle = FlatStyle.Flat;
@@ -401,6 +432,7 @@ namespace HB.LinkSaver
             // 
             // CategoryControlPanel
             // 
+            CategoryControlPanel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             CategoryControlPanel.BackColor = Color.Transparent;
             CategoryControlPanel.BorderStyle = BorderStyle.FixedSingle;
             CategoryControlPanel.Location = new Point(862, 83);
@@ -412,6 +444,7 @@ namespace HB.LinkSaver
             // 
             // tbDescription
             // 
+            tbDescription.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             tbDescription.BackColor = Color.FromArgb(30, 30, 30);
             tbDescription.Font = new Font("Tahoma", 10.8F, FontStyle.Regular, GraphicsUnit.Point, 162);
             tbDescription.ForeColor = Color.White;
@@ -427,6 +460,7 @@ namespace HB.LinkSaver
             // 
             // FlwPanel
             // 
+            FlwPanel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             FlwPanel.AutoScroll = true;
             FlwPanel.BackColor = Color.Transparent;
             FlwPanel.BorderStyle = BorderStyle.FixedSingle;
@@ -439,6 +473,7 @@ namespace HB.LinkSaver
             // 
             // tbCategorySearch
             // 
+            tbCategorySearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             tbCategorySearch.Location = new Point(862, 54);
             tbCategorySearch.Margin = new Padding(3, 2, 3, 2);
             tbCategorySearch.Name = "tbCategorySearch";
@@ -454,8 +489,8 @@ namespace HB.LinkSaver
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1438, 775);
-            Controls.Add(tbDescription);
             Controls.Add(CategoryControlPanel);
+            Controls.Add(tbDescription);
             Controls.Add(resetBtn);
             Controls.Add(label4);
             Controls.Add(CbHeaderOrDescription);
@@ -512,5 +547,6 @@ namespace HB.LinkSaver
         private FlowLayoutPanel FlwPanel;
         private TextBox tbCategorySearch;
         private FontAwesome.Sharp.IconButton btnStatusInfo;
+        private FontAwesome.Sharp.IconButton togleSizeBtn;
     }
 }
