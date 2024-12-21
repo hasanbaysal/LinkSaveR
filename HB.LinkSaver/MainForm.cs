@@ -16,23 +16,21 @@ namespace HB.LinkSaver
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
         public bool SearchForText = false;
-        
-        private Size _tbDescriptionFirstSize;
-        private Point _tbDescriptionFirstLocation;
-        private Size _mainFirstSize;
 
+        private Size _tbDescriptionFirstSize;
+        private Size _mainFirstSize;
         public Size SecondSize;
         public Point SecondLocation;
-
         public char TbDescriptionSeperator;
         int maxDashes = 0;
+        
         public MainForm()
         {
             InitializeComponent();
             InitializeToolTip();
             CheckForIllegalCrossThreadCalls = false;
             _tbDescriptionFirstSize = tbDescription.Size;
-            _tbDescriptionFirstLocation = tbDescription.Location;
+
             TbDescriptionSeperator = '_';
         }
 
@@ -481,6 +479,12 @@ namespace HB.LinkSaver
         }
         private void CbHeaderOrDescription_CheckedChanged(object sender, EventArgs e)
         {
+            if (CbHeaderOrDescription.Checked)
+                lblSearchOption.Text = "Description";
+            else
+                lblSearchOption.Text = "Header";
+
+
             SearchByFilters();
         }
 
@@ -562,14 +566,50 @@ namespace HB.LinkSaver
             Application.Exit();
         }
 
+
+
+
         private void BtnMin_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
 
+
+
+        bool isFullScreen = false;
+        private void togleSizeBtn_Click(object sender, EventArgs e)
+        {
+            isFullScreen = !isFullScreen;
+
+            if (isFullScreen)
+            {
+
+                this.Bounds = Screen.FromHandle(this.Handle).Bounds;
+                this.WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                this.Size = _mainFirstSize;
+                this.WindowState = FormWindowState.Normal;
+
+                this.StartPosition = FormStartPosition.CenterScreen;
+
+                Screen currentScreen = Screen.FromControl(this);
+                this.Location = new Point(
+                    (currentScreen.WorkingArea.Width - this.Width) / 2 + currentScreen.WorkingArea.Left,
+                    (currentScreen.WorkingArea.Height - this.Height) / 2 + currentScreen.WorkingArea.Top
+                );
+            }
+
+        }
+
         #endregion
 
         #region display event
+
+
+
+
         private void BtnDelete_MouseHover(object sender, EventArgs e)
         {
             IconButton btn = sender as IconButton;
@@ -637,8 +677,8 @@ namespace HB.LinkSaver
         }
 
 
-            int saðBoþluk = 10; // Sað taraftan olan boþluk
-            int altBoþluk = 10; // Alt taraftan olan boþluk
+        int saðBoþluk = 10; // Sað taraftan olan boþluk
+        int altBoþluk = 10; // Alt taraftan olan boþluk
         private void tbDescription_MouseHover(object sender, EventArgs e)
         {
 
@@ -648,7 +688,7 @@ namespace HB.LinkSaver
                 this.ClientSize.Height - tbDescription.Height - altBoþluk
             );
 
-            
+
             tbDescription.Size = new Size(_tbDescriptionFirstSize.Width, _tbDescriptionFirstSize.Height + 200);
             //tbDescription.Location = new Point(FirstLocation.X, FirstLocation.Y - 200);
             InfoCategoryLbl.SendToBack();
@@ -714,32 +754,5 @@ namespace HB.LinkSaver
         #endregion
 
 
-        bool isFullScreen = false;
-        private void togleSizeBtn_Click(object sender, EventArgs e)
-        {
-            isFullScreen = !isFullScreen;
-            
-            if(isFullScreen)
-            {
-
-                this.Bounds = Screen.FromHandle(this.Handle).Bounds;
-                this.WindowState = FormWindowState.Normal;
-            }
-            else
-            {
-                this.Size = _mainFirstSize;
-                this.WindowState = FormWindowState.Normal;
-
-                this.StartPosition = FormStartPosition.CenterScreen;
-
-                Screen currentScreen = Screen.FromControl(this);
-                this.Location = new Point(
-                    (currentScreen.WorkingArea.Width - this.Width) / 2 + currentScreen.WorkingArea.Left,
-                    (currentScreen.WorkingArea.Height - this.Height) / 2 + currentScreen.WorkingArea.Top
-                );
-
-            }
-
-        }
     }
 }

@@ -55,6 +55,7 @@ namespace HB.LinkSaver
             tbDescription = new RichTextBox();
             FlwPanel = new FlowLayoutPanel();
             tbCategorySearch = new TextBox();
+            lblSearchOption = new Label();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -189,7 +190,7 @@ namespace HB.LinkSaver
             // CbHeaderOrDescription
             // 
             CbHeaderOrDescription.AutoSize = true;
-            CbHeaderOrDescription.Location = new Point(307, 57);
+            CbHeaderOrDescription.Location = new Point(314, 58);
             CbHeaderOrDescription.Margin = new Padding(3, 2, 3, 2);
             CbHeaderOrDescription.MinimumSize = new Size(39, 16);
             CbHeaderOrDescription.Name = "CbHeaderOrDescription";
@@ -401,7 +402,7 @@ namespace HB.LinkSaver
             // 
             // label4
             // 
-            label4.Anchor = AnchorStyles.Bottom;
+            label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             label4.BackColor = Color.Silver;
             label4.Location = new Point(8, 771);
             label4.Name = "label4";
@@ -483,6 +484,18 @@ namespace HB.LinkSaver
             tbCategorySearch.TabStop = false;
             tbCategorySearch.KeyUp += textBox2_KeyUp;
             // 
+            // lblSearchOption
+            // 
+            lblSearchOption.AutoSize = true;
+            lblSearchOption.Font = new Font("Segoe UI", 7.8F, FontStyle.Regular, GraphicsUnit.Point, 162);
+            lblSearchOption.ForeColor = SystemColors.ButtonHighlight;
+            lblSearchOption.Location = new Point(314, 39);
+            lblSearchOption.Name = "lblSearchOption";
+            lblSearchOption.Size = new Size(44, 13);
+            lblSearchOption.TabIndex = 5;
+            lblSearchOption.Text = "Header";
+            lblSearchOption.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -491,6 +504,7 @@ namespace HB.LinkSaver
             ClientSize = new Size(1438, 775);
             Controls.Add(CategoryControlPanel);
             Controls.Add(tbDescription);
+            Controls.Add(lblSearchOption);
             Controls.Add(resetBtn);
             Controls.Add(label4);
             Controls.Add(CbHeaderOrDescription);
@@ -548,5 +562,6 @@ namespace HB.LinkSaver
         private TextBox tbCategorySearch;
         private FontAwesome.Sharp.IconButton btnStatusInfo;
         private FontAwesome.Sharp.IconButton togleSizeBtn;
+        private Label lblSearchOption;
     }
 }
