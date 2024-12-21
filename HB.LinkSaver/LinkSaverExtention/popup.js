@@ -130,12 +130,38 @@ btnSender.addEventListener('click', () => {
 
 });
 
+
+var customUl = document.getElementById("myCategoryList");
+
+
+customUl.addEventListener("click", function (event) {
+    const target = event.target;
+    if (target.tagName === "LI") {
+        const str = target.textContent;
+        selectedItems = selectedItems.filter(item => item !== str);
+        customUl.removeChild(target);
+
+
+        mydiv.querySelectorAll('span').forEach(spans => {
+
+            if (spans.textContent.trim() === str) {
+                spans.classList.remove("selected");
+                --selectedCounter;
+            }
+
+        });
+
+    }
+});
+
+
+
 var selectedCounter = 0;
 var mydiv = document.getElementById("myContainer");
 
 mydiv.addEventListener('click', function (event) {
 
-    ++selectedCounter;
+
 
 
     var target = event.target;
@@ -154,20 +180,72 @@ mydiv.addEventListener('click', function (event) {
                 return;
             }
 
-
+            ++selectedCounter;
             selectedItems.push(spanContent);
             target.classList.add("selected");
+
+            //liste'ye ekle 
+
+            const li = document.createElement("li");
+            li.textContent = spanContent;
+            customUl.appendChild(li);
+
         }
         else {
 
             selectedItems.splice(indexS, 1);
             target.classList.remove("selected");
             --selectedCounter;
+
+
+            customUl.querySelectorAll("li").forEach(lis => {
+                if (lis.textContent.trim() === spanContent) {
+                    lis.remove();
+                }
+            });
+
+
+
         }
 
 
     }
 
 })
+
+var searchInput = document.getElementById("CategorySearchBox");
+
+searchInput.addEventListener('input', function () {
+    var filterText = searchInput.value.toLocaleLowerCase('tr-TR');
+    SearchCategory(filterText);
+});
+
+
+function SearchCategory(searchText) {
+
+    var items = document.querySelectorAll('.CategoryItem');
+
+
+    items.forEach(function (item) {
+        var text = item.textContent.toLocaleLowerCase('tr-TR');
+        if (text.includes(searchText)) {
+            item.style.display = 'inline-block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+    if (searchText === '') {
+        items.forEach(function (item) {
+            item.style.display = 'inline-block';
+        });
+    }
+}
+
+document.getElementById('clearBtn').addEventListener('click', function () {
+
+    searchInput.value = "";
+    SearchCategory("");
+
+});
 
 

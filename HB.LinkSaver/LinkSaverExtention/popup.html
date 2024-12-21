@@ -6,91 +6,143 @@
 
     <style>
 
-               .selected {
-                   background-color: rgb(27, 117, 208);
-                   color: white;
-               }
-
-               #categorySelect option:checked {
-                   background-color: none; /* ya da background-color: transparent; */
-               }
-
-               #categorySelect {
-                   width: 100%;
-                   margin-bottom: 5px;
-               }
-
-
-                   #categorySelect option {
-                       padding: 3px;
-                       margin: 3px;
-                   }
-               /* #myContainer{
-
-         width: 100%;
-         padding: 3px;
-         border :1px solid  black;
-         height: 300px;
-         overflow-y: auto;
+        body {
+            height: 1000;
         }
-        .CategoryItem{
 
-           display: block;
-           width: 200px;
-           height: 25px;
-           border: 1px solid black;
-           margin-bottom: 2px;
-           text-align: center;
-           padding: 2px;
+        .selected {
+            background-color: rgb(27, 117, 208);
+            color: white;
         }
-        */
+
+        #categorySelect option:checked {
+            background-color: none; /* ya da background-color: transparent; */
+        }
+
+        #categorySelect {
+            width: 100%;
+            margin-bottom: 5px;
+        }
 
 
-               #myContainer {
-                   display: flex;
-                   flex-wrap: wrap; /* Öðelerin taþmasýný engellemek için */
-                   gap: 10px; /* Öðeler arasýndaki boþluðu ayarlayabilirsiniz */
-                   padding: 3px;
-                   border: 1px solid black;
-                   height: 300px;
-                   overflow-y: auto;
-               }
-
-               .CategoryItem {
-                   display: inline-block; /* Yan yana sýralanmasý için */
-                   width: 200px;
-                   height: 25px;
-                   border: 1px solid black;
-                   text-align: center;
-                   padding: 2px;
-               }
+            #categorySelect option {
+                padding: 3px;
+                margin: 3px;
+            }
 
 
+        #myContainer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 3px;
+            border: 1px solid black;
+            height: 300px;
+            overflow-y: auto;
+        }
 
-               #datax {
-                   display: none;
-               }
+        .CategoryItem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 200px;
+            min-height: 25px;
+            max-height: 50px;
+            padding: 10px;
+            white-space: normal;
+            overflow-wrap: break-word;
+            box-sizing: border-box;
+            border: 1px solid black;
+            text-align: center;
+            padding: 2px;
+        }
 
-               h2 {
-                   text-align: center;
-               }
 
-               textarea {
-                   width: 90%;
-               }
 
-               .text-container {
-                   text-align: center;
-               }
+        #datax {
+            display: none;
+        }
+
+        h4 {
+            text-align: center;
+            margin: 10px;
+        }
+
+        textarea {
+            width: 90%;
+        }
+
+        .text-container {
+            text-align: center;
+        }
+
+        #CategorySearchBox {
+            width: 80%;
+            margin-bottom: 10px;
+        }
+
+        #CategorySearchBoxContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .customList {
+            list-style-type: none;
+            margin: 0px;
+            padding: 0px;
+            margin-bottom: 10px;
+        }
+
+            .customList li {
+                display: inline-block;
+                border: 1px solid black;
+                padding: 5px;
+                text-align: center;
+                margin: 3px;
+            }
+
+        #SelectedCategoryBoxContainer {
+            border: 2px solid #DDD;
+            padding: 3px;
+        }
+
+        #mybtn {
+            background-color: #4CAF50;
+            border: 1px solid #DDD;
+            color: white;
+            padding: 3px;
+            margin: 5px;
+            margin-bottom: 10px;
+            transition: background-color 0.5s ease;
+        }
+
+            #mybtn:hover {
+                background-color: white;
+                color: #4CAF50;
+                cursor: pointer;
+            }
     </style>
 </head>
 <body style="width: 455px;">
-    <h2>Select a category</h2>
+    <h4>Select a category</h4>
+    <div id="CategorySearchBoxContainer">
+        <input id="CategorySearchBox" type="text" placeholder="category search">
+        <button id="clearBtn">Clear</button>
+
+    </div>
+
+    <div style="text-align: center;">
+        <button id="mybtn">save this link</button>
+    </div>
+
     <div id="myContainer">
 
     </div>
 
     <div class="text-container">
+
 
         <br>
         <textarea id="header" placeholder="Enter header"></textarea>
@@ -99,7 +151,16 @@
         <textarea id="description" placeholder="Enter description"></textarea>
         <br>
         <br>
-        <button id="mybtn">save this link</button>
+
+        <div id="SelectedCategoryBoxContainer">
+
+            <ul class="customList" id="myCategoryList">
+            </ul>
+
+
+        </div>
+
+
 
 
     </div>
