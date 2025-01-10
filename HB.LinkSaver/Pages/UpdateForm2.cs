@@ -158,16 +158,29 @@ namespace HB.LinkSaver.Pages
             //SearchByFilters();
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private async void btnUpdate_Click(object sender, EventArgs e)
         {
-            //var cat = "";
-            //SelectedCategories.ForEach(x => cat += " " + x + " ");
+            var control =  OperationControl();
 
-            //var msg = "";
-            //msg += tbHeader.Text + Environment.NewLine;
-            //msg += tbDescription.Text + Environment.NewLine;
-            //msg += cat+ Environment.NewLine;
-            //msg += tbLink.Text;
+            if (control)
+            {
+                LinkManager.Update(new()
+                {
+                    Id = OrginalLink.Id,
+                    Categories = SelectedCategories,
+                    Content = tbLink.Text,
+                    Description = tbDescription.Text,
+                    Header = tbHeader.Text,
+                });
+
+                lblResult.Visible = true;
+                await Task.Delay(350);
+                lblResult.Visible = false;  
+                Program.MainFrm.LoadDgw();
+            }
+
+
+
         }
 
         private void textBox1_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)

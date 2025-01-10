@@ -109,6 +109,9 @@ namespace HB.LinkSaver
             link.Id = Guid.NewGuid().ToString();
             bool result = LinkValidation(link);
 
+
+            var changeControl = true;
+
             if (!result)
             {
                 Links.Add(old);
