@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using HB.LinkSaver.Helpers;
+using System.Windows.Forms;
 
 
 namespace HB.LinkSaver
@@ -22,18 +23,72 @@ namespace HB.LinkSaver
         public Size SecondSize;
         public Point SecondLocation;
         public char TbDescriptionSeperator;
+        
         int maxDashes = 0;
         
+        private NotifyIcon notifyIcon;
+        private ContextMenuStrip contextMenuStrip;
+        private ToolStripMenuItem showToolStripMenuItem;
+        private ToolStripMenuItem exitToolStripMenuItem;
+
         public MainForm()
         {
             InitializeComponent();
             InitializeToolTip();
             CheckForIllegalCrossThreadCalls = false;
             _tbDescriptionFirstSize = tbDescription.Size;
-
             TbDescriptionSeperator = '_';
+            notifyIcon = new NotifyIcon();
+            notifyIcon.Icon = SystemIcons.Application;
+
+            notifyIcon.Text = "LinkSaver";
+
+            notifyIcon.Visible = true;
+
+            contextMenuStrip = new ContextMenuStrip();
+
+            showToolStripMenuItem = new ToolStripMenuItem("Show");
+            exitToolStripMenuItem = new ToolStripMenuItem("Exit");
+
+            showToolStripMenuItem.Click += ShowToolStripMenuItem_Click;
+            exitToolStripMenuItem.Click += ExitToolStripMenuItem_Click;
+
+            contextMenuStrip.Items.Add(showToolStripMenuItem);
+            contextMenuStrip.Items.Add(exitToolStripMenuItem);
+
+            notifyIcon.ContextMenuStrip = contextMenuStrip;
+            notifyIcon.MouseClick += NotifyIcon_MouseClick;
+            notifyIcon.Icon = new System.Drawing.Icon(Environment.CurrentDirectory + "/" + "myicon.ico");
+            this.DoubleBuffered = true;
         }
 
+  
+
+        #region NotifyIcon
+
+        private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                this.Show();
+                this.WindowState = FormWindowState.Normal;
+                this.ShowInTaskbar = true;
+            }
+        }
+        private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Show();
+            this.WindowState = FormWindowState.Normal;
+            this.ShowInTaskbar = true;
+        }
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            notifyIcon.Visible = false;
+            Application.Exit();
+        }
+      
+
+        #endregion
 
         #region Drag Drop
         public const int WM_NCLBUTTONDOWN = 0xA1;
@@ -70,7 +125,6 @@ namespace HB.LinkSaver
             MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete (F3)");
             MyToolTip.SetToolTip(this.resetBtn, "Clear All Filter  Refresh (F5)");
             MyToolTip.SetToolTip(this.btnStatusInfo, "Server Status For Google Extention. If you gonna use extention turn on server");
-
 
         }
 

@@ -33,14 +33,14 @@ namespace HB.LinkSaver
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             PnlTop = new Panel();
-            togleSizeBtn = new FontAwesome.Sharp.IconButton();
+            BtnMin = new FontAwesome.Sharp.IconButton();
             btnStatusInfo = new FontAwesome.Sharp.IconButton();
             label8 = new Label();
             panel2 = new Panel();
-            BtnMin = new FontAwesome.Sharp.IconButton();
             BtnClose = new FontAwesome.Sharp.IconButton();
+            togleSizeBtn = new FontAwesome.Sharp.IconButton();
             label1 = new Label();
-            CbHeaderOrDescription = new Components.RJToggleButton();
+            CbHeaderOrDescription = new HB.LinkSaver.Components.RJToggleButton();
             tbLinkSearch = new TextBox();
             DGW = new DataGridView();
             BtnDelete = new FontAwesome.Sharp.IconButton();
@@ -51,7 +51,7 @@ namespace HB.LinkSaver
             BtnAdd = new FontAwesome.Sharp.IconButton();
             label4 = new Label();
             resetBtn = new FontAwesome.Sharp.IconButton();
-            CategoryControlPanel = new Components.CategoryControlLb();
+            CategoryControlPanel = new HB.LinkSaver.Components.CategoryControlLb();
             tbDescription = new RichTextBox();
             FlwPanel = new FlowLayoutPanel();
             tbCategorySearch = new TextBox();
@@ -64,7 +64,7 @@ namespace HB.LinkSaver
             // PnlTop
             // 
             PnlTop.BackColor = Color.SteelBlue;
-            PnlTop.Controls.Add(togleSizeBtn);
+            PnlTop.Controls.Add(BtnMin);
             PnlTop.Controls.Add(btnStatusInfo);
             PnlTop.Controls.Add(label8);
             PnlTop.Controls.Add(panel2);
@@ -77,26 +77,26 @@ namespace HB.LinkSaver
             PnlTop.TabIndex = 2;
             PnlTop.MouseDown += PnlTop_MouseDown;
             // 
-            // togleSizeBtn
+            // BtnMin
             // 
-            togleSizeBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            togleSizeBtn.BackColor = Color.SteelBlue;
-            togleSizeBtn.FlatAppearance.BorderSize = 0;
-            togleSizeBtn.FlatStyle = FlatStyle.Flat;
-            togleSizeBtn.ForeColor = Color.White;
-            togleSizeBtn.IconChar = FontAwesome.Sharp.IconChar.Expand;
-            togleSizeBtn.IconColor = Color.White;
-            togleSizeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            togleSizeBtn.IconSize = 30;
-            togleSizeBtn.Location = new Point(1340, 1);
-            togleSizeBtn.Margin = new Padding(3, 2, 3, 2);
-            togleSizeBtn.Name = "togleSizeBtn";
-            togleSizeBtn.Size = new Size(22, 27);
-            togleSizeBtn.TabIndex = 0;
-            togleSizeBtn.TabStop = false;
-            togleSizeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
-            togleSizeBtn.UseVisualStyleBackColor = false;
-            togleSizeBtn.Click += togleSizeBtn_Click;
+            BtnMin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            BtnMin.BackColor = Color.SteelBlue;
+            BtnMin.FlatAppearance.BorderSize = 0;
+            BtnMin.FlatStyle = FlatStyle.Flat;
+            BtnMin.ForeColor = Color.White;
+            BtnMin.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
+            BtnMin.IconColor = Color.White;
+            BtnMin.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            BtnMin.IconSize = 30;
+            BtnMin.Location = new Point(1340, 2);
+            BtnMin.Margin = new Padding(3, 2, 3, 2);
+            BtnMin.Name = "BtnMin";
+            BtnMin.Size = new Size(22, 27);
+            BtnMin.TabIndex = 0;
+            BtnMin.TabStop = false;
+            BtnMin.TextImageRelation = TextImageRelation.ImageBeforeText;
+            BtnMin.UseVisualStyleBackColor = false;
+            BtnMin.Click += BtnMin_Click;
             // 
             // btnStatusInfo
             // 
@@ -127,35 +127,14 @@ namespace HB.LinkSaver
             // 
             // panel2
             // 
-            panel2.Controls.Add(BtnMin);
             panel2.Controls.Add(BtnClose);
+            panel2.Controls.Add(togleSizeBtn);
             panel2.Dock = DockStyle.Right;
             panel2.Location = new Point(1371, 0);
             panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
             panel2.Size = new Size(67, 29);
             panel2.TabIndex = 4;
-            // 
-            // BtnMin
-            // 
-            BtnMin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            BtnMin.BackColor = Color.SteelBlue;
-            BtnMin.FlatAppearance.BorderSize = 0;
-            BtnMin.FlatStyle = FlatStyle.Flat;
-            BtnMin.ForeColor = Color.White;
-            BtnMin.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
-            BtnMin.IconColor = Color.White;
-            BtnMin.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            BtnMin.IconSize = 30;
-            BtnMin.Location = new Point(3, 0);
-            BtnMin.Margin = new Padding(3, 2, 3, 2);
-            BtnMin.Name = "BtnMin";
-            BtnMin.Size = new Size(22, 27);
-            BtnMin.TabIndex = 0;
-            BtnMin.TabStop = false;
-            BtnMin.TextImageRelation = TextImageRelation.ImageBeforeText;
-            BtnMin.UseVisualStyleBackColor = false;
-            BtnMin.Click += BtnMin_Click;
             // 
             // BtnClose
             // 
@@ -177,6 +156,27 @@ namespace HB.LinkSaver
             BtnClose.TextImageRelation = TextImageRelation.ImageBeforeText;
             BtnClose.UseVisualStyleBackColor = false;
             BtnClose.Click += BtnClose_Click;
+            // 
+            // togleSizeBtn
+            // 
+            togleSizeBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            togleSizeBtn.BackColor = Color.SteelBlue;
+            togleSizeBtn.FlatAppearance.BorderSize = 0;
+            togleSizeBtn.FlatStyle = FlatStyle.Flat;
+            togleSizeBtn.ForeColor = Color.White;
+            togleSizeBtn.IconChar = FontAwesome.Sharp.IconChar.Expand;
+            togleSizeBtn.IconColor = Color.White;
+            togleSizeBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            togleSizeBtn.IconSize = 30;
+            togleSizeBtn.Location = new Point(3, 3);
+            togleSizeBtn.Margin = new Padding(3, 2, 3, 2);
+            togleSizeBtn.Name = "togleSizeBtn";
+            togleSizeBtn.Size = new Size(22, 27);
+            togleSizeBtn.TabIndex = 0;
+            togleSizeBtn.TabStop = false;
+            togleSizeBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            togleSizeBtn.UseVisualStyleBackColor = false;
+            togleSizeBtn.Click += togleSizeBtn_Click;
             // 
             // label1
             // 
