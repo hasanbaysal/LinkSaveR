@@ -1,6 +1,19 @@
 
 # Link Saver
 
+ 
+### v2 in development
+- Category group feature will be added
+- Google Exntetion will be more user-friendly
+- A more secure IO-based crud operation using temporary files will be implemented
+- Html generator bugs will be fixed
+- Pagintaion buttons will be added into main page
+  
+### v2.1
+-AI based search will be added
+
+
+
 it's a very simple application. i made it for myself because i'm always researching something and i need to save links to web pages. but when there are too many links i forget why i saved them. with this application i solved this problem
 with this application you can store and manage all url links
 you can add descriptions and categories to them and if you want you can add more than one category.
