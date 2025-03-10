@@ -56,6 +56,7 @@ namespace HB.LinkSaver
             FlwPanel = new FlowLayoutPanel();
             tbCategorySearch = new TextBox();
             lblSearchOption = new Label();
+            cbSelectCateGroup = new HB.LinkSaver.Components.RJComboBox();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -79,7 +80,7 @@ namespace HB.LinkSaver
             // 
             // BtnMin
             // 
-            BtnMin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            BtnMin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnMin.BackColor = Color.SteelBlue;
             BtnMin.FlatAppearance.BorderSize = 0;
             BtnMin.FlatStyle = FlatStyle.Flat;
@@ -496,12 +497,32 @@ namespace HB.LinkSaver
             lblSearchOption.Text = "Header";
             lblSearchOption.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // cbSelectCateGroup
+            // 
+            cbSelectCateGroup.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            cbSelectCateGroup.BackColor = Color.WhiteSmoke;
+            cbSelectCateGroup.BorderColor = Color.FromArgb(30, 30, 30);
+            cbSelectCateGroup.BorderSize = 1;
+            cbSelectCateGroup.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbSelectCateGroup.Font = new Font("Segoe UI", 10F);
+            cbSelectCateGroup.ForeColor = Color.DimGray;
+            cbSelectCateGroup.IconColor = Color.FromArgb(30, 30, 40);
+            cbSelectCateGroup.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbSelectCateGroup.ListTextColor = Color.DimGray;
+            cbSelectCateGroup.Location = new Point(1089, 50);
+            cbSelectCateGroup.MinimumSize = new Size(100, 23);
+            cbSelectCateGroup.Name = "cbSelectCateGroup";
+            cbSelectCateGroup.Size = new Size(153, 27);
+            cbSelectCateGroup.TabIndex = 57;
+            cbSelectCateGroup.Texts = "";
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1438, 775);
+            Controls.Add(cbSelectCateGroup);
             Controls.Add(CategoryControlPanel);
             Controls.Add(tbDescription);
             Controls.Add(lblSearchOption);
@@ -528,7 +549,6 @@ namespace HB.LinkSaver
             Text = "LinK Saver";
             FormClosing += MainForm_FormClosing;
             Load += Form1_Load;
-            Paint += MainForm_Paint;
             KeyDown += MainForm_KeyDown;
             PnlTop.ResumeLayout(false);
             PnlTop.PerformLayout();
@@ -563,5 +583,6 @@ namespace HB.LinkSaver
         private FontAwesome.Sharp.IconButton btnStatusInfo;
         private FontAwesome.Sharp.IconButton togleSizeBtn;
         private Label lblSearchOption;
+        private Components.RJComboBox cbSelectCateGroup;
     }
 }

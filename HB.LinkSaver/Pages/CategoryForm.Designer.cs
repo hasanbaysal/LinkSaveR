@@ -40,6 +40,7 @@
             button2 = new Button();
             listBox1 = new ListBox();
             lblDeleteResult = new Label();
+            rjComboBox1 = new HB.LinkSaver.Components.RJComboBox();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -51,7 +52,7 @@
             groupBox2.Controls.Add(UpdateBtn);
             groupBox2.Controls.Add(tbUpdate);
             groupBox2.ForeColor = SystemColors.ButtonFace;
-            groupBox2.Location = new Point(313, 185);
+            groupBox2.Location = new Point(313, 241);
             groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 2, 3, 2);
@@ -106,7 +107,7 @@
             groupBox1.Controls.Add(tbCategoryAdd);
             groupBox1.Controls.Add(button1);
             groupBox1.ForeColor = SystemColors.ButtonFace;
-            groupBox1.Location = new Point(313, 35);
+            groupBox1.Location = new Point(313, 91);
             groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 2, 3, 2);
@@ -151,7 +152,7 @@
             // 
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = SystemColors.ButtonFace;
-            button2.Location = new Point(337, 362);
+            button2.Location = new Point(337, 418);
             button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
             button2.Size = new Size(238, 32);
@@ -166,7 +167,7 @@
             listBox1.ForeColor = Color.White;
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(12, 22);
+            listBox1.Location = new Point(12, 78);
             listBox1.Margin = new Padding(3, 2, 3, 2);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(277, 394);
@@ -177,18 +178,38 @@
             // 
             lblDeleteResult.AutoSize = true;
             lblDeleteResult.ForeColor = Color.FromArgb(128, 255, 128);
-            lblDeleteResult.Location = new Point(435, 410);
+            lblDeleteResult.Location = new Point(435, 466);
             lblDeleteResult.Name = "lblDeleteResult";
             lblDeleteResult.Size = new Size(43, 15);
             lblDeleteResult.TabIndex = 8;
             lblDeleteResult.Text = "Succes";
+            // 
+            // rjComboBox1
+            // 
+            rjComboBox1.BackColor = Color.WhiteSmoke;
+            rjComboBox1.BorderColor = Color.MediumSlateBlue;
+            rjComboBox1.BorderSize = 1;
+            rjComboBox1.DropDownStyle = ComboBoxStyle.DropDown;
+            rjComboBox1.Font = new Font("Segoe UI", 10F);
+            rjComboBox1.ForeColor = Color.DimGray;
+            rjComboBox1.IconColor = Color.MediumSlateBlue;
+            rjComboBox1.ListBackColor = Color.FromArgb(230, 228, 245);
+            rjComboBox1.ListTextColor = Color.DimGray;
+            rjComboBox1.Location = new Point(51, 31);
+            rjComboBox1.MinimumSize = new Size(200, 30);
+            rjComboBox1.Name = "rjComboBox1";
+            rjComboBox1.Padding = new Padding(1);
+            rjComboBox1.Size = new Size(200, 30);
+            rjComboBox1.TabIndex = 10;
+            rjComboBox1.Texts = "";
             // 
             // CategoryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            ClientSize = new Size(636, 434);
+            ClientSize = new Size(638, 507);
+            Controls.Add(rjComboBox1);
             Controls.Add(lblDeleteResult);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -221,5 +242,6 @@
         private Label lblResultUpdate;
         private Label lblResultAdd;
         private Label lblDeleteResult;
+        private Components.RJComboBox rjComboBox1;
     }
 }

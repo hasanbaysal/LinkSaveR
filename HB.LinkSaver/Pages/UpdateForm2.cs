@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HB.LinkSaver.DataAcces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,7 +26,7 @@ namespace HB.LinkSaver.Pages
             lblResult.Visible = false;
             this.KeyPreview = true;
             LinkManager.Control();
-            CategoryManager.GetAll().ForEach(c => { categoryControlLb1.AddItem(c); });
+            CategoryManager.GetAllCategoryNames().ForEach(c => { categoryControlLb1.AddItem(c); });
 
             var data = LinkManager.GetById(OrginalLink.Id);
 

@@ -3,6 +3,13 @@ using System.Drawing.Drawing2D;
 
 namespace HB.LinkSaver.Components
 {
+    /// <summary>
+    /// <para>Code snippet adapted from user "RJCodeAdvance" </para>    
+    /// <para> repository : "Toggle-Button-WinForm" </para>  
+    ///  <para>Thanks RJCodeAdvance</para>
+    ///  <seealso cref="https://github.com/RJCodeAdvance/Toggle-Button-WinForm"/> 
+    /// </summary>
+
     public class RJToggleButton : CheckBox
     {
         //Fields
@@ -153,4 +160,6 @@ namespace HB.LinkSaver.Components
             }
         }
     }
-}
+
+
+    }

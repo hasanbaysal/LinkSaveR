@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HB.LinkSaver.DataAcces;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HB.LinkSaver.Controllers
 {
@@ -12,7 +13,7 @@ namespace HB.LinkSaver.Controllers
         public IActionResult CustomAction()
         {
 
-            var data = CategoryManager.GetAll();
+            var data = CategoryManager.GetAllCategoryNames();
             return Json(data);
         }
 

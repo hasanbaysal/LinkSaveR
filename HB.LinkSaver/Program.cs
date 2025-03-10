@@ -4,10 +4,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HB.LinkSaver
 {
+
+    //TODO : HB api new  end-point - category group get 
+    //TODO : HB extention düzenlemesi
+    //TODO : HB DataGrid Paginations
+    //TODO : HB using TempFile  to protect main json files
     internal static class Program
     {
 
         public static MainForm MainFrm = new MainForm();
+        public static readonly string GeneralCategorGroupName = "GeneralCategorGroupName";
         public static WebApplication WebApp { get; set; }
         public static string GlobalMessage { get; set; } = string.Empty;
         public static bool ServerStatus { get; set; }

@@ -9,8 +9,4 @@
         public List<string> Categories { get; set; } = new();
 
     }
-    public class Category
-    {
-        public string CategoryName { get; set; }
-    }
 }

@@ -1,4 +1,6 @@
-﻿namespace HB.LinkSaver.Pages
+﻿using HB.LinkSaver.DataAcces;
+
+namespace HB.LinkSaver.Pages
 {
     public partial class CategoryForm : Form
     {
@@ -41,7 +43,7 @@
             lblDeleteResult.Visible = false;
             LinkManager.Control();
 
-            CategoryManager.Categories.ForEach(c => listBox1.Items.Add(c));
+            CategoryManager.CategoryNames.ForEach(c => listBox1.Items.Add(c));
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -77,7 +79,7 @@
                 await Task.Delay(350);
                 lblResultUpdate.Visible = false;
                 listBox1.Items.Clear();
-                CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
+                CategoryManager.CategoryNames.ForEach(x => listBox1.Items.Add(x));
                 Program.MainFrm.LoadDgw();
                 Program.MainFrm.LoadCategories();
 
@@ -96,7 +98,7 @@
                 await Task.Delay(350);
                 lblDeleteResult.Visible = false;
                 listBox1.Items.Clear();
-                CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
+                CategoryManager.CategoryNames.ForEach(x => listBox1.Items.Add(x));
                 SelectedCategory = string.Empty;
                 lblUpdate.Text = string.Empty;
                 Program.MainFrm.LoadCategories();

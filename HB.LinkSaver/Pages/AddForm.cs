@@ -1,4 +1,6 @@
-﻿namespace HB.LinkSaver.Pages
+﻿using HB.LinkSaver.DataAcces;
+
+namespace HB.LinkSaver.Pages
 {
 
     //loc 121; 392
@@ -16,7 +18,7 @@
             lblResult.Visible = false;
             this.KeyPreview = true;
             LinkManager.Control();
-            CategoryManager.GetAll().ForEach(c => { categoryControlLb1.AddItem(c); });
+            CategoryManager.GetAllCategoryNames().ForEach(c => { categoryControlLb1.AddItem(c); });
 
         }
         public void RemoveCategory(string data)

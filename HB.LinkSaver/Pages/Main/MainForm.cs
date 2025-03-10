@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using HB.LinkSaver.Helpers;
 using System.Windows.Forms;
+using HB.LinkSaver.DataAcces;
+using Microsoft.Extensions.Hosting;
 
 
 namespace HB.LinkSaver
@@ -30,11 +32,16 @@ namespace HB.LinkSaver
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem showToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
-
         public MainForm()
         {
+
             InitializeComponent();
             InitializeToolTip();
+
+            cbSelectCateGroup.Items.Add("first");
+            cbSelectCateGroup.Items.Add("first");
+            cbSelectCateGroup.Items.Add("first");
+            
             CheckForIllegalCrossThreadCalls = false;
             _tbDescriptionFirstSize = tbDescription.Size;
             TbDescriptionSeperator = '_';
@@ -61,8 +68,6 @@ namespace HB.LinkSaver
             notifyIcon.Icon = new System.Drawing.Icon(Environment.CurrentDirectory + "/" + "myicon.ico");
             this.DoubleBuffered = true;
         }
-
-  
 
         #region NotifyIcon
 
@@ -117,17 +122,16 @@ namespace HB.LinkSaver
             MyToolTip.ShowAlways = true;
 
 
-            MyToolTip.SetToolTip(this.BtnOpenLink, "Open With Browser");
-            MyToolTip.SetToolTip(this.BtnDelete, $"Select a record before clicking to delete {Environment.NewLine} Please make a selection first (DEL)");
-            MyToolTip.SetToolTip(this.BtnAdd, "Add a Link (F1)");
-            MyToolTip.SetToolTip(this.BtnUpdate, $"Update the Link  {Environment.NewLine} (F2 after select a recod)");
-            MyToolTip.SetToolTip(this.BtnSettings, "Settings (F4)");
-            MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete (F3)");
-            MyToolTip.SetToolTip(this.resetBtn, "Clear All Filter  Refresh (F5)");
-            MyToolTip.SetToolTip(this.btnStatusInfo, "Server Status For Google Extention. If you gonna use extention turn on server");
+                MyToolTip.SetToolTip(this.BtnOpenLink, "Open With Browser");
+                MyToolTip.SetToolTip(this.BtnDelete, $"Select a record before clicking to delete {Environment.NewLine} Please make a selection first (DEL)");
+                MyToolTip.SetToolTip(this.BtnAdd, "Add a Link (F1)");
+                MyToolTip.SetToolTip(this.BtnUpdate, $"Update the Link  {Environment.NewLine} (F2 after select a recod)");
+                MyToolTip.SetToolTip(this.BtnSettings, "Settings (F4)");
+                MyToolTip.SetToolTip(this.BtnCategories, "Category Add or Delete (F3)");
+                MyToolTip.SetToolTip(this.resetBtn, "Clear All Filter  Refresh (F5)");
+                MyToolTip.SetToolTip(this.btnStatusInfo, "Server Status For Google Extention. If you gonna use extention turn on server");
 
         }
-
 
         #endregion
 
@@ -211,7 +215,6 @@ namespace HB.LinkSaver
                 + Environment.NewLine;
 
         }
-
         private string GetDash(string header = "")
         {
             if (header != string.Empty)
@@ -234,8 +237,6 @@ namespace HB.LinkSaver
             Enumerable.Range(1, maxDashes).ToList().ForEach(x => temp += TbDescriptionSeperator.ToString());
             return temp;
         }
-
-
         private int CalculateDashCount(RichTextBox richTextBox, Font font, char charachter)
         {
             string dash = charachter.ToString();
@@ -262,8 +263,6 @@ namespace HB.LinkSaver
 
             return maxDashes;
         }
-
-
         #endregion
 
         #region FormLoad Actions
@@ -295,13 +294,12 @@ namespace HB.LinkSaver
                 DGW.ClearSelection();
             }
         }
-
         public void LoadCategories()
         {
 
             Program.MainFrm.CategoryControlPanel.ClearItems();
 
-            CategoryManager.Categories.ForEach(x =>
+            CategoryManager.CategoryNames.ForEach(x =>
             {
                 Program.MainFrm.CategoryControlPanel.AddItem(x);
             });
@@ -329,9 +327,6 @@ namespace HB.LinkSaver
         #endregion
 
         #region CategorySelect-Action
-
-
-
         public void AddCategoryLabel(string str)
         {
 
@@ -381,7 +376,6 @@ namespace HB.LinkSaver
 
             SearchByFilters();
         }
-
         private void categoryControlLb1_BtnHandler(object sender, EventArgs e)
         {
             if (SelectedCategories.Count == 8) return;
@@ -401,8 +395,6 @@ namespace HB.LinkSaver
             SearchByFilters();
 
         }
-
-
         #endregion
 
         #region pages
@@ -431,8 +423,6 @@ namespace HB.LinkSaver
             CategoryForm categoryForm = new CategoryForm();
             categoryForm.ShowDialog();
         }
-
-
         private void BtnSettings_Click(object sender, EventArgs e)
         {
             SettingsForm settingsForm = new SettingsForm();
@@ -608,28 +598,12 @@ namespace HB.LinkSaver
         {
             if (Program.ServerStatus)
             {
-                var data = Program.WebApp.Services.GetRequiredService<IApplicationLifetime>();
+                var data = Program.WebApp.Services.GetRequiredService<IHostApplicationLifetime>();
                 data.StopApplication();
             }
-
         }
-
-
-        private void BtnClose_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-
-
-
-        private void BtnMin_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-
-
+        private void BtnClose_Click(object sender, EventArgs e)=>Application.Exit();
+        private void BtnMin_Click(object sender, EventArgs e)=> this.WindowState = FormWindowState.Minimized;
         bool isFullScreen = false;
         private void togleSizeBtn_Click(object sender, EventArgs e)
         {
@@ -660,10 +634,6 @@ namespace HB.LinkSaver
         #endregion
 
         #region display event
-
-
-
-
         private void BtnDelete_MouseHover(object sender, EventArgs e)
         {
             IconButton btn = sender as IconButton;
@@ -671,7 +641,6 @@ namespace HB.LinkSaver
             btn.IconColor = Color.FromArgb(2, 117, 216);
 
         }
-
         private void BtnDelete_MouseLeave(object sender, EventArgs e)
         {
             IconButton btn = sender as IconButton;
@@ -679,8 +648,6 @@ namespace HB.LinkSaver
             btn.IconColor = Color.White;
 
         }
-
-
         private void label1_MouseHover(object sender, EventArgs e)
         {
             Label lb = (Label)sender;
@@ -690,7 +657,6 @@ namespace HB.LinkSaver
 
 
         }
-
         private void label1_MouseLeave(object sender, EventArgs e)
         {
             Label lb = (Label)sender;
@@ -718,60 +684,29 @@ namespace HB.LinkSaver
 
             }
         }
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            //using (Pen whitePen = new Pen(Color.White, 2))
-            //{
 
-            //    e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
-            //    e.Graphics.DrawRectangle(whitePen, CategoryControlPanel.Left - 1, CategoryControlPanel.Top - 1, CategoryControlPanel.Width + 1, CategoryControlPanel.Height + 1);
-            //    e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
-            //    //e.Graphics.DrawRectangle(whitePen, tbDescription.Left - 1, tbDescription.Top - 1, tbDescription.Width + 1, tbDescription.Height + 1);
-            //}
-        }
-
-
-        int saðBoþluk = 10; // Sað taraftan olan boþluk
-        int altBoþluk = 10; // Alt taraftan olan boþluk
+        int rightSpace = 10; 
+        int leftSpace = 10; 
         private void tbDescription_MouseHover(object sender, EventArgs e)
         {
-
-
-            tbDescription.Location = new Point(
-                this.ClientSize.Width - tbDescription.Width - saðBoþluk,
-                this.ClientSize.Height - tbDescription.Height - altBoþluk
-            );
-
-
+            tbDescription.Location = new Point(this.ClientSize.Width - tbDescription.Width - rightSpace,this.ClientSize.Height - tbDescription.Height - leftSpace);
             tbDescription.Size = new Size(_tbDescriptionFirstSize.Width, _tbDescriptionFirstSize.Height + 200);
-            //tbDescription.Location = new Point(FirstLocation.X, FirstLocation.Y - 200);
             InfoCategoryLbl.SendToBack();
         }
-
-
         private void tbDescription_MouseLeave(object sender, EventArgs e)
         {
             tbDescription.Size = _tbDescriptionFirstSize;
-            //tbDescription.Location = FirstLocation;
 
-            tbDescription.Location = new Point(
-               this.ClientSize.Width - tbDescription.Width - saðBoþluk,
-               this.ClientSize.Height - tbDescription.Height - altBoþluk
-           );
+            tbDescription.Location = new Point( this.ClientSize.Width - tbDescription.Width - rightSpace,this.ClientSize.Height - tbDescription.Height - leftSpace);
 
             if (SelectedCategories.Count == 0)
-            {
                 InfoCategoryLbl.BringToFront();
-            }
             else
-            {
                 InfoCategoryLbl.SendToBack();
-            }
         }
         #endregion
 
         #region KeyDown
-
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.F1)
@@ -804,9 +739,6 @@ namespace HB.LinkSaver
 
 
         }
-
         #endregion
-
-
     }
 }
