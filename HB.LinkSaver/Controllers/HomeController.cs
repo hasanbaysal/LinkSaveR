@@ -12,8 +12,10 @@ namespace HB.LinkSaver.Controllers
         public IActionResult CustomAction()
         {
 
-            var data = CategoryManager.GetAll();
-            return Json(data);
+          //  var data = CategoryManager.GetAll();
+            //return Json(data);
+            //TODO : düzenle
+            return null;
         }
 
         [HttpPost]

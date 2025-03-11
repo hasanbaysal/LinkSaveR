@@ -1,8 +1,11 @@
-﻿namespace HB.LinkSaver.Pages
+﻿using HB.LinkSaver.DataAcces;
+
+namespace HB.LinkSaver.Pages
 {
     public partial class CategoryForm : Form
     {
         public string SelectedCategory = string.Empty;
+        public string SelectedCategoryGroupName = string.Empty;
         public CategoryForm()
         {
             InitializeComponent();
@@ -11,13 +14,12 @@
         private async void button1_Click(object sender, EventArgs e)
         {
             if (tbCategoryAdd.Text == string.Empty)
-
             {
                 MessageBox.Show("category cannot be empty!");
                 return;
             }
 
-            if (CategoryManager.Add(tbCategoryAdd.Text))//? "succesfull" : "already exist";
+            if (CategoryManager.AddCategoryIntoGroup(SelectedCategoryGroupName, tbCategoryAdd.Text))//? "succesfull" : "already exist";
             {
                 lblResultAdd.Visible = true;
                 await Task.Delay(350);
@@ -25,7 +27,7 @@
                 listBox1.Items.Add(tbCategoryAdd.Text);
                 tbCategoryAdd.Clear();
                 lblUpdate.Text = string.Empty;
-                Program.MainFrm.LoadCategories(); // OK
+                Program.MainFrm.LoadCategories(); // OK  //TODO : HB remove comment
             }
             else
             {
@@ -33,15 +35,30 @@
             }
 
         }
+
+
+        // TODO : HB Category Empty Case !!
         private void CategoryForm_Load(object sender, EventArgs e)
         {
+            LinkManager.Control();
             this.KeyPreview = true;
             lblResultAdd.Visible = false;
             lblResultUpdate.Visible = false;
             lblDeleteResult.Visible = false;
-            LinkManager.Control();
+            lblCategoryGroupNameStatus.Visible = false;
 
-            CategoryManager.Categories.ForEach(c => listBox1.Items.Add(c));
+
+            var groups = CategoryManager.GetAllCategoryGroupNames();
+
+            groups.ForEach(x => cbCategoryGroupNames.Items.Add(x));
+
+
+            var categories = CategoryManager.GetAllCateriesByGroupName(groups.FirstOrDefault()!);
+
+            categories.ForEach(x => listBox1.Items.Add(x));
+
+            SelectedCategoryGroupName = groups.First();
+            cbCategoryGroupNames.SelectedIndex = 0;
         }
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -110,5 +127,58 @@
                 this.Close();
             }
         }
+
+        private async void btnAddCategoryGroup_Click(object sender, EventArgs e)
+        {
+            // TODO : maindeki category group cbbox'ı update et
+            if (tbCategoryGroup.Text == string.Empty)
+            {
+                MessageBox.Show("category group name cannot be empty!");
+                return;
+            }
+
+            if (CategoryManager.AddGroup(tbCategoryGroup.Text))
+            {
+                lblResultAdd.Visible = true;
+                await Task.Delay(350);
+                lblResultAdd.Visible = false;
+                listBox1.Items.Add(tbCategoryAdd.Text);
+                tbCategoryAdd.Clear();
+                lblCategoryGroupNameStatus.Text = string.Empty;
+
+                cbCategoryGroupNames.Items.Clear();
+                CategoryManager.GetAllCategoryGroupNames().ForEach(x => cbCategoryGroupNames.Items.Add(x));
+
+                listBox1.Items.Clear();
+                CategoryManager.GetAllCateriesByGroupName(tbCategoryGroup.Text).ForEach(x => listBox1.Items.Add(x));
+
+
+                Program.MainFrm.LoadCategoriesGroup();
+            }
+            else
+            {
+                MessageBox.Show("already exist");
+            }
+        }
+
+        private void cbCategoryGroupNames_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var cb = sender as ComboBox;
+            SelectedCategoryGroupName = cb.Items[cb.SelectedIndex].ToString()!;
+            listBox1.Items.Clear();
+            CategoryManager.GetAllCateriesByGroupName(SelectedCategoryGroupName!).ForEach(x => listBox1.Items.Add(x));
+
+            ResetDataAndComponents();
+        }
+
+        private void ResetDataAndComponents()
+        {
+            tbCategoryAdd.Text = string.Empty;
+            tbCategoryGroup.Text = string.Empty;
+            tbUpdate.Text = string.Empty;
+            lblUpdate.Text = string.Empty;
+            SelectedCategory = string.Empty;
+        }
+
     }
 }

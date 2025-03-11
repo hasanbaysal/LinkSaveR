@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using HB.LinkSaver.DataAcces;
+using System.Text.Json;
 
 namespace HB.LinkSaver
 {
@@ -13,16 +14,17 @@ namespace HB.LinkSaver
         public static void Control()
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
-            var exampleCategories = new List<string>();
-            exampleCategories.Add("categoryTest");
+            var exampleCategories = new List<Category>();
+
+            exampleCategories.Add(new() { CategorGroupName = "SampleGroup", SubCategories = new() { "SampleCategory", "SampleCategory2" } });
+
             var exampeLink = new Link()
             {
-                Categories = exampleCategories,
+                Categories = exampleCategories.First().SubCategories,
                 Content = "sample content",
                 Description = "sample desc",
                 Header = "sample header",
                 Id = Guid.NewGuid().ToString()
-
             };
             if (!File.Exists(LinksPath))
             {
@@ -52,9 +54,8 @@ namespace HB.LinkSaver
 
             }
             Links = ReadFile();
-            CategoryManager.Categories = CategoryManager.GetAll();
 
-
+            var categories = CategoryManager.Categories;
         }
         public static List<Link> GetAll()
         {
@@ -76,7 +77,6 @@ namespace HB.LinkSaver
 
             }
             return result;
-            //add rule 
 
         }
         public static Link GetById(string id)
@@ -156,7 +156,7 @@ namespace HB.LinkSaver
         {
             var con1 = !Links.Any(x => x.Content.ToLower().Trim() == link.Content.ToLower().Trim());
             //var con2 = !Links.Any(x => x.Header == link.Header);
-            var con3 = (link.Categories.Count != 0);
+            var con3 = link.Categories.Count != 0;
             //var result = con1 && con2 && con3;
             var result = con1 && con3;
 
@@ -171,9 +171,9 @@ namespace HB.LinkSaver
             if (!result)
             {
 
-                if(!sendFromApi)
-                MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                
+                if (!sendFromApi)
+                    MessageBox.Show(message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
 
 
             }
@@ -187,97 +187,6 @@ namespace HB.LinkSaver
             File.WriteAllText(LinksPath, JsonSerializer.Serialize(data, options));
         }
 
-    }
-
-    public static class CategoryManager
-    {
-        private const string CategoriesPath = "categories.json";
-        private static List<string> _categories = new();
-        public static List<string> Categories
-        {
-            get
-            {
-                _categories.Sort();
-                return _categories;
-            }
-            set
-            {
-                _categories = value;
-
-                _categories.Sort();
-
-
-            }
-        }
-        public static bool Add(string category)
-        {
-            if (Categories.Contains(category))
-                return false;
-
-
-            Categories.Add(category);
-
-            WriteFile(Categories);
-            return true;
-        }
-        public static bool Delete(string category)
-        {
-            var result = LinkManager.Links.Where(x => x.Categories.Contains(category)).Any();
-            if (result) return false;
-
-
-            Categories.Remove(category);
-            WriteFile(Categories);
-
-            Categories = ReadFile();
-            return true;
-
-        }
-        //update!
-
-        public static bool Update(string OldCategory, string newCategory)
-        {
-
-            if (CategoryManager.Categories.Contains(newCategory))
-            {
-                MessageBox.Show(newCategory + "  alerdy existy");
-                return false;
-            }
-
-            for (int i = 0; i < LinkManager.Links.Count; i++)
-            {
-                var temp = LinkManager.Links[i].Categories;
-                for (int j = 0; j < temp.Count; j++)
-                {
-                    if (temp[j].ToLower() == OldCategory.ToLower())
-                    {
-                        temp[j] = newCategory;
-                    }
-                }
-            }
-            LinkManager.UpdateAll();
-
-            Categories.Remove(OldCategory);
-            Categories.Add(newCategory);
-            WriteFile(Categories);
-            Categories = ReadFile();
-            return true;
-        }
-
-        public static List<string> GetAll()
-        {
-            Categories = ReadFile();
-            return Categories;
-        }
-        private static List<string> ReadFile()
-         => JsonSerializer.Deserialize<List<string>>(File.ReadAllText(CategoriesPath))!;
-        private static void WriteFile(List<string> data)
-        {
-
-            var options = new JsonSerializerOptions { WriteIndented = true };
-            File.WriteAllText(CategoriesPath, JsonSerializer.Serialize(data, options: options));
-
-        }
     }
 
 }

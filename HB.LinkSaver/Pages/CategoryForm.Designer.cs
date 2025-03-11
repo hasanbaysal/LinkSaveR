@@ -40,8 +40,14 @@
             button2 = new Button();
             listBox1 = new ListBox();
             lblDeleteResult = new Label();
+            groupBox3 = new GroupBox();
+            lblCategoryGroupNameStatus = new Label();
+            tbCategoryGroup = new TextBox();
+            btnAddCategoryGroup = new Button();
+            cbCategoryGroupNames = new HB.LinkSaver.Components.RJComboBox();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox2
@@ -51,7 +57,7 @@
             groupBox2.Controls.Add(UpdateBtn);
             groupBox2.Controls.Add(tbUpdate);
             groupBox2.ForeColor = SystemColors.ButtonFace;
-            groupBox2.Location = new Point(313, 185);
+            groupBox2.Location = new Point(313, 299);
             groupBox2.Margin = new Padding(3, 2, 3, 2);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(3, 2, 3, 2);
@@ -106,7 +112,7 @@
             groupBox1.Controls.Add(tbCategoryAdd);
             groupBox1.Controls.Add(button1);
             groupBox1.ForeColor = SystemColors.ButtonFace;
-            groupBox1.Location = new Point(313, 35);
+            groupBox1.Location = new Point(313, 175);
             groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 2, 3, 2);
@@ -151,7 +157,7 @@
             // 
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = SystemColors.ButtonFace;
-            button2.Location = new Point(337, 362);
+            button2.Location = new Point(337, 412);
             button2.Margin = new Padding(3, 2, 3, 2);
             button2.Name = "button2";
             button2.Size = new Size(238, 32);
@@ -166,7 +172,7 @@
             listBox1.ForeColor = Color.White;
             listBox1.FormattingEnabled = true;
             listBox1.ItemHeight = 15;
-            listBox1.Location = new Point(12, 22);
+            listBox1.Location = new Point(12, 66);
             listBox1.Margin = new Padding(3, 2, 3, 2);
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(277, 394);
@@ -177,20 +183,89 @@
             // 
             lblDeleteResult.AutoSize = true;
             lblDeleteResult.ForeColor = Color.FromArgb(128, 255, 128);
-            lblDeleteResult.Location = new Point(435, 410);
+            lblDeleteResult.Location = new Point(435, 460);
             lblDeleteResult.Name = "lblDeleteResult";
             lblDeleteResult.Size = new Size(43, 15);
             lblDeleteResult.TabIndex = 8;
             lblDeleteResult.Text = "Succes";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(lblCategoryGroupNameStatus);
+            groupBox3.Controls.Add(tbCategoryGroup);
+            groupBox3.Controls.Add(btnAddCategoryGroup);
+            groupBox3.ForeColor = SystemColors.ButtonFace;
+            groupBox3.Location = new Point(313, 66);
+            groupBox3.Margin = new Padding(3, 2, 3, 2);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Padding = new Padding(3, 2, 3, 2);
+            groupBox3.Size = new Size(299, 105);
+            groupBox3.TabIndex = 0;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Add Category Group Section";
+            // 
+            // lblCategoryGroupNameStatus
+            // 
+            lblCategoryGroupNameStatus.AutoSize = true;
+            lblCategoryGroupNameStatus.ForeColor = Color.FromArgb(128, 255, 128);
+            lblCategoryGroupNameStatus.Location = new Point(24, 73);
+            lblCategoryGroupNameStatus.Name = "lblCategoryGroupNameStatus";
+            lblCategoryGroupNameStatus.Size = new Size(43, 15);
+            lblCategoryGroupNameStatus.TabIndex = 8;
+            lblCategoryGroupNameStatus.Text = "Succes";
+            // 
+            // tbCategoryGroup
+            // 
+            tbCategoryGroup.Location = new Point(24, 31);
+            tbCategoryGroup.Margin = new Padding(3, 2, 3, 2);
+            tbCategoryGroup.Name = "tbCategoryGroup";
+            tbCategoryGroup.PlaceholderText = "Add a new category";
+            tbCategoryGroup.Size = new Size(259, 23);
+            tbCategoryGroup.TabIndex = 0;
+            // 
+            // btnAddCategoryGroup
+            // 
+            btnAddCategoryGroup.FlatStyle = FlatStyle.Flat;
+            btnAddCategoryGroup.ForeColor = SystemColors.ButtonFace;
+            btnAddCategoryGroup.Location = new Point(113, 66);
+            btnAddCategoryGroup.Margin = new Padding(3, 2, 3, 2);
+            btnAddCategoryGroup.Name = "btnAddCategoryGroup";
+            btnAddCategoryGroup.Size = new Size(82, 22);
+            btnAddCategoryGroup.TabIndex = 1;
+            btnAddCategoryGroup.Text = "ADD";
+            btnAddCategoryGroup.UseVisualStyleBackColor = true;
+            btnAddCategoryGroup.Click += btnAddCategoryGroup_Click;
+            // 
+            // cbCategoryGroupNames
+            // 
+            cbCategoryGroupNames.BackColor = Color.WhiteSmoke;
+            cbCategoryGroupNames.BorderColor = Color.MediumSlateBlue;
+            cbCategoryGroupNames.BorderSize = 1;
+            cbCategoryGroupNames.DropDownStyle = ComboBoxStyle.DropDown;
+            cbCategoryGroupNames.Font = new Font("Segoe UI", 10F);
+            cbCategoryGroupNames.ForeColor = Color.DimGray;
+            cbCategoryGroupNames.IconColor = Color.MediumSlateBlue;
+            cbCategoryGroupNames.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbCategoryGroupNames.ListTextColor = Color.DimGray;
+            cbCategoryGroupNames.Location = new Point(47, 31);
+            cbCategoryGroupNames.MinimumSize = new Size(200, 30);
+            cbCategoryGroupNames.Name = "cbCategoryGroupNames";
+            cbCategoryGroupNames.Padding = new Padding(1);
+            cbCategoryGroupNames.Size = new Size(200, 30);
+            cbCategoryGroupNames.TabIndex = 10;
+            cbCategoryGroupNames.Texts = "";
+            cbCategoryGroupNames.OnSelectedIndexChanged += cbCategoryGroupNames_OnSelectedIndexChanged;
             // 
             // CategoryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            ClientSize = new Size(636, 434);
+            ClientSize = new Size(638, 507);
+            Controls.Add(cbCategoryGroupNames);
             Controls.Add(lblDeleteResult);
             Controls.Add(groupBox2);
+            Controls.Add(groupBox3);
             Controls.Add(groupBox1);
             Controls.Add(button2);
             Controls.Add(listBox1);
@@ -204,6 +279,8 @@
             groupBox2.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -221,5 +298,10 @@
         private Label lblResultUpdate;
         private Label lblResultAdd;
         private Label lblDeleteResult;
+        private GroupBox groupBox3;
+        private Label lblCategoryGroupNameStatus;
+        private TextBox tbCategoryGroup;
+        private Button btnAddCategoryGroup;
+        private Components.RJComboBox cbCategoryGroupNames;
     }
 }

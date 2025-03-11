@@ -7,11 +7,24 @@ namespace HB.LinkSaver
     internal static class Program
     {
 
+
+
+        //TODO : HB api new  end-point - category group get 
+        //TODO : HB extention düzenlemesi
+        //TODO : HB DataGrid Paginations
+        //TODO : HB using TempFile  to protect main json files
+        //TODO : HB Change pages structure
+        //TODO : HB Api endpoint fix
+        //TODO : HB partial class implementation for main
+
+        public static string AllCategoryGroup = "All";
         public static MainForm MainFrm = new MainForm();
         public static WebApplication WebApp { get; set; }
         public static string GlobalMessage { get; set; } = string.Empty;
         public static bool ServerStatus { get; set; }
         public static Mutex AppMutex { get; private set; }
+
+        
 
         [STAThread]
         static void Main()

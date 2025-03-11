@@ -136,7 +136,7 @@ namespace HB.LinkSaver
                 temp += "<tr>";
                 temp += $"<td>{link.Header}</td>";
                 temp += $"<td>{link.Description}</td>";
-                temp += @$"<td>  <a href={"https:/" + link.Content} target=""_blank""> Link  </a> </td>";
+                temp += @$"<td>  <a href=""{link.Content}"" target=""_blank""> Link  </a> </td>";
                 temp += "<td>";
                 temp += "<ul>";
                 foreach (var category in link.Categories)

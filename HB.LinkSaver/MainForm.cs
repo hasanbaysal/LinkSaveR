@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using HB.LinkSaver.Helpers;
 using System.Windows.Forms;
+using HB.LinkSaver.DataAcces;
+using System.Runtime.CompilerServices;
 
 
 namespace HB.LinkSaver
@@ -17,15 +19,16 @@ namespace HB.LinkSaver
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
         public bool SearchForText = false;
+        public static string CurrentCategoryGroup = string.Empty;
 
         private Size _tbDescriptionFirstSize;
         private Size _mainFirstSize;
         public Size SecondSize;
         public Point SecondLocation;
         public char TbDescriptionSeperator;
-        
+
         int maxDashes = 0;
-        
+
         private NotifyIcon notifyIcon;
         private ContextMenuStrip contextMenuStrip;
         private ToolStripMenuItem showToolStripMenuItem;
@@ -33,6 +36,7 @@ namespace HB.LinkSaver
 
         public MainForm()
         {
+            CurrentCategoryGroup = Program.AllCategoryGroup;
             InitializeComponent();
             InitializeToolTip();
             CheckForIllegalCrossThreadCalls = false;
@@ -62,7 +66,7 @@ namespace HB.LinkSaver
             this.DoubleBuffered = true;
         }
 
-  
+
 
         #region NotifyIcon
 
@@ -86,7 +90,7 @@ namespace HB.LinkSaver
             notifyIcon.Visible = false;
             Application.Exit();
         }
-      
+
 
         #endregion
 
@@ -139,7 +143,7 @@ namespace HB.LinkSaver
             DGW.Update();
             DGW.Refresh();
 
-            var data = LinkManager.GetAll().Select(x => new
+            var data = LinkManager.GetAll().Where(x=>x.Categories.Intersect(CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup)).Any()).Select(x => new
             {
                 Id = x.Id,
                 Header = x.Header,
@@ -269,44 +273,58 @@ namespace HB.LinkSaver
         #region FormLoad Actions
         private void Form1_Load(object sender, EventArgs e)
         {
+            #region components and form design config
             _mainFirstSize = this.Size;
             InfoCategoryLbl.Anchor = AnchorStyles.Right | AnchorStyles.Bottom;
-
             btnStatusInfo.IconColor = Program.GetUseServerSettingsStatus() ? Color.Green : Color.Red;
             btnStatusInfo.ForeColor = Program.GetUseServerSettingsStatus() ? Color.Green : Color.Red;
-
-
             DGW.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(45, 45, 45);
             DGW.ColumnHeadersDefaultCellStyle.SelectionForeColor = Color.White;
-
-
             this.KeyPreview = true;
             DGW.CellPainting += DGW_CellPainting!;
             tbDescription.SelectionIndent = 10;
             tbDescription.SelectionRightIndent = 10;
+            #endregion
+
+
+
+
+
 
             LinkManager.Control();
-            LoadDgw();
+            LoadCategoriesGroup();
             LoadCategories();
+            CurrentCategoryGroup = Program.AllCategoryGroup;
+            LoadDgw();
             BackGroundLabel();
             maxDashes = CalculateDashCount(this.tbDescription, tbDescription.Font, TbDescriptionSeperator);
             if (DGW.Rows.Count > 0)
             {
                 DGW.ClearSelection();
             }
+            cbCategoryGroup.SelectedItem = Program.AllCategoryGroup;
         }
 
         public void LoadCategories()
         {
-
             Program.MainFrm.CategoryControlPanel.ClearItems();
-
-            CategoryManager.Categories.ForEach(x =>
+            CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup).ForEach(x =>
             {
-                Program.MainFrm.CategoryControlPanel.AddItem(x);
-            });
-        }
+               Program.MainFrm.CategoryControlPanel.AddItem(x);
+           });
 
+        }
+        public void LoadCategoriesGroup()
+        {
+            cbCategoryGroup.Items.Clear();
+
+            var data = CategoryManager.GetAllCategoryGroupNames();
+            data.Sort();
+          
+            cbCategoryGroup.Items.AddRange(data.ToArray());
+            cbCategoryGroup.Items.Insert(0, Program.AllCategoryGroup);
+
+        }
         Label InfoCategoryLbl = new Label();
         public void BackGroundLabel()
         {
@@ -474,7 +492,7 @@ namespace HB.LinkSaver
 
         #region Search Code
 
-        private void textBox2_KeyUp(object sender, KeyEventArgs e)
+        private  void textBox2_KeyUp(object sender, KeyEventArgs e)
         {
             var data = ((TextBox)sender).Text;
             CategoryControlPanel.FilterCategory(data);
@@ -485,7 +503,7 @@ namespace HB.LinkSaver
 
             var list = new List<Link>();
             if (SelectedCategories.Count == 0)
-                list = LinkManager.Links;
+                list = LinkManager.GetAll().Where(x => x.Categories.Intersect(CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup)).Any()).ToList();
             else
                 list = LinkManager.GetLinksByCategories(SelectedCategories);
 
@@ -505,7 +523,7 @@ namespace HB.LinkSaver
             }
 
 
-
+            //TODO : HB mappingi merkezi bir yere al
 
             var data = list.Select(x => new
             {
@@ -808,5 +826,15 @@ namespace HB.LinkSaver
         #endregion
 
 
+        private void rjComboBox1_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var cb = sender as ComboBox;
+            CurrentCategoryGroup = cb.SelectedItem.ToString()!;
+
+
+            resetBtn.PerformClick();
+
+            LoadCategories();
+        }
     }
 }

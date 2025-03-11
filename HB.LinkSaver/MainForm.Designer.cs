@@ -56,6 +56,7 @@ namespace HB.LinkSaver
             FlwPanel = new FlowLayoutPanel();
             tbCategorySearch = new TextBox();
             lblSearchOption = new Label();
+            cbCategoryGroup = new HB.LinkSaver.Components.RJComboBox();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -496,12 +497,33 @@ namespace HB.LinkSaver
             lblSearchOption.Text = "Header";
             lblSearchOption.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // cbCategoryGroup
+            // 
+            cbCategoryGroup.BackColor = Color.WhiteSmoke;
+            cbCategoryGroup.BorderColor = Color.MediumSlateBlue;
+            cbCategoryGroup.BorderSize = 1;
+            cbCategoryGroup.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCategoryGroup.Font = new Font("Segoe UI", 10F);
+            cbCategoryGroup.ForeColor = Color.DimGray;
+            cbCategoryGroup.IconColor = Color.MediumSlateBlue;
+            cbCategoryGroup.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbCategoryGroup.ListTextColor = Color.DimGray;
+            cbCategoryGroup.Location = new Point(1089, 50);
+            cbCategoryGroup.MinimumSize = new Size(150, 15);
+            cbCategoryGroup.Name = "cbCategoryGroup";
+            cbCategoryGroup.Padding = new Padding(1);
+            cbCategoryGroup.Size = new Size(150, 29);
+            cbCategoryGroup.TabIndex = 57;
+            cbCategoryGroup.Texts = "";
+            cbCategoryGroup.OnSelectedIndexChanged += rjComboBox1_OnSelectedIndexChanged;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1438, 775);
+            Controls.Add(cbCategoryGroup);
             Controls.Add(CategoryControlPanel);
             Controls.Add(tbDescription);
             Controls.Add(lblSearchOption);
@@ -563,5 +585,6 @@ namespace HB.LinkSaver
         private FontAwesome.Sharp.IconButton btnStatusInfo;
         private FontAwesome.Sharp.IconButton togleSizeBtn;
         private Label lblSearchOption;
+        private Components.RJComboBox cbCategoryGroup;
     }
 }

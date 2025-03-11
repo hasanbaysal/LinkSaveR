@@ -25,7 +25,7 @@ namespace HB.LinkSaver.Pages
             lblResult.Visible = false;
             this.KeyPreview = true;
             LinkManager.Control();
-            CategoryManager.GetAll().ForEach(c => { categoryControlLb1.AddItem(c); });
+          //  CategoryManager.GetAll().ForEach(c => { categoryControlLb1.AddItem(c); });
 
             var data = LinkManager.GetById(OrginalLink.Id);
 
