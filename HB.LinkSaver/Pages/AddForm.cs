@@ -5,29 +5,50 @@ namespace HB.LinkSaver.Pages
 
     //loc 121; 392
     //size 764; 72
+
+    //TODO : Category Componentini düzenle search ve combox'ı içeri al 
     public partial class AddForm : Form
     {
         List<string> SelectedCategories = new List<string>();
+        string CurrentCategoryGroup = string.Empty;
         public AddForm()
         {
             InitializeComponent();
         }
-
         private void AddForm_Load(object sender, EventArgs e)
         {
+            CurrentCategoryGroup = Program.AllCategoryGroup;
+            LoadCategoriesGroup();
+            cbCategoryGroup.SelectedIndex = 0; 
             lblResult.Visible = false;
             this.KeyPreview = true;
             LinkManager.Control();
-            CategoryManager.GetAllCategoryNames().ForEach(c => { categoryControlLb1.AddItem(c); });
+            //CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup).ForEach(c => { categoryControlLb1.AddItem(c); });
 
         }
+
+    
+
+
+        public void LoadCategoriesGroup()
+        {
+            cbCategoryGroup.Items.Clear();
+
+            var data = CategoryManager.GetAllCategoryGroupNames();
+            data.Sort();
+
+            cbCategoryGroup.Items.AddRange(data.ToArray());
+            cbCategoryGroup.Items.Insert(0, Program.AllCategoryGroup);
+
+        }
+
         public void RemoveCategory(string data)
         {
             SelectedCategories.Remove(data);
             FlwPanel.Controls.Clear();
             SelectedCategories.ForEach(x => AddCategoryLabel(x));
         }
-      
+
         private void Lbl_Click(object sender, EventArgs e)
         {
             var lbl = (Label)sender;
@@ -181,7 +202,25 @@ namespace HB.LinkSaver.Pages
         private void resetBtn_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
+            cbCategoryGroup.SelectedIndex = 0;
             categoryControlLb1.FilterCategory(string.Empty);
+        }
+
+        private void rjComboBox1_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var cb = sender as ComboBox;
+            CurrentCategoryGroup = cb.SelectedItem.ToString()!;
+            LoadCategories();
+        }
+
+        public void LoadCategories()
+        {
+           categoryControlLb1.ClearItems();
+            CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup).ForEach(x =>
+            {
+                categoryControlLb1.AddItem(x);
+            });
+
         }
     }
 }

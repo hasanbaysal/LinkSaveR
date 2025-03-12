@@ -31,7 +31,7 @@
             resetBtn = new FontAwesome.Sharp.IconButton();
             textBox1 = new TextBox();
             FlwPanel = new FlowLayoutPanel();
-            categoryControlLb1 = new Components.CategoryControlLb();
+            categoryControlLb1 = new HB.LinkSaver.Components.CategoryControlLb();
             lblResult = new Label();
             btnUpdate = new Button();
             tbDescription = new RichTextBox();
@@ -42,6 +42,7 @@
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
+            cbCategoryGroup = new HB.LinkSaver.Components.RJComboBox();
             SuspendLayout();
             // 
             // resetBtn
@@ -54,7 +55,7 @@
             resetBtn.IconColor = Color.White;
             resetBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
             resetBtn.IconSize = 30;
-            resetBtn.Location = new Point(650, 14);
+            resetBtn.Location = new Point(842, 17);
             resetBtn.Name = "resetBtn";
             resetBtn.Size = new Size(45, 26);
             resetBtn.TabIndex = 68;
@@ -189,12 +190,33 @@
             label2.Text = "Header :";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // cbCategoryGroup
+            // 
+            cbCategoryGroup.BackColor = Color.WhiteSmoke;
+            cbCategoryGroup.BorderColor = Color.MediumSlateBlue;
+            cbCategoryGroup.BorderSize = 1;
+            cbCategoryGroup.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbCategoryGroup.Font = new Font("Segoe UI", 10F);
+            cbCategoryGroup.ForeColor = Color.DimGray;
+            cbCategoryGroup.IconColor = Color.MediumSlateBlue;
+            cbCategoryGroup.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbCategoryGroup.ListTextColor = Color.DimGray;
+            cbCategoryGroup.Location = new Point(650, 13);
+            cbCategoryGroup.MinimumSize = new Size(150, 15);
+            cbCategoryGroup.Name = "cbCategoryGroup";
+            cbCategoryGroup.Padding = new Padding(1);
+            cbCategoryGroup.Size = new Size(150, 29);
+            cbCategoryGroup.TabIndex = 69;
+            cbCategoryGroup.Texts = "";
+            cbCategoryGroup.OnSelectedIndexChanged += cbCategoryGroup_OnSelectedIndexChanged;
+            // 
             // UpdateForm2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
             ClientSize = new Size(987, 591);
+            Controls.Add(cbCategoryGroup);
             Controls.Add(resetBtn);
             Controls.Add(textBox1);
             Controls.Add(FlwPanel);
@@ -235,5 +257,6 @@
         private Label label4;
         private Label label3;
         private Label label2;
+        private Components.RJComboBox cbCategoryGroup;
     }
 }

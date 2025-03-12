@@ -88,6 +88,9 @@ namespace HB.LinkSaver.DataAcces
         /// <returns></returns>
         public static bool DeleteGroup(string groupName)
         {
+            if (groupName == Program.AllCategoryGroup)
+                return false;
+
             var group = _categories.Where(x => x.CategorGroupName == groupName).FirstOrDefault();
             if (group == null) return false;
 

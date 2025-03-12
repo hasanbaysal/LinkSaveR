@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HB.LinkSaver.DataAcces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,17 +16,32 @@ namespace HB.LinkSaver.Pages
     {
         List<string> SelectedCategories = new List<string>();
         public Link OrginalLink { get; set; } = null!;
+        string CurrentCategoryGroup = string.Empty;
         public UpdateForm2()
         {
             InitializeComponent();
         }
 
+        public void LoadCategoriesGroup()
+        {
+            cbCategoryGroup.Items.Clear();
+
+            var data = CategoryManager.GetAllCategoryGroupNames();
+            data.Sort();
+
+            cbCategoryGroup.Items.AddRange(data.ToArray());
+            cbCategoryGroup.Items.Insert(0, Program.AllCategoryGroup);
+
+        }
         private void Update2_Load(object sender, EventArgs e)
         {
+            CurrentCategoryGroup = Program.AllCategoryGroup;
+            LoadCategoriesGroup();
+            cbCategoryGroup.SelectedIndex = 0;
             lblResult.Visible = false;
             this.KeyPreview = true;
             LinkManager.Control();
-          //  CategoryManager.GetAll().ForEach(c => { categoryControlLb1.AddItem(c); });
+            //  CategoryManager.GetAll().ForEach(c => { categoryControlLb1.AddItem(c); });
 
             var data = LinkManager.GetById(OrginalLink.Id);
 
@@ -160,7 +176,7 @@ namespace HB.LinkSaver.Pages
 
         private async void btnUpdate_Click(object sender, EventArgs e)
         {
-            var control =  OperationControl();
+            var control = OperationControl();
 
             if (control)
             {
@@ -175,7 +191,7 @@ namespace HB.LinkSaver.Pages
 
                 lblResult.Visible = true;
                 await Task.Delay(350);
-                lblResult.Visible = false;  
+                lblResult.Visible = false;
                 Program.MainFrm.LoadDgw();
             }
 
@@ -184,7 +200,7 @@ namespace HB.LinkSaver.Pages
         }
 
         private void textBox1_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
-        {         
+        {
             var data = ((TextBox)sender).Text;
             categoryControlLb1.FilterCategory(data);
         }
@@ -193,6 +209,23 @@ namespace HB.LinkSaver.Pages
         {
             textBox1.Clear();
             categoryControlLb1.FilterCategory(string.Empty);
+        }
+
+        private void cbCategoryGroup_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            var cb = sender as ComboBox;
+            CurrentCategoryGroup = cb.SelectedItem.ToString()!;
+            LoadCategories();
+        }
+
+        public void LoadCategories()
+        {
+            categoryControlLb1.ClearItems();
+            CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup).ForEach(x =>
+            {
+                categoryControlLb1.AddItem(x);
+            });
+
         }
     }
 }
