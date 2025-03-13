@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using HB.LinkSaver.DataAcces;
+using System.Net;
 using System.Net.Mail;
 using System.Text.Json;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
@@ -26,9 +27,9 @@ namespace HB.LinkSaver.Pages
             btnServer.Text = Program.GetUseServerSettingsStatus() ? "deactivate the server" : "activate the server";
 
             var linkCount =  LinkManager.GetAll().Count;
-            //var categoryCount = CategoryManager.GetAll().Count;
+            var categoryCount = CategoryManager.GetAllCategoryNames().Count;
 
-            //lblCount.Text = $"Link Count : {linkCount +Environment.NewLine}Category Count : {categoryCount} ";
+            lblCount.Text = $"Link Count : {linkCount +Environment.NewLine}Category Count : {categoryCount} ";
         
         }
 

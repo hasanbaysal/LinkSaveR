@@ -8,6 +8,7 @@ using HB.LinkSaver.Helpers;
 using System.Windows.Forms;
 using HB.LinkSaver.DataAcces;
 using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Hosting;
 
 
 namespace HB.LinkSaver
@@ -15,11 +16,14 @@ namespace HB.LinkSaver
     public partial class MainForm : Form
     {
 
-        public static List<string> SelectedCategories = new List<string>();
+        public static ObservableList SelectedCategories = new ObservableList();
         public string CurrentLinkId = string.Empty;
         public string CurrentLink = string.Empty;
         public bool SearchForText = false;
         public static string CurrentCategoryGroup = string.Empty;
+
+        public static int CurrentPageNumber { get; set; }
+        public static int CurrentPageSize;
 
         private Size _tbDescriptionFirstSize;
         private Size _mainFirstSize;
@@ -36,9 +40,12 @@ namespace HB.LinkSaver
 
         public MainForm()
         {
+
             CurrentCategoryGroup = Program.AllCategoryGroup;
             InitializeComponent();
             InitializeToolTip();
+            //cbPageSize.SelectedItem = "10";
+
             CheckForIllegalCrossThreadCalls = false;
             _tbDescriptionFirstSize = tbDescription.Size;
             TbDescriptionSeperator = '_';
@@ -64,6 +71,8 @@ namespace HB.LinkSaver
             notifyIcon.MouseClick += NotifyIcon_MouseClick;
             notifyIcon.Icon = new System.Drawing.Icon(Environment.CurrentDirectory + "/" + "myicon.ico");
             this.DoubleBuffered = true;
+
+            
         }
 
 
@@ -139,11 +148,11 @@ namespace HB.LinkSaver
         public void LoadDgw()
         {
 
-            DGW.DataSource = null;
+            //DGW.DataSource = null;
             DGW.Update();
             DGW.Refresh();
 
-            var data = LinkManager.GetAll().Where(x=>x.Categories.Intersect(CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup)).Any()).Select(x => new
+            var data = LinkManager.GetAll().Where(x => x.Categories.Intersect(CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup)).Any()).Select(x => new
             {
                 Id = x.Id,
                 Header = x.Header,
@@ -159,13 +168,14 @@ namespace HB.LinkSaver
             DGW.Columns[0].Visible = false;
             DGW.Columns[2].Visible = false;
 
-            foreach (DataGridViewColumn column in DGW.Columns)
-            {
-                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
+            //TODO : Hb => main load içine taþýndý sürekli yapmaya gerek yok gibi
+            //foreach (DataGridViewColumn column in DGW.Columns)
+            //{
+            //    column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //}
 
-            DGW.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            DGW.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            //DGW.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //DGW.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
             DGW.Update();
             DGW.Refresh();
         }
@@ -273,6 +283,12 @@ namespace HB.LinkSaver
         #region FormLoad Actions
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+            SelectedCategories.ItemAdded += () => CurrentPageNumber = 1;
+            SelectedCategories.ItemRemoved += () => CurrentPageNumber = 1;
+            SelectedCategories.ListCleared += () => CurrentPageNumber = 1;
+
             #region components and form design config
             _mainFirstSize = this.Size;
             InfoCategoryLbl.Anchor = AnchorStyles.Right | AnchorStyles.Bottom;
@@ -284,6 +300,14 @@ namespace HB.LinkSaver
             DGW.CellPainting += DGW_CellPainting!;
             tbDescription.SelectionIndent = 10;
             tbDescription.SelectionRightIndent = 10;
+            cbPageSize.SelectedIndex = 0;
+
+
+
+
+
+
+
             #endregion
 
 
@@ -303,6 +327,19 @@ namespace HB.LinkSaver
                 DGW.ClearSelection();
             }
             cbCategoryGroup.SelectedItem = Program.AllCategoryGroup;
+
+
+
+
+
+            foreach (DataGridViewColumn column in DGW.Columns)
+            {
+                column.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+
+            DGW.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            DGW.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
         }
 
         public void LoadCategories()
@@ -310,8 +347,8 @@ namespace HB.LinkSaver
             Program.MainFrm.CategoryControlPanel.ClearItems();
             CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup).ForEach(x =>
             {
-               Program.MainFrm.CategoryControlPanel.AddItem(x);
-           });
+                Program.MainFrm.CategoryControlPanel.AddItem(x);
+            });
 
         }
         public void LoadCategoriesGroup()
@@ -320,7 +357,7 @@ namespace HB.LinkSaver
 
             var data = CategoryManager.GetAllCategoryGroupNames();
             data.Sort();
-          
+
             cbCategoryGroup.Items.AddRange(data.ToArray());
             cbCategoryGroup.Items.Insert(0, Program.AllCategoryGroup);
 
@@ -353,7 +390,7 @@ namespace HB.LinkSaver
         public void AddCategoryLabel(string str)
         {
 
-            if (SelectedCategories.Count > 0)
+            if (SelectedCategories.Data.Count > 0)
             {
                 InfoCategoryLbl.SendToBack();
             }
@@ -389,27 +426,27 @@ namespace HB.LinkSaver
 
             SelectedCategories.Remove(lbl.Name);
 
-            if (SelectedCategories.Count == 0)
+            if (SelectedCategories.Data.Count == 0)
             {
                 InfoCategoryLbl.BringToFront();
             }
             lbl.Dispose();
             FlwPanel.Controls.Clear();
-            SelectedCategories.ForEach(x => AddCategoryLabel(x));
+            SelectedCategories.Data.ForEach(x => AddCategoryLabel(x));
 
             SearchByFilters();
         }
 
         private void categoryControlLb1_BtnHandler(object sender, EventArgs e)
         {
-            if (SelectedCategories.Count == 8) return;
+            if (SelectedCategories.Data.Count == 8) return;
             Button btn = (sender as Button)!;
 
 
             var item = btn.Text;
 
 
-            if (!SelectedCategories.Contains(item))
+            if (!SelectedCategories.Data.Contains(item))
             {
                 SelectedCategories.Add(item);
                 AddCategoryLabel(item);
@@ -492,21 +529,23 @@ namespace HB.LinkSaver
 
         #region Search Code
 
-        private  void textBox2_KeyUp(object sender, KeyEventArgs e)
+        private void textBox2_KeyUp(object sender, KeyEventArgs e)
         {
             var data = ((TextBox)sender).Text;
             CategoryControlPanel.FilterCategory(data);
         }
-        public static void SearchByFilters(bool searchWithText = false)
+
+        public static void SearchByFilters()
         {
 
-
-            var list = new List<Link>();
-            if (SelectedCategories.Count == 0)
+            //var size = int.Parse(cbPageSize!.SelectedItem.ToString()!);
+                var list = new List<Link>();
+            if (SelectedCategories.Data.Count == 0)
                 list = LinkManager.GetAll().Where(x => x.Categories.Intersect(CategoryManager.GetAllCateriesByGroupName(CurrentCategoryGroup)).Any()).ToList();
             else
-                list = LinkManager.GetLinksByCategories(SelectedCategories);
+                list = LinkManager.GetLinksByCategories(SelectedCategories.Data);
 
+            //list.Take(size);
 
 
 
@@ -522,10 +561,11 @@ namespace HB.LinkSaver
                 }
             }
 
+            
 
             //TODO : HB mappingi merkezi bir yere al
 
-            var data = list.Select(x => new
+            var data = list.Skip((CurrentPageNumber-1)*CurrentPageSize).Take(CurrentPageSize).Select(x => new
             {
                 Id = x.Id,
                 Header = x.Header,
@@ -547,6 +587,7 @@ namespace HB.LinkSaver
 
         private void textBox1_KeyUp(object sender, KeyEventArgs e)
         {
+            CurrentPageNumber = 1;
             SearchByFilters();
         }
         private void CbHeaderOrDescription_CheckedChanged(object sender, EventArgs e)
@@ -625,11 +666,7 @@ namespace HB.LinkSaver
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Program.ServerStatus)
-            {
-                var data = Program.WebApp.Services.GetRequiredService<IApplicationLifetime>();
-                data.StopApplication();
-            }
-
+                Program.WebApp.Services.GetRequiredService<IHostApplicationLifetime>().StopApplication();
         }
 
 
@@ -638,15 +675,10 @@ namespace HB.LinkSaver
             Application.Exit();
         }
 
-
-
-
         private void BtnMin_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
-
-
 
         bool isFullScreen = false;
         private void togleSizeBtn_Click(object sender, EventArgs e)
@@ -719,50 +751,26 @@ namespace HB.LinkSaver
         {
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
-
-
-
                 e.Paint(e.CellBounds, DataGridViewPaintParts.All);
-
 
                 using (Pen whitePen = new Pen(Color.White, 2))
                 {
-
                     e.Graphics.DrawLine(whitePen, e.CellBounds.Right - 1, e.CellBounds.Top, e.CellBounds.Right - 1, e.CellBounds.Bottom);
                 }
-
-
                 e.Handled = true;
-
             }
         }
-        private void MainForm_Paint(object sender, PaintEventArgs e)
-        {
-            //using (Pen whitePen = new Pen(Color.White, 2))
-            //{
-
-            //    e.Graphics.DrawRectangle(whitePen, DGW.Left - 1, DGW.Top - 1, DGW.Width + 1, DGW.Height + 1);
-            //    e.Graphics.DrawRectangle(whitePen, CategoryControlPanel.Left - 1, CategoryControlPanel.Top - 1, CategoryControlPanel.Width + 1, CategoryControlPanel.Height + 1);
-            //    e.Graphics.DrawRectangle(whitePen, FlwPanel.Left - 1, FlwPanel.Top - 1, FlwPanel.Width + 1, FlwPanel.Height + 1);
-            //    //e.Graphics.DrawRectangle(whitePen, tbDescription.Left - 1, tbDescription.Top - 1, tbDescription.Width + 1, tbDescription.Height + 1);
-            //}
-        }
 
 
-        int saðBoþluk = 10; // Sað taraftan olan boþluk
-        int altBoþluk = 10; // Alt taraftan olan boþluk
+        int rigthSpace = 10;
+        int leftSpace = 10;
         private void tbDescription_MouseHover(object sender, EventArgs e)
         {
-
-
             tbDescription.Location = new Point(
-                this.ClientSize.Width - tbDescription.Width - saðBoþluk,
-                this.ClientSize.Height - tbDescription.Height - altBoþluk
+                this.ClientSize.Width - tbDescription.Width - rigthSpace,
+                this.ClientSize.Height - tbDescription.Height - leftSpace
             );
-
-
             tbDescription.Size = new Size(_tbDescriptionFirstSize.Width, _tbDescriptionFirstSize.Height + 200);
-            //tbDescription.Location = new Point(FirstLocation.X, FirstLocation.Y - 200);
             InfoCategoryLbl.SendToBack();
         }
 
@@ -770,14 +778,14 @@ namespace HB.LinkSaver
         private void tbDescription_MouseLeave(object sender, EventArgs e)
         {
             tbDescription.Size = _tbDescriptionFirstSize;
-            //tbDescription.Location = FirstLocation;
+
 
             tbDescription.Location = new Point(
-               this.ClientSize.Width - tbDescription.Width - saðBoþluk,
-               this.ClientSize.Height - tbDescription.Height - altBoþluk
+               this.ClientSize.Width - tbDescription.Width - rigthSpace,
+               this.ClientSize.Height - tbDescription.Height - leftSpace
            );
 
-            if (SelectedCategories.Count == 0)
+            if (SelectedCategories.Data.Count == 0)
             {
                 InfoCategoryLbl.BringToFront();
             }
@@ -835,6 +843,13 @@ namespace HB.LinkSaver
             resetBtn.PerformClick();
 
             LoadCategories();
+        }
+
+        private void pageSizeCb_OnSelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            var cb = sender as ComboBox;
+            CurrentPageSize = int.Parse(cb!.SelectedItem!.ToString()!);
+            SearchByFilters();
         }
     }
 }

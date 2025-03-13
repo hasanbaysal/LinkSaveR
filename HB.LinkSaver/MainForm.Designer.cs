@@ -57,6 +57,9 @@ namespace HB.LinkSaver
             tbCategorySearch = new TextBox();
             lblSearchOption = new Label();
             cbCategoryGroup = new HB.LinkSaver.Components.RJComboBox();
+            cbPageSize = new HB.LinkSaver.Components.RJComboBox();
+            nextPageBtn = new FontAwesome.Sharp.IconButton();
+            prePageBtn = new FontAwesome.Sharp.IconButton();
             PnlTop.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DGW).BeginInit();
@@ -257,7 +260,7 @@ namespace HB.LinkSaver
             DGW.RowHeadersWidth = 51;
             DGW.RowTemplate.Height = 35;
             DGW.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DGW.Size = new Size(826, 680);
+            DGW.Size = new Size(826, 642);
             DGW.StandardTab = true;
             DGW.TabIndex = 1;
             DGW.TabStop = false;
@@ -517,12 +520,60 @@ namespace HB.LinkSaver
             cbCategoryGroup.Texts = "";
             cbCategoryGroup.OnSelectedIndexChanged += rjComboBox1_OnSelectedIndexChanged;
             // 
+            // cbPageSize
+            // 
+            cbPageSize.BackColor = Color.WhiteSmoke;
+            cbPageSize.BorderColor = Color.MediumSlateBlue;
+            cbPageSize.BorderSize = 1;
+            cbPageSize.DropDownStyle = ComboBoxStyle.DropDown;
+            cbPageSize.Font = new Font("Segoe UI", 10F);
+            cbPageSize.ForeColor = Color.DimGray;
+            cbPageSize.IconColor = Color.MediumSlateBlue;
+            cbPageSize.Items.AddRange(new object[] { "10", "20", "30", "40", "50", "100" });
+            cbPageSize.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbPageSize.ListTextColor = Color.DimGray;
+            cbPageSize.Location = new Point(375, 736);
+            cbPageSize.MinimumSize = new Size(70, 10);
+            cbPageSize.Name = "cbPageSize";
+            cbPageSize.Padding = new Padding(1);
+            cbPageSize.Size = new Size(85, 29);
+            cbPageSize.TabIndex = 58;
+            cbPageSize.Texts = "10";
+            cbPageSize.OnSelectedIndexChanged += pageSizeCb_OnSelectedIndexChanged_1;
+            // 
+            // nextPageBtn
+            // 
+            nextPageBtn.IconChar = FontAwesome.Sharp.IconChar.None;
+            nextPageBtn.IconColor = Color.Black;
+            nextPageBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            nextPageBtn.Location = new Point(514, 740);
+            nextPageBtn.Name = "nextPageBtn";
+            nextPageBtn.Size = new Size(75, 23);
+            nextPageBtn.TabIndex = 59;
+            nextPageBtn.Text = "ýconButton1";
+            nextPageBtn.UseVisualStyleBackColor = true;
+            // 
+            // prePageBtn
+            // 
+            prePageBtn.IconChar = FontAwesome.Sharp.IconChar.None;
+            prePageBtn.IconColor = Color.Black;
+            prePageBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            prePageBtn.Location = new Point(278, 740);
+            prePageBtn.Name = "prePageBtn";
+            prePageBtn.Size = new Size(75, 23);
+            prePageBtn.TabIndex = 59;
+            prePageBtn.Text = "ýconButton1";
+            prePageBtn.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 30);
             ClientSize = new Size(1438, 775);
+            Controls.Add(prePageBtn);
+            Controls.Add(nextPageBtn);
+            Controls.Add(cbPageSize);
             Controls.Add(cbCategoryGroup);
             Controls.Add(CategoryControlPanel);
             Controls.Add(tbDescription);
@@ -550,7 +601,6 @@ namespace HB.LinkSaver
             Text = "LinK Saver";
             FormClosing += MainForm_FormClosing;
             Load += Form1_Load;
-            Paint += MainForm_Paint;
             KeyDown += MainForm_KeyDown;
             PnlTop.ResumeLayout(false);
             PnlTop.PerformLayout();
@@ -586,5 +636,8 @@ namespace HB.LinkSaver
         private FontAwesome.Sharp.IconButton togleSizeBtn;
         private Label lblSearchOption;
         private Components.RJComboBox cbCategoryGroup;
+        private FontAwesome.Sharp.IconButton nextPageBtn;
+        private FontAwesome.Sharp.IconButton prePageBtn;
+        private Components.RJComboBox cbPageSize;
     }
 }
