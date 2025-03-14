@@ -431,7 +431,7 @@ namespace HB.LinkSaver
             resetBtn.TabStop = false;
             resetBtn.TextImageRelation = TextImageRelation.ImageAboveText;
             resetBtn.UseVisualStyleBackColor = false;
-            resetBtn.Click += resetBtn_Click;
+            resetBtn.Click += BtnReset_Click;
             resetBtn.MouseLeave += BtnDelete_MouseLeave;
             resetBtn.MouseHover += BtnDelete_MouseHover;
             // 
@@ -445,7 +445,7 @@ namespace HB.LinkSaver
             CategoryControlPanel.Size = new Size(564, 443);
             CategoryControlPanel.TabIndex = 54;
             CategoryControlPanel.TabStop = false;
-            CategoryControlPanel.BtnHandler += categoryControlLb1_BtnHandler;
+            CategoryControlPanel.BtnHandler += CategoryControlComponent_BtnHandler;
             // 
             // tbDescription
             // 
@@ -519,7 +519,7 @@ namespace HB.LinkSaver
             cbCategoryGroup.Size = new Size(150, 29);
             cbCategoryGroup.TabIndex = 57;
             cbCategoryGroup.Texts = "";
-            cbCategoryGroup.OnSelectedIndexChanged += rjComboBox1_OnSelectedIndexChanged;
+            cbCategoryGroup.OnSelectedIndexChanged += CbCategoryGroup_OnSelectedIndexChanged;
             // 
             // cbPageSize
             // 
@@ -531,7 +531,7 @@ namespace HB.LinkSaver
             cbPageSize.Font = new Font("Segoe UI", 10F);
             cbPageSize.ForeColor = Color.DimGray;
             cbPageSize.IconColor = Color.SteelBlue;
-            cbPageSize.Items.AddRange(new object[] { "10", "15", "20", "30", "40", "50", "100" });
+            cbPageSize.Items.AddRange(new object[] { "15", "20", "30", "40", "50", "100" });
             cbPageSize.ListBackColor = Color.FromArgb(230, 228, 245);
             cbPageSize.ListTextColor = Color.Black;
             cbPageSize.Location = new Point(396, 734);

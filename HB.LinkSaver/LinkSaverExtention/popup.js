@@ -1,10 +1,6 @@
-
+//github.com/hasanbaysal/LinkSaveR
 
 document.addEventListener('DOMContentLoaded', function () {
-
-
-
-
 
     fetch('http://localhost:5003/home/customaction')
         .then(function (response) {
@@ -40,20 +36,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
-
-
-
-
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         var activeTab = tabs[0];
         var url = activeTab.url;
         console.log(url);
-
         document.getElementById("datax").innerText = url;
     });
-
-
-
 
 });
 
@@ -64,12 +52,6 @@ let selectedItems = [];
 let btnSender = document.getElementById("mybtn");
 
 btnSender.addEventListener('click', () => {
-
-
-
-    // var encodedUrl = encodeURI(urlData);
-
-    // console.log(encodedUrl);
 
 
 

@@ -14,7 +14,6 @@ namespace HB.LinkSaver
         //TODO : HB using TempFile  to protect main json files
         //TODO : HB Change pages structure
         //TODO : HB Api endpoint fix
-        //TODO : HB partial class implementation for main
 
         public static string AllCategoryGroup = "All";
         public static MainForm MainFrm = new MainForm();
@@ -30,8 +29,7 @@ namespace HB.LinkSaver
         {
 
 
-            Mutex AppMutex = new Mutex(false, "xxxx1");
-            
+            Mutex AppMutex = new Mutex(false, "32494563679101");
 
                 if (!AppMutex.WaitOne(0, false))
                 {
@@ -39,7 +37,6 @@ namespace HB.LinkSaver
                     MessageBox.Show("Instance already running");
                     return;
                 }
-
 
                 Application.ThreadException += new ThreadExceptionEventHandler(ThreadExceptionHandler);
                 AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(GlobalExceptionHandler);
@@ -51,15 +48,9 @@ namespace HB.LinkSaver
                 {
                     ApiRun();
                     WebApp.RunAsync();
-
                 }
 
                 Application.Run(MainFrm);
-                //Application.Run(new AddForm());
-
-            
-
-
         }
 
         static void GlobalExceptionHandler(object sender, UnhandledExceptionEventArgs args)
@@ -68,7 +59,6 @@ namespace HB.LinkSaver
             WriteLog((Exception)args.ExceptionObject);
 
         }
-
         static void ThreadExceptionHandler
         (object sender, System.Threading.ThreadExceptionEventArgs e)
         {
@@ -77,7 +67,6 @@ namespace HB.LinkSaver
             WriteLog(e.Exception);
 
         }
-
         public static void WriteLog(Exception? exception)
         {
             if (exception == null) return;
@@ -100,7 +89,6 @@ namespace HB.LinkSaver
 
 
         }
-
         public static void ApiRun()
         {
             var builder = WebApplication.CreateBuilder();
@@ -126,7 +114,6 @@ namespace HB.LinkSaver
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
         }
-
         public static bool GetUseServerSettingsStatus()
         {
             if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), "user.txt")))
