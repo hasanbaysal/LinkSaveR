@@ -83,7 +83,7 @@ namespace HB.LinkSaver
             // 
             // BtnMin
             // 
-            BtnMin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            BtnMin.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnMin.BackColor = Color.SteelBlue;
             BtnMin.FlatAppearance.BorderSize = 0;
             BtnMin.FlatStyle = FlatStyle.Flat;
@@ -502,6 +502,7 @@ namespace HB.LinkSaver
             // 
             // cbCategoryGroup
             // 
+            cbCategoryGroup.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cbCategoryGroup.BackColor = Color.WhiteSmoke;
             cbCategoryGroup.BorderColor = Color.MediumSlateBlue;
             cbCategoryGroup.BorderSize = 1;
@@ -522,17 +523,18 @@ namespace HB.LinkSaver
             // 
             // cbPageSize
             // 
+            cbPageSize.Anchor = AnchorStyles.Bottom;
             cbPageSize.BackColor = Color.WhiteSmoke;
-            cbPageSize.BorderColor = Color.MediumSlateBlue;
+            cbPageSize.BorderColor = Color.SteelBlue;
             cbPageSize.BorderSize = 1;
             cbPageSize.DropDownStyle = ComboBoxStyle.DropDown;
             cbPageSize.Font = new Font("Segoe UI", 10F);
             cbPageSize.ForeColor = Color.DimGray;
-            cbPageSize.IconColor = Color.MediumSlateBlue;
+            cbPageSize.IconColor = Color.SteelBlue;
             cbPageSize.Items.AddRange(new object[] { "10", "20", "30", "40", "50", "100" });
             cbPageSize.ListBackColor = Color.FromArgb(230, 228, 245);
-            cbPageSize.ListTextColor = Color.DimGray;
-            cbPageSize.Location = new Point(375, 736);
+            cbPageSize.ListTextColor = Color.Black;
+            cbPageSize.Location = new Point(396, 734);
             cbPageSize.MinimumSize = new Size(70, 10);
             cbPageSize.Name = "cbPageSize";
             cbPageSize.Padding = new Padding(1);
@@ -543,27 +545,39 @@ namespace HB.LinkSaver
             // 
             // nextPageBtn
             // 
-            nextPageBtn.IconChar = FontAwesome.Sharp.IconChar.None;
-            nextPageBtn.IconColor = Color.Black;
+            nextPageBtn.Anchor = AnchorStyles.Bottom;
+            nextPageBtn.FlatAppearance.BorderSize = 0;
+            nextPageBtn.FlatAppearance.MouseOverBackColor = Color.SteelBlue;
+            nextPageBtn.FlatStyle = FlatStyle.Flat;
+            nextPageBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowRight;
+            nextPageBtn.IconColor = Color.White;
             nextPageBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            nextPageBtn.Location = new Point(514, 740);
+            nextPageBtn.IconSize = 30;
+            nextPageBtn.Location = new Point(487, 731);
             nextPageBtn.Name = "nextPageBtn";
-            nextPageBtn.Size = new Size(75, 23);
+            nextPageBtn.Size = new Size(54, 32);
             nextPageBtn.TabIndex = 59;
-            nextPageBtn.Text = "ýconButton1";
+            nextPageBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             nextPageBtn.UseVisualStyleBackColor = true;
+            nextPageBtn.Click += nextPageBtn_Click;
             // 
             // prePageBtn
             // 
-            prePageBtn.IconChar = FontAwesome.Sharp.IconChar.None;
-            prePageBtn.IconColor = Color.Black;
+            prePageBtn.Anchor = AnchorStyles.Bottom;
+            prePageBtn.FlatAppearance.BorderSize = 0;
+            prePageBtn.FlatAppearance.MouseOverBackColor = Color.SteelBlue;
+            prePageBtn.FlatStyle = FlatStyle.Flat;
+            prePageBtn.IconChar = FontAwesome.Sharp.IconChar.ArrowLeft;
+            prePageBtn.IconColor = Color.White;
             prePageBtn.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            prePageBtn.Location = new Point(278, 740);
+            prePageBtn.IconSize = 30;
+            prePageBtn.Location = new Point(336, 731);
             prePageBtn.Name = "prePageBtn";
-            prePageBtn.Size = new Size(75, 23);
+            prePageBtn.Size = new Size(54, 32);
             prePageBtn.TabIndex = 59;
-            prePageBtn.Text = "ýconButton1";
+            prePageBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             prePageBtn.UseVisualStyleBackColor = true;
+            prePageBtn.Click += prePageBtn_Click;
             // 
             // MainForm
             // 
@@ -637,7 +651,7 @@ namespace HB.LinkSaver
         private Label lblSearchOption;
         private Components.RJComboBox cbCategoryGroup;
         private FontAwesome.Sharp.IconButton nextPageBtn;
-        private FontAwesome.Sharp.IconButton prePageBtn;
         private Components.RJComboBox cbPageSize;
+        private FontAwesome.Sharp.IconButton prePageBtn;
     }
 }

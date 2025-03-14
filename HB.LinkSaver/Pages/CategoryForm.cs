@@ -95,7 +95,7 @@ namespace HB.LinkSaver.Pages
                 lblResultUpdate.Visible = false;
                 listBox1.Items.Clear();
                 CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
-                Program.MainFrm.LoadDgw();
+                Program.MainFrm.SearchByFilters();
                 Program.MainFrm.LoadCategories();
 
             }

@@ -79,7 +79,7 @@ namespace HB.LinkSaver.Pages
                 tbHeader.Clear();
                 tbDescription.Clear();
                 tbLink.Clear();
-                Program.MainFrm.LoadDgw();
+                Program.MainFrm.SearchByFilters();
                 lblResult.Visible = false;
                 resetBtn.PerformClick();
             }

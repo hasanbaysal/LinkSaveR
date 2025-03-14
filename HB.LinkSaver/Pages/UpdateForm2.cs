@@ -192,7 +192,7 @@ namespace HB.LinkSaver.Pages
                 lblResult.Visible = true;
                 await Task.Delay(350);
                 lblResult.Visible = false;
-                Program.MainFrm.LoadDgw();
+                Program.MainFrm.SearchByFilters();
             }
 
 

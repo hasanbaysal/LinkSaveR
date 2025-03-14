@@ -41,7 +41,7 @@ namespace HB.LinkSaver.Controllers
           
             if (result)
             {
-                Program.MainFrm.LoadDgw();
+                Program.MainFrm.SearchByFilters();
                 return Ok("ok");
             }
             else

@@ -11,7 +11,6 @@ namespace HB.LinkSaver
 
         //TODO : HB api new  end-point - category group get 
         //TODO : HB extention düzenlemesi
-        //TODO : HB DataGrid Paginations
         //TODO : HB using TempFile  to protect main json files
         //TODO : HB Change pages structure
         //TODO : HB Api endpoint fix
