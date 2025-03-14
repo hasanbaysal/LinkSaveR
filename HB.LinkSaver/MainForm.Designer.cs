@@ -531,7 +531,7 @@ namespace HB.LinkSaver
             cbPageSize.Font = new Font("Segoe UI", 10F);
             cbPageSize.ForeColor = Color.DimGray;
             cbPageSize.IconColor = Color.SteelBlue;
-            cbPageSize.Items.AddRange(new object[] { "10", "20", "30", "40", "50", "100" });
+            cbPageSize.Items.AddRange(new object[] { "10", "15", "20", "30", "40", "50", "100" });
             cbPageSize.ListBackColor = Color.FromArgb(230, 228, 245);
             cbPageSize.ListTextColor = Color.Black;
             cbPageSize.Location = new Point(396, 734);
