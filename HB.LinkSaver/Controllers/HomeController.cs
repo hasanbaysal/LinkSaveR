@@ -1,5 +1,6 @@
 ﻿using HB.LinkSaver.DataAcces;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace HB.LinkSaver.Controllers
 {
@@ -12,17 +13,36 @@ namespace HB.LinkSaver.Controllers
         }
 
 
-        [HttpGet("GetAllCategoryNames")]
+
         public IActionResult GetAllCategoryNames()
         {
 
             var data = CategoryManager.GetAllCategoryNames();
             return Json(data);
         }
-        [HttpGet("GetCategoryByNames/{name}")]
+         public IActionResult GetAllCategoryGroupNames()
+        {
+
+            var data = CategoryManager.GetAllCategoryGroupNames();
+            return Json(data);
+        }
+     
         public IActionResult GetCategoryByNames(string name)
         {
             return Json(CategoryManager.GetAllCateriesByGroupName(name));
+        }
+        public IActionResult GetCategories()
+        {
+            var category = CategoryManager.Categories;
+
+            category.Insert(0,new()
+            {
+                CategorGroupName = Program.AllCategoryGroup,
+                SubCategories = CategoryManager.GetAllCategoryNames()
+            });
+                    
+            var data= JsonSerializer.Serialize(category);
+            return Ok(data);
         }
 
         [HttpPost]

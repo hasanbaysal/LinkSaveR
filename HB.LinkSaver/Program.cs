@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
 namespace HB.LinkSaver
 {
@@ -25,7 +26,7 @@ namespace HB.LinkSaver
         
 
         [STAThread]
-        static void Main()
+        static async Task Main()
         {
 
 
@@ -47,7 +48,7 @@ namespace HB.LinkSaver
                 if (GetUseServerSettingsStatus())
                 {
                     ApiRun();
-                    WebApp.RunAsync();
+                     WebApp.RunAsync();
                 }
 
                 Application.Run(MainFrm);
