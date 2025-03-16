@@ -38,8 +38,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .catch(function (error) {
             var container = document.getElementById('myContainer');
-            var text = "You cannot use this Google extension when your desktop application is closed. Please open your application and refresh the page";
+            var text = "You cannot use this Google extension when your desktop application is closed. Please open your application and than go settings page. pls click on activate the server (if it is deactive) ";
             var pItem = document.createElement('p');
+            pItem.style.color = 'white';
             pItem.innerText = text;
             container.appendChild(pItem);
 
