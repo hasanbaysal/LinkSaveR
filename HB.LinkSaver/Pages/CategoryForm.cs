@@ -94,7 +94,7 @@ namespace HB.LinkSaver.Pages
                 await Task.Delay(350);
                 lblResultUpdate.Visible = false;
                 listBox1.Items.Clear();
-                CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
+                CategoryManager.GetAllCateriesByGroupName(SelectedCategoryGroupName).ForEach(x => listBox1.Items.Add(x));
                 Program.MainFrm.SearchByFilters();
                 Program.MainFrm.LoadCategories();
 
@@ -112,8 +112,9 @@ namespace HB.LinkSaver.Pages
                 lblDeleteResult.Visible = true;
                 await Task.Delay(350);
                 lblDeleteResult.Visible = false;
+
                 listBox1.Items.Clear();
-                CategoryManager.Categories.ForEach(x => listBox1.Items.Add(x));
+                CategoryManager.GetAllCateriesByGroupName(SelectedCategoryGroupName).ForEach(x => listBox1.Items.Add(x));
                 SelectedCategory = string.Empty;
                 lblUpdate.Text = string.Empty;
                 Program.MainFrm.LoadCategories();
