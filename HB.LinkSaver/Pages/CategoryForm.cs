@@ -1,4 +1,5 @@
 ﻿using HB.LinkSaver.DataAcces;
+using System.Threading.Tasks;
 
 namespace HB.LinkSaver.Pages
 {
@@ -46,6 +47,7 @@ namespace HB.LinkSaver.Pages
             lblResultUpdate.Visible = false;
             lblDeleteResult.Visible = false;
             lblCategoryGroupNameStatus.Visible = false;
+            lblCateGroupNameUpdateStatus.Visible = false;
 
 
             var groups = CategoryManager.GetAllCategoryGroupNames();
@@ -66,7 +68,7 @@ namespace HB.LinkSaver.Pages
 
             var item = listBox1.SelectedItem.ToString();
             SelectedCategory = item;
-            lblUpdate.Text = "old value : " + item;
+            lblUpdate.Text = "current value : " + item;
         }
         private async void UpdateBtn_Click(object sender, EventArgs e)
         {
@@ -169,6 +171,7 @@ namespace HB.LinkSaver.Pages
             listBox1.Items.Clear();
             CategoryManager.GetAllCateriesByGroupName(SelectedCategoryGroupName!).ForEach(x => listBox1.Items.Add(x));
 
+            lblOldCategoryName.Text = "current group : " + SelectedCategoryGroupName;
             ResetDataAndComponents();
         }
 
@@ -188,10 +191,10 @@ namespace HB.LinkSaver.Pages
             {
                 MessageBox.Show("must have at least one category group in app");
                 return;
-            } 
+            }
 
-             var res =  CategoryManager.DeleteGroup(SelectedCategoryGroupName);
-            if(!res)
+            var res = CategoryManager.DeleteGroup(SelectedCategoryGroupName);
+            if (!res)
             {
                 MessageBox.Show("if there is a record that related with the any elements of the CategoryGroup in linkData Records you cannot delete it");
                 return;
@@ -208,6 +211,31 @@ namespace HB.LinkSaver.Pages
 
             Program.MainFrm.LoadCategoriesGroup();
 
+
+        }
+
+        private async void btnUpdateCategoryName_Click(object sender, EventArgs e)
+        {
+            if (tbCategoryGroupNameUpdate.Text == string.Empty) return;
+
+            var res =CategoryManager.UpdateGroupName(SelectedCategoryGroupName, tbCategoryGroupNameUpdate.Text);
+
+            if (res)
+            {
+
+                lblCateGroupNameUpdateStatus.Visible = true;
+                await Task.Delay(300);
+                lblCateGroupNameUpdateStatus.Visible = false;
+
+                var groups = CategoryManager.GetAllCategoryGroupNames();
+                cbCategoryGroupNames.Items.Clear();
+                groups.ForEach(x => cbCategoryGroupNames.Items.Add(x));
+                SelectedCategoryGroupName = CategoryManager.GetAllCategoryGroupNames().First();
+                SelectedCategory = string.Empty;
+                cbCategoryGroupNames.SelectedIndex = 0;
+                tbCategoryGroupNameUpdate.Text = string.Empty;
+                Program.MainFrm.LoadCategoriesGroup();
+            }
 
         }
     }
