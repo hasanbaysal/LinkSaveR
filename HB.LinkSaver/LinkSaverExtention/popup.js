@@ -1,34 +1,43 @@
 //github.com/hasanbaysal/LinkSaveR
 
+let allCategories = [];
+let selectedItems = [];
 document.addEventListener('DOMContentLoaded', function () {
 
-    fetch('http://localhost:5003/home/customaction')
+    fetch('http://localhost:5003/home/GetCategories')
         .then(function (response) {
             if (!response.ok) {
                 console.log("hata");
                 throw new Error('fail ' + response.status);
-
             }
             return response.json();
         })
         .then(function (data) {
-
-
+            allCategories = data;
+            //all
+            firstItem = allCategories[0];
             var myContainer = document.getElementById('myContainer');
-            data.forEach(function (category) {
+
+            firstItem.SubCategories.forEach(function (category) {
                 var option = document.createElement('span');
                 option.classList.add("CategoryItem");
                 option.textContent = category;
-
                 myContainer.appendChild(option);
             });
 
+            const comboBox = document.getElementById('categoryGroup');
+            allCategories.forEach(ct => {
+                const option = document.createElement('option');
+                option.value = ct.CategorGroupName;
+                option.textContent = ct.CategorGroupName;
+                comboBox.appendChild(option);
+            });
+
+
+
         })
         .catch(function (error) {
-
-
             var container = document.getElementById('myContainer');
-
             var text = "You cannot use this Google extension when your desktop application is closed. Please open your application and refresh the page";
             var pItem = document.createElement('p');
             pItem.innerText = text;
@@ -36,16 +45,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
-    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-        var activeTab = tabs[0];
-        var url = activeTab.url;
-        console.log(url);
-        document.getElementById("datax").innerText = url;
-    });
+    if (chrome && chrome.tabs) {
+        try {
+            chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+                if (tabs && tabs[0]) {
+                    var activeTab = tabs[0];
+                    var url = activeTab.url;
+                    console.log("URL:", url);
+                    document.getElementById("datax").innerText = url;
+                } else {
+                    document.getElementById("datax").innerText = "Aktif sekme bulunamadý";
+                    console.error("Aktif sekme bulunamadý");
+                }
+            });
+        } catch (error) {
+            document.getElementById("datax").innerText = "Hata: " + error.message;
+            console.error("Hata:", error);
+        }
+    } else {
+        document.getElementById("datax").innerText = "chrome.tabs API'si bulunamadý";
+        console.error("chrome.tabs API'si bulunamadý");
+    }
 
 });
-
-let selectedItems = [];
 
 
 
@@ -74,7 +96,6 @@ btnSender.addEventListener('click', () => {
         Categories: selectedItems
 
     };
-    // var json = JSON.stringify(postData);
 
 
     var requestOptions = {
@@ -90,7 +111,6 @@ btnSender.addEventListener('click', () => {
 
     fetch('http://localhost:5003/home/savedata', requestOptions)
         .then(response => {
-            // console.log(requestOptions);
             if (!response.ok) {
                 throw new Error('HTTP error, status = ' + response.status);
             }
@@ -115,14 +135,12 @@ btnSender.addEventListener('click', () => {
 
 var customUl = document.getElementById("myCategoryList");
 
-
 customUl.addEventListener("click", function (event) {
     const target = event.target;
     if (target.tagName === "LI") {
         const str = target.textContent;
         selectedItems = selectedItems.filter(item => item !== str);
         customUl.removeChild(target);
-
 
         mydiv.querySelectorAll('span').forEach(spans => {
 
@@ -157,7 +175,7 @@ mydiv.addEventListener('click', function (event) {
         if (indexS == -1) {
 
 
-            if (selectedCounter > 8) {
+            if (selectedCounter >= 8) {
                 console.log("max 8");
                 return;
             }
@@ -195,6 +213,7 @@ mydiv.addEventListener('click', function (event) {
 
 })
 
+
 var searchInput = document.getElementById("CategorySearchBox");
 
 searchInput.addEventListener('input', function () {
@@ -206,7 +225,6 @@ searchInput.addEventListener('input', function () {
 function SearchCategory(searchText) {
 
     var items = document.querySelectorAll('.CategoryItem');
-
 
     items.forEach(function (item) {
         var text = item.textContent.toLocaleLowerCase('tr-TR');
@@ -231,3 +249,29 @@ document.getElementById('clearBtn').addEventListener('click', function () {
 });
 
 
+
+
+var selectElement = document.getElementById("categoryGroup");
+
+
+selectElement.onchange = function () {
+    var selectedValue = selectElement.value;
+    var cdata = allCategories.find(c => c.CategorGroupName == selectedValue);
+
+    var myContainer = document.getElementById('myContainer');
+    myContainer.innerHTML = "";
+    cdata.SubCategories.forEach(function (category) {
+        var option = document.createElement('span');
+        option.classList.add("CategoryItem");
+
+        var indexS = selectedItems.indexOf(category);
+        if (indexS != -1) {
+            option.classList.add("selected");
+        }
+
+        option.textContent = category;
+        myContainer.appendChild(option);
+    });
+
+
+}

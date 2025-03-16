@@ -6,8 +6,10 @@
 
     <style>
 
+
         body {
             height: 1000;
+            background-color: #3e3e3e;
         }
 
         .selected {
@@ -15,49 +17,62 @@
             color: white;
         }
 
-        #categorySelect option:checked {
-            background-color: none; /* ya da background-color: transparent; */
+
+        .myContainer::-webkit-scrollbar {
+            width: 3px;
         }
 
-        #categorySelect {
-            width: 100%;
-            margin-bottom: 5px;
+        .myContainer::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
         }
 
+        .myContainer::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
 
-            #categorySelect option {
-                padding: 3px;
-                margin: 3px;
+            .myContainer::-webkit-scrollbar-thumb:hover {
+                background: #555;
             }
 
 
         #myContainer {
-            display: flex;
-            flex-wrap: wrap;
+            /* display: flex; */
+            /* flex-wrap: wrap; */
             gap: 10px;
             padding: 3px;
             border: 1px solid black;
-            height: 300px;
-            overflow-y: auto;
+            height: 200px;
+            overflow-y: scroll;
+            border-color: #DDD;
+            border-radius: 5px;
         }
 
         .CategoryItem {
-            display: flex;
+            display: inline-block;
+            width: 31%;
+            border: 1px solid white;
+            border-radius: 5px;
+            text-align: center;
+            margin: 3px;
+            padding: 3px;
+            overflow-wrap: break-word;
+            /* display: flex; */
             align-items: center;
             justify-content: center;
-            width: 200px;
-            min-height: 25px;
-            max-height: 50px;
-            padding: 10px;
-            white-space: normal;
-            overflow-wrap: break-word;
             box-sizing: border-box;
-            border: 1px solid black;
-            text-align: center;
-            padding: 2px;
+            font-size: small;
+            max-height: 30px;
+            min-height: 25px;
+            overflow: hidden;
+            color: white;
         }
 
-
+            .CategoryItem:hover {
+                cursor: pointer;
+                color: #DDD;
+            }
 
         #datax {
             display: none;
@@ -77,15 +92,19 @@
         }
 
         #CategorySearchBox {
-            width: 80%;
-            margin-bottom: 10px;
+            width: 70%;
+            margin-bottom: 0px;
+            text-align: center;
+            padding: 1px;
+            border-radius: 5px;
         }
 
         #CategorySearchBoxContainer {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
+            width: 80%;
+            margin: 4px auto; /* Yatayda ortala */
         }
 
         .customList {
@@ -97,45 +116,97 @@
 
             .customList li {
                 display: inline-block;
-                border: 1px solid black;
+                border: 1px solid white;
+                border-radius: 10px;
                 padding: 5px;
                 text-align: center;
                 margin: 3px;
+                background-color: #e8003f;
+                color: white;
             }
+
+                .customList li:hover {
+                    cursor: pointer;
+                    opacity: 0.6;
+                }
 
         #SelectedCategoryBoxContainer {
             border: 2px solid #DDD;
             padding: 3px;
+            overflow: hidden;
+            border-radius: 5px;
+        }
+
+        #clearBtn {
+            width: 12%;
+            margin-left: 3px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: #4d24fe;
+            padding: 2px;
+            color: white;
         }
 
         #mybtn {
+            width: 10%;
             background-color: #4CAF50;
             border: 1px solid #DDD;
             color: white;
-            padding: 3px;
-            margin: 5px;
-            margin-bottom: 10px;
+            padding: 2px;
+            margin: 2px;
+            border-radius: 5px;
+            /* margin-bottom: 5px; */
+            text-align: center;
             transition: background-color 0.5s ease;
         }
 
-            #mybtn:hover {
-                background-color: white;
-                color: #4CAF50;
-                cursor: pointer;
-            }
+
+        textarea {
+            width: 100%;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            background-color: #f8f8f8;
+            font-size: 12px;
+            resize: vertical;
+        }
+
+
+        #categoryGroup {
+            border-bottom: 5px;
+            margin-bottom: 8px;
+        }
+
+        #mybtn:hover {
+            background-color: white;
+            color: #4CAF50;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body style="width: 455px;">
-    <h4>Select a category</h4>
+
+    <h6 style="margin: 0px; color: #DDD; text-align: right; font-size: 11px;">github:hasanbaysal/linksaver</h6>
+    <h4 style="margin-top: 3px; color: #DDD;">LinkSaver </h4>
     <div id="CategorySearchBoxContainer">
         <input id="CategorySearchBox" type="text" placeholder="category search">
         <button id="clearBtn">Clear</button>
+        <button id="mybtn">Save</button>
 
     </div>
 
-    <div style="text-align: center;">
+    <div style=" display: flex;justify-content: center;">
+        <select id="categoryGroup" style="width: 80%; text-align: center;">
+            <!-- onchange="OnOptionChanged(this.value)" -->
+        </select>
+
+    </div>
+
+    <!-- <div style=" display: flex;justify-content: center;">
         <button id="mybtn">save this link</button>
-    </div>
+    </div> -->
+
 
     <div id="myContainer">
 
@@ -159,9 +230,6 @@
 
 
         </div>
-
-
-
 
     </div>
 
