@@ -206,6 +206,7 @@ namespace HB.LinkSaver.Pages
             SelectedCategory = string.Empty;
             cbCategoryGroupNames.SelectedIndex = 0;
 
+            Program.MainFrm.LoadCategoriesGroup();
 
 
         }

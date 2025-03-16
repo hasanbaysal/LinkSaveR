@@ -163,16 +163,16 @@ namespace HB.LinkSaver
             });
 
         }
-        public void LoadCategoriesGroup()
+        public  void LoadCategoriesGroup()
         {
             cbCategoryGroup.Items.Clear();
 
             var data = CategoryManager.GetAllCategoryGroupNames();
             data.Sort();
-
             cbCategoryGroup.Items.AddRange(data.ToArray());
             cbCategoryGroup.Items.Insert(0, Program.AllCategoryGroup);
-
+            cbCategoryGroup.SelectedIndex = 0;
+            resetBtn.PerformClick();
         }
 
         #endregion
@@ -223,5 +223,6 @@ namespace HB.LinkSaver
             }
         }
         #endregion
+       
     }
 }
