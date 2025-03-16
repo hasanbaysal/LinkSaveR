@@ -2,14 +2,14 @@
 
  
 ### v2 in development
-[x] Category group feature will be added
-[x] Google Exntetion will be more user-friendly
+- [x] Category group feature will be added
+- [x] Google Exntetion will be more user-friendly
 - A more secure IO-based crud operation using temporary files will be implemented
-[x] Html generator bugs will be fixed
-[x] Pagintaion buttons will be added into main page
+- [x] Html generator bugs will be fixed
+- [x] Pagintaion buttons will be added into main page
   
 ### v2.1
--AI based search will be added
+- [ ] AI based search will be added
 -----
 
 
