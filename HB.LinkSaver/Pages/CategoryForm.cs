@@ -181,5 +181,33 @@ namespace HB.LinkSaver.Pages
             SelectedCategory = string.Empty;
         }
 
+        private void btnDelGroup_Click(object sender, EventArgs e)
+        {
+
+            if (CategoryManager.GetAllCategoryGroupNames().Count == 1)
+            {
+                MessageBox.Show("must have at least one category group in app");
+                return;
+            } 
+
+             var res =  CategoryManager.DeleteGroup(SelectedCategoryGroupName);
+            if(!res)
+            {
+                MessageBox.Show("if there is a record that related with the any elements of the CategoryGroup in linkData Records you cannot delete it");
+                return;
+            }
+
+
+
+            var groups = CategoryManager.GetAllCategoryGroupNames();
+            cbCategoryGroupNames.Items.Clear();
+            groups.ForEach(x => cbCategoryGroupNames.Items.Add(x));
+            SelectedCategoryGroupName = CategoryManager.GetAllCategoryGroupNames().First();
+            SelectedCategory = string.Empty;
+            cbCategoryGroupNames.SelectedIndex = 0;
+
+
+
+        }
     }
 }
