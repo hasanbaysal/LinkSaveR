@@ -1,5 +1,7 @@
 
 
+
+youtube :  https://www.youtube.com/watch?v=Xiybde8JtSk
  
 ### v2 in development
 - [x] Category group feature will be added
@@ -43,5 +45,5 @@ using web server and google extension is optional. you can use it if you want.
 ### *As of 20.10.2024 the ui has been updated, the old ui in this video*
 
 
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/GDPOlmeBrxc/0.jpg)](http://www.youtube.com/watch?v=GDPOlmeBrxc"LinkSaver")
+
 
