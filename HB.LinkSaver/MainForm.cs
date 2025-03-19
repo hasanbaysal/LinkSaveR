@@ -42,7 +42,6 @@ namespace HB.LinkSaver
             CurrentCategoryGroup = Program.AllCategoryGroup;
             InitializeComponent();
             InitializeToolTip();
-            //cbPageSize.SelectedItem = "10";
 
             CheckForIllegalCrossThreadCalls = false;
             _tbDescriptionFirstSize = tbDescription.Size;
@@ -172,7 +171,7 @@ namespace HB.LinkSaver
         private void Form1_Load(object sender, EventArgs e)
         {
             
-            SelectedCategories.ItemAdded += () => { CurrentPageNumber = 1; };
+            SelectedCategories.ItemAdded += () =>  CurrentPageNumber = 1;
             SelectedCategories.ItemRemoved += () => CurrentPageNumber = 1;
             SelectedCategories.ListCleared += () => CurrentPageNumber = 1;
 

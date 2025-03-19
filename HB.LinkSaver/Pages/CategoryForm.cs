@@ -189,7 +189,7 @@ namespace HB.LinkSaver.Pages
             SelectedCategory = string.Empty;
         }
 
-        private async Task btnDelGroup_Click(object sender, EventArgs e)
+        private async void btnDelGroup_Click(object sender, EventArgs e)
         {
 
             if (CategoryManager.GetAllCategoryGroupNames().Count == 1)

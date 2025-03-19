@@ -10,6 +10,15 @@
 	  <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
 	  <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
 	  <ApplicationIcon>myicon.ico</ApplicationIcon>
+
+
+	  <AssemblyVersion>2.0.0.0</AssemblyVersion>
+	  <FileVersion>2.0.0.0</FileVersion>
+	  <Company>HasanBaysal</Company>
+	  <Product>ProductSaver</Product>
+	  <Copyright>Copyright © 2024</Copyright>
+	  <Description>LinkSaver save and manage your links</Description>
+	  
   </PropertyGroup>
 
   <ItemGroup>
