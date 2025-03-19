@@ -51,6 +51,7 @@
             lblCateGroupNameUpdateStatus = new Label();
             tbCategoryGroupNameUpdate = new TextBox();
             btnUpdateCategoryName = new Button();
+            lblGroupDeleteInfo = new Label();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -336,6 +337,16 @@
             btnUpdateCategoryName.UseVisualStyleBackColor = true;
             btnUpdateCategoryName.Click += btnUpdateCategoryName_Click;
             // 
+            // lblGroupDeleteInfo
+            // 
+            lblGroupDeleteInfo.AutoSize = true;
+            lblGroupDeleteInfo.ForeColor = Color.FromArgb(128, 255, 128);
+            lblGroupDeleteInfo.Location = new Point(427, 19);
+            lblGroupDeleteInfo.Name = "lblGroupDeleteInfo";
+            lblGroupDeleteInfo.Size = new Size(43, 15);
+            lblGroupDeleteInfo.TabIndex = 8;
+            lblGroupDeleteInfo.Text = "Succes";
+            // 
             // CategoryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -343,6 +354,7 @@
             BackColor = Color.FromArgb(23, 29, 39);
             ClientSize = new Size(632, 647);
             Controls.Add(cbCategoryGroupNames);
+            Controls.Add(lblGroupDeleteInfo);
             Controls.Add(lblDeleteResult);
             Controls.Add(groupBox2);
             Controls.Add(groupBox4);
@@ -393,5 +405,6 @@
         private TextBox tbCategoryGroupNameUpdate;
         private Button btnUpdateCategoryName;
         private Label lblOldCategoryName;
+        private Label lblGroupDeleteInfo;
     }
 }

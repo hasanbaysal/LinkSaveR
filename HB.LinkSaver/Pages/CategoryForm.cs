@@ -48,7 +48,7 @@ namespace HB.LinkSaver.Pages
             lblDeleteResult.Visible = false;
             lblCategoryGroupNameStatus.Visible = false;
             lblCateGroupNameUpdateStatus.Visible = false;
-
+            lblGroupDeleteInfo.Visible = false;
 
             var groups = CategoryManager.GetAllCategoryGroupNames();
 
@@ -189,7 +189,7 @@ namespace HB.LinkSaver.Pages
             SelectedCategory = string.Empty;
         }
 
-        private void btnDelGroup_Click(object sender, EventArgs e)
+        private async Task btnDelGroup_Click(object sender, EventArgs e)
         {
 
             if (CategoryManager.GetAllCategoryGroupNames().Count == 1)
@@ -206,7 +206,9 @@ namespace HB.LinkSaver.Pages
             }
 
 
-
+            lblGroupDeleteInfo.Visible = true;
+            await Task.Delay(300);
+            lblGroupDeleteInfo.Visible = false;
             var groups = CategoryManager.GetAllCategoryGroupNames();
             cbCategoryGroupNames.Items.Clear();
             groups.ForEach(x => cbCategoryGroupNames.Items.Add(x));
