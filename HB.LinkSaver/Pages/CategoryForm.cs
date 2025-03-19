@@ -221,7 +221,11 @@ namespace HB.LinkSaver.Pages
 
         private async void btnUpdateCategoryName_Click(object sender, EventArgs e)
         {
-            if (tbCategoryGroupNameUpdate.Text == string.Empty) return;
+            if (tbCategoryGroupNameUpdate.Text == string.Empty)
+            {
+                MessageBox.Show("Group Name Cannot Be Empty");
+                return;
+            } 
 
             var res =CategoryManager.UpdateGroupName(SelectedCategoryGroupName, tbCategoryGroupNameUpdate.Text);
 
