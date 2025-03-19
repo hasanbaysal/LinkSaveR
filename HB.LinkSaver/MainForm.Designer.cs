@@ -641,7 +641,7 @@ namespace HB.LinkSaver
         private FontAwesome.Sharp.IconButton BtnAdd;
         private Label label8;
         private Label label4;
-        private FontAwesome.Sharp.IconButton resetBtn;
+        public  FontAwesome.Sharp.IconButton resetBtn;
         private Components.CategoryControlLb CategoryControlPanel;
         private RichTextBox tbDescription;
         private FlowLayoutPanel FlwPanel;

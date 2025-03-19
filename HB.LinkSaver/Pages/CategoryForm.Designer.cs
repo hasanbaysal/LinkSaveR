@@ -47,10 +47,10 @@
             cbCategoryGroupNames = new HB.LinkSaver.Components.RJComboBox();
             btnDelGroup = new Button();
             groupBox4 = new GroupBox();
+            lblOldCategoryName = new Label();
             lblCateGroupNameUpdateStatus = new Label();
             tbCategoryGroupNameUpdate = new TextBox();
             btnUpdateCategoryName = new Button();
-            lblOldCategoryName = new Label();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
@@ -158,7 +158,7 @@
             button1.Name = "button1";
             button1.Size = new Size(82, 22);
             button1.TabIndex = 1;
-            button1.Text = "Add";
+            button1.Text = "ADD";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -295,6 +295,14 @@
             groupBox4.TabStop = false;
             groupBox4.Text = "Update Category Group Section";
             // 
+            // lblOldCategoryName
+            // 
+            lblOldCategoryName.AutoSize = true;
+            lblOldCategoryName.Location = new Point(24, 56);
+            lblOldCategoryName.Name = "lblOldCategoryName";
+            lblOldCategoryName.Size = new Size(0, 15);
+            lblOldCategoryName.TabIndex = 9;
+            // 
             // lblCateGroupNameUpdateStatus
             // 
             lblCateGroupNameUpdateStatus.AutoSize = true;
@@ -328,20 +336,12 @@
             btnUpdateCategoryName.UseVisualStyleBackColor = true;
             btnUpdateCategoryName.Click += btnUpdateCategoryName_Click;
             // 
-            // lblOldCategoryName
-            // 
-            lblOldCategoryName.AutoSize = true;
-            lblOldCategoryName.Location = new Point(24, 56);
-            lblOldCategoryName.Name = "lblOldCategoryName";
-            lblOldCategoryName.Size = new Size(0, 15);
-            lblOldCategoryName.TabIndex = 9;
-            // 
             // CategoryForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(23, 29, 39);
-            ClientSize = new Size(638, 647);
+            ClientSize = new Size(632, 647);
             Controls.Add(cbCategoryGroupNames);
             Controls.Add(lblDeleteResult);
             Controls.Add(groupBox2);
