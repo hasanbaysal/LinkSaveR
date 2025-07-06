@@ -12,6 +12,21 @@ youtube :  https://www.youtube.com/watch?v=Xiybde8JtSk
   
 ### v2.1
 - [ ] AI based search will be added
+- [ ] category_group'lar arasından category taşıma işlemi 
+- [ ]  seçilen categpory_group altındaki şeyleri filtrelemek - category group seçilince
+- [ ] category ve category delete kısımlarını daha dikkatli ve kullanışlı yapmak - category page içinde 
+- [ ] reset atınca category group'unda all olması gerekli - ve category_search_tb'inde temizlenmesi gerekli
+ 
+- [ ] link'in içeriğini hatırlatacak bir image falan eklenebilir 
+	- video kapak resmini otomatik çekecek bir sistem yapılabilir şayet ?  youtube bağlantısı ise
+	- silme işlemlerinde silinmesi gerekli
+	- bir şekilde yedeklemeye bunlarında dahil olması gerekli
+	- birden fazla image olabilir
+	- ana sayfa düzeninin değiştirilmesi gerekli 
+		* bilgi içeriklerinin daha düzgün gösterilmesi gerekli
+		* resim olay eklenmeli hover olunca ekranın ortasında gösterilecek şekilde bla bla bla
+		* aynı şekilde description alanında (yada link'in üzerine) da hover olunca tooltip ile gösterilebilir tüm daha 
+		
 -----
 
 
